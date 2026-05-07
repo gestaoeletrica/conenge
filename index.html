@@ -272,7 +272,7 @@
   .btn-danger { background: var(--alta-bg); color: var(--alta); border: 2px solid var(--alta); margin-top: 8px; }
   .btn-secondary { background: #eef3f8; color: var(--text); border: 2px solid var(--border-strong); margin-top: 8px; }
 
-  /* FUNCIONÁRIOS PAGE */
+  /* EQUIPE PAGE */
   .func-card { background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-card); }
   .func-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-strong); }
   .func-name { font-weight: 800; font-size: 16px; color: var(--text); }
@@ -352,9 +352,9 @@
     <input type="date" id="newPrazo">
   </div>
   <div class="form-group">
-    <label>Designar Funcionários (opcional)</label>
+    <label>Designar Equipe (opcional)</label>
     <div class="funcionarios-check" id="funcCheckList">
-      <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Carregando funcionários...</div>
+      <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Carregando equipe...</div>
     </div>
   </div>
   <button class="btn btn-primary" id="btnSalvarAtiv" onclick="salvarAtividade()">Salvar Atividade</button>
@@ -390,7 +390,7 @@
 <div class="modal-overlay" id="modalFuncionario">
   <div class="modal">
     <div class="modal-title">
-      <span id="funcModalTitle">Novo Funcionário</span>
+      <span id="funcModalTitle">Novo Membro da Equipe</span>
       <button class="modal-close" onclick="closeModal('modalFuncionario')">✕</button>
     </div>
     <div class="form-group">
@@ -409,7 +409,7 @@
       <textarea id="funcInfo" placeholder="Especialidade, contato..."></textarea>
     </div>
     <button class="btn btn-primary" id="btnSalvarFunc" onclick="salvarFuncionario()">Salvar</button>
-    <button class="btn btn-danger" id="btnDeletarFunc" style="display:none" onclick="deletarFuncionario()">Excluir Funcionário</button>
+    <button class="btn btn-danger" id="btnDeletarFunc" style="display:none" onclick="deletarFuncionario()">Excluir Membro</button>
     <button class="btn btn-secondary" onclick="closeModal('modalFuncionario')">Cancelar</button>
   </div>
 </div>
@@ -494,11 +494,11 @@ function selectTipo(t) {
   document.getElementById('tipoAjudante').classList.toggle('selected', t === 'ajudante');
 }
 
-// ── FUNCIONÁRIOS NO FORMULÁRIO ────────────────────────────
+// ── EQUIPE NO FORMULÁRIO ────────────────────────────
 async function loadFuncsForForm() {
   const container = document.getElementById('funcCheckList');
   try {
-    const { data, error } = await db.from('funcionarios').select('*').order('nome');
+    const { data, error } = await db.from('equipe').select('*').order('nome');
     if (error) throw error;
     allFuncionarios = data || [];
     selectedFuncIds = [];
@@ -506,8 +506,8 @@ async function loadFuncsForForm() {
     if (!allFuncionarios.length) {
       container.innerHTML = `
         <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">
-          Nenhum funcionário cadastrado ainda. 
-          <span style="color:var(--industrial-blue);cursor:pointer;text-decoration:underline;" onclick="navigate('funcionarios')">Cadastrar agora →</span>
+          Nenhum membro cadastrado ainda. 
+          <span style="color:var(--industrial-blue);cursor:pointer;text-decoration:underline;" onclick="navigate('funcionarios')">Cadastrar membro →</span>
         </div>`;
       return;
     }
@@ -565,8 +565,8 @@ async function salvarAtividade() {
     if (error) throw error;
 
     if (selectedFuncIds.length) {
-      const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid }));
-      const { error: linkErr } = await db.from('atividade_funcionarios').insert(links);
+      const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, equipe_id: fid }));
+      const { error: linkErr } = await db.from('atividade_equipe').insert(links);
       if (linkErr) console.warn('Erro ao vincular funcionários:', linkErr.message);
     }
 
@@ -599,7 +599,7 @@ async function loadAtividades() {
   try {
     const { data: todas, error: e1 } = await db
       .from('atividades')
-      .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
+      .select('*, atividade_equipe(equipe_id, equipe(nome,tipo))')
       .neq('status', 'concluida')
       .lte('data_criacao', TODAY)
       .order('criado_em', { ascending: true });
@@ -607,7 +607,7 @@ async function loadAtividades() {
 
     const { data: concluidasHoje, error: e2 } = await db
       .from('atividades')
-      .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
+      .select('*, atividade_equipe(equipe_id, equipe(nome,tipo))')
       .eq('status', 'concluida')
       .eq('data_conclusao', TODAY)
       .order('data_conclusao', { ascending: false });
@@ -631,7 +631,7 @@ async function loadAtividades() {
     if (pendentes.length) {
       html += '<div class="section-label">Pendentes</div>';
       html += pendentes.map(t => {
-        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        const funcs = t.atividade_equipe?.map(af => af.equipe?.nome).filter(Boolean) || [];
         const transferida = t.data_criacao < TODAY;
         return `
           <div class="task-card ${t.prioridade}" onclick="openDetalhe('${t.id}')">
@@ -652,7 +652,7 @@ async function loadAtividades() {
     if (concluidas.length) {
       html += '<div class="section-label" style="margin-top:24px">Concluídas hoje</div>';
       html += concluidas.map(t => {
-        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        const funcs = t.atividade_equipe?.map(af => af.equipe?.nome).filter(Boolean) || [];
         return `
           <div class="task-card concluida" onclick="openDetalhe('${t.id}')">
             <div class="priority-dot"></div>
@@ -691,12 +691,12 @@ async function openDetalhe(id) {
   try {
     const { data: t, error } = await db
       .from('atividades')
-      .select('*, atividade_funcionarios(funcionarios(nome,tipo))')
+      .select('*, atividade_equipe(equipe(nome,tipo))')
       .eq('id', id)
       .single();
     if (error) throw error;
 
-    const funcs = t.atividade_funcionarios?.map(af => af.funcionarios).filter(Boolean) || [];
+    const funcs = t.atividade_equipe?.map(af => af.equipe).filter(Boolean) || [];
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
 
     document.getElementById('modalDetalheContent').innerHTML = `
@@ -720,7 +720,7 @@ async function openDetalhe(id) {
       </div>
       ${funcs.length ? `
         <div class="detail-field">
-          <div class="detail-label">Funcionários</div>
+          <div class="detail-label">Equipe</div>
           <div class="func-list-inline">
             ${funcs.map(f => `<span class="func-chip">👷 ${f.nome} <span style="opacity:.6;font-size:10px">(${f.tipo})</span></span>`).join('')}
           </div>
@@ -749,7 +749,7 @@ async function editarPrioridade(id, atual) {
 async function deletarAtividade(id) {
   if (!confirm('Excluir esta atividade?')) return;
   try {
-    await db.from('atividade_funcionarios').delete().eq('atividade_id', id);
+    await db.from('atividade_equipe').delete().eq('atividade_id', id);
     const { error } = await db.from('atividades').delete().eq('id', id);
     if (error) throw error;
     showToast('🗑 Atividade excluída', 'success');
@@ -760,16 +760,16 @@ async function deletarAtividade(id) {
   }
 }
 
-// ── FUNCIONÁRIOS ──────────────────────────────────────────
+// ── EQUIPE ──────────────────────────────────────────
 async function loadFuncionarios() {
   const container = document.getElementById('funcList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
-    const { data, error } = await db.from('funcionarios').select('*').order('nome');
+    const { data, error } = await db.from('equipe').select('*').order('nome');
     if (error) throw error;
 
     if (!data?.length) {
-      container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhum funcionário cadastrado ainda</div></div>`;
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhum membro cadastrado ainda</div></div>`;
       return;
     }
 
@@ -806,7 +806,7 @@ function escapeQ(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); 
 
 function openModalFuncionario() {
   editingFuncId = null;
-  document.getElementById('funcModalTitle').textContent = 'Novo Funcionário';
+  document.getElementById('funcModalTitle').textContent = 'Novo Membro da Equipe';
   document.getElementById('funcNome').value = '';
   document.getElementById('funcInfo').value = '';
   document.getElementById('btnDeletarFunc').style.display = 'none';
@@ -820,7 +820,7 @@ function openModalFuncionario() {
 
 function editarFuncionario(id, nome, tipo, info) {
   editingFuncId = id;
-  document.getElementById('funcModalTitle').textContent = 'Editar Funcionário';
+  document.getElementById('funcModalTitle').textContent = 'Editar Membro da Equipe';
   document.getElementById('funcNome').value = nome;
   document.getElementById('funcInfo').value = info;
   document.getElementById('btnDeletarFunc').style.display = 'block';
@@ -834,7 +834,7 @@ function editarFuncionario(id, nome, tipo, info) {
 
 async function salvarFuncionario() {
   const nome = document.getElementById('funcNome').value.trim();
-  if (!nome) { showToast('Coloca o nome do funcionário!', 'warning'); return; }
+  if (!nome) { showToast('Coloca o nome do membro da equipe!', 'warning'); return; }
   if (!selectedTipo) { showToast('Seleciona a função (Eletricista ou Ajudante)!', 'warning'); return; }
 
   const btn = document.getElementById('btnSalvarFunc');
@@ -850,14 +850,14 @@ async function salvarFuncionario() {
 
     let error;
     if (editingFuncId) {
-      ({ error } = await db.from('funcionarios').update(payload).eq('id', editingFuncId));
+      ({ error } = await db.from('equipe').update(payload).eq('id', editingFuncId));
     } else {
-      ({ error } = await db.from('funcionarios').insert(payload));
+      ({ error } = await db.from('equipe').insert(payload));
     }
 
     if (error) throw error;
 
-    showToast(editingFuncId ? '✅ Funcionário atualizado!' : '✅ Funcionário cadastrado!', 'success');
+    showToast(editingFuncId ? '✅ Membro atualizado!' : '✅ Membro cadastrado!', 'success');
     closeModal('modalFuncionario');
     loadFuncionarios();
   } catch (err) {
@@ -869,11 +869,12 @@ async function salvarFuncionario() {
 }
 
 async function deletarFuncionario() {
-  if (!confirm('Excluir este funcionário?')) return;
+  if (!confirm('Excluir este membro da equipe?')) return;
   try {
-    const { error } = await db.from('funcionarios').delete().eq('id', editingFuncId);
+    await db.from('atividade_equipe').delete().eq('equipe_id', editingFuncId);
+    const { error } = await db.from('equipe').delete().eq('id', editingFuncId);
     if (error) throw error;
-    showToast('🗑 Funcionário excluído', 'success');
+    showToast('🗑 Membro excluído', 'success');
     closeModal('modalFuncionario');
     loadFuncionarios();
   } catch (err) {
@@ -888,7 +889,7 @@ async function loadHistorico() {
   try {
     const { data, error } = await db
       .from('atividades')
-      .select('*, atividade_funcionarios(funcionarios(nome))')
+      .select('*, atividade_equipe(equipe(nome))')
       .eq('status', 'concluida')
       .order('data_conclusao', { ascending: false });
     if (error) throw error;
@@ -909,7 +910,7 @@ async function loadHistorico() {
     Object.keys(grouped).sort().reverse().forEach(date => {
       html += `<div class="hist-day-header">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</div>`;
       grouped[date].forEach(t => {
-        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        const funcs = t.atividade_equipe?.map(af => af.equipe?.nome).filter(Boolean) || [];
         html += `
           <div class="task-card concluida" style="margin-bottom:8px">
             <div class="priority-dot"></div>
