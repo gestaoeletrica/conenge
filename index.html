@@ -261,7 +261,37 @@
   .equipe-check { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
   .func-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #ffffff; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
   .func-check-item.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); }
-  .func-check-item input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--industrial-blue); }
+  .func-check-item input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .func-check-item input[type=checkbox]:checked {
+    background: var(--industrial-blue);
+    border-color: var(--industrial-blue-strong);
+    box-shadow: 0 2px 8px rgba(7, 59, 104, 0.20);
+  }
+  .func-check-item input[type=checkbox]:checked::after {
+    content: '✓';
+    color: #ffffff;
+    font-family: 'Barlow', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+  }
   .func-check-name { font-size: 15px; font-weight: 700; color: var(--text); }
   .func-check-tipo { font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 800; }
 
@@ -514,7 +544,7 @@ async function loadFuncsForForm() {
 
     container.innerHTML = allFuncionarios.map(f => `
       <div class="func-check-item" id="fci-${f.id}" onclick="toggleFunc('${f.id}')">
-        <input type="checkbox" id="fc-${f.id}" onclick="event.stopPropagation()">
+        <input type="checkbox" id="fc-${f.id}" onclick="event.stopPropagation(); toggleFunc('${f.id}')">
         <div>
           <div class="func-check-name">${f.nome}</div>
           <div class="func-check-tipo">${f.tipo}</div>
