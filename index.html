@@ -17,11 +17,9 @@
     --text: #111827;
     --text-dim: #3f4b5a;
     --text-soft: #5f6b7a;
-
     --industrial-blue: #0b4f8a;
     --industrial-blue-strong: #073b68;
     --industrial-blue-soft: #dceaf7;
-
     --alta: #b42318;
     --alta-bg: #fde7e4;
     --media: #a15c00;
@@ -40,8 +38,7 @@
 
   body {
     font-family: 'Barlow', sans-serif;
-    background:
-      linear-gradient(180deg, #f7f9fb 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, #f7f9fb 0%, var(--bg) 100%);
     color: var(--text);
     min-height: 100vh;
     max-width: 480px;
@@ -51,13 +48,13 @@
     border-right: 1px solid #d2d8df;
   }
 
-  /* HEADER */
   .header {
     background: #ffffff;
     border-bottom: 2px solid var(--border-strong);
     padding: 16px 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 14px;
     position: sticky;
     top: 0;
@@ -65,37 +62,16 @@
     box-shadow: 0 2px 10px rgba(17, 24, 39, 0.12);
   }
 
-  .hamburger {
-    background: #eef3f8;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    border-radius: 8px;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--industrial-blue-strong);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-
   .header-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
-    font-size: 21px;
+    font-size: 24px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--industrial-blue-strong);
   }
 
   .header-date {
-    margin-left: auto;
     font-size: 12px;
     color: var(--text-dim);
     font-weight: 700;
@@ -103,92 +79,11 @@
     border: 1px solid #c4ced9;
     padding: 5px 8px;
     border-radius: 6px;
+    white-space: nowrap;
   }
 
-  /* MENU DRAWER */
-  .overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.42);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-
-  .overlay.open { opacity: 1; pointer-events: all; }
-
-  .drawer {
-    position: fixed;
-    left: -280px;
-    top: 0;
-    bottom: 0;
-    width: 260px;
-    background: #ffffff;
-    z-index: 300;
-    transition: left 0.3s cubic-bezier(.4,0,.2,1);
-    display: flex;
-    flex-direction: column;
-    border-right: 2px solid var(--border-strong);
-    box-shadow: 10px 0 24px rgba(17, 24, 39, 0.18);
-  }
-
-  .drawer.open { left: 0; }
-
-  .drawer-header {
-    padding: 28px 24px 20px;
-    border-bottom: 2px solid var(--border);
-    background: #f3f6f9;
-  }
-
-  .drawer-logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    font-size: 23px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--industrial-blue-strong);
-  }
-
-  .drawer-sub {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
-
-  .drawer-nav { padding: 16px 0; flex: 1; }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 24px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-weight: 700;
-    color: var(--text);
-    font-size: 15px;
-    border-left: 4px solid transparent;
-  }
-
-  .nav-item:hover { background: #eef3f8; }
-
-  .nav-item.active {
-    border-left-color: var(--industrial-blue);
-    background: var(--industrial-blue-soft);
-    color: var(--industrial-blue-strong);
-  }
-
-  .nav-icon { font-size: 18px; width: 24px; text-align: center; }
-
-
-  .page {
-    display: none;
-    padding: 18px 18px 110px;
-  }
+  .page { display: none; padding: 18px 18px 120px; }
+  .page.active { display: block; }
 
   .bottom-nav {
     position: fixed;
@@ -224,16 +119,8 @@
     font-weight: 700;
   }
 
-  .bottom-item.active {
-    color: var(--industrial-blue-strong);
-    background: #edf4fb;
-  }
-
-  .bottom-icon {
-    font-size: 21px;
-    line-height: 1;
-  }
-
+  .bottom-item.active { color: var(--industrial-blue-strong); background: #edf4fb; }
+  .bottom-icon { font-size: 21px; line-height: 1; }
   .bottom-icon-main {
     background: var(--industrial-blue);
     color: white;
@@ -246,31 +133,33 @@
     border: 2px solid var(--industrial-blue-strong);
     box-shadow: 0 4px 10px rgba(7, 59, 104, 0.18);
   }
+  .bottom-label { font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
 
-  .bottom-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: .4px;
+  /* TOAST */
+  .toast {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: #1e293b;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s;
+    max-width: 90vw;
+    text-align: center;
+    pointer-events: none;
   }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { background: #147a4f; }
+  .toast.error { background: #b42318; }
+  .toast.warning { background: #a15c00; }
 
-  .fab {
-    display: none !important;
-  }
-
-  .header {
-    justify-content: space-between;
-  }
-
-  .header-title {
-    font-size: 24px;
-  }
-
-
-  /* MAIN CONTENT */
-  .page { display: none; padding: 18px 18px 120px; }
-  .page.active { display: block; }
-
-  /* ATIVIDADES DO DIA */
+  /* CARDS */
   .day-banner {
     background: linear-gradient(135deg, #ffffff 0%, #edf3f8 100%);
     border: 2px solid var(--border-strong);
@@ -282,24 +171,8 @@
     justify-content: space-between;
     box-shadow: var(--shadow-card);
   }
-
-  .day-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-dim);
-    font-weight: 800;
-  }
-
-  .day-count {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 30px;
-    font-weight: 800;
-    color: var(--text);
-    line-height: 1;
-  }
-
+  .day-label { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dim); font-weight: 800; }
+  .day-count { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 800; color: var(--text); line-height: 1; }
   .day-count span { font-size: 13px; color: var(--text-dim); font-weight: 700; }
 
   .section-label {
@@ -314,13 +187,7 @@
     gap: 8px;
     font-weight: 800;
   }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 2px;
-    background: var(--border);
-  }
+  .section-label::after { content: ''; flex: 1; height: 2px; background: var(--border); }
 
   .task-card {
     background: var(--surface);
@@ -337,429 +204,115 @@
     overflow: hidden;
     box-shadow: var(--shadow-card);
   }
-
-  .task-card::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 6px;
-  }
-
+  .task-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
   .task-card.alta::before { background: var(--alta); }
   .task-card.media::before { background: var(--media); }
   .task-card.baixa::before { background: var(--baixa); }
-  .task-card.concluida::before { background: var(--concluida); opacity: 1; }
+  .task-card.concluida::before { background: var(--concluida); }
+  .task-card:hover { border-color: var(--border-strong); transform: translateY(-1px); box-shadow: var(--shadow-strong); }
+  .task-card.concluida { opacity: 1; background: #f5f7f9; }
 
-  .task-card:hover {
-    border-color: var(--border-strong);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-strong);
-  }
-
-  .task-card.concluida {
-    opacity: 1;
-    background: #f5f7f9;
-  }
-
-  .priority-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 5px;
-    border: 2px solid #ffffff;
-    outline: 1px solid var(--border-strong);
-  }
-
+  .priority-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; border: 2px solid #fff; outline: 1px solid var(--border-strong); }
   .task-card.alta .priority-dot { background: var(--alta); }
   .task-card.media .priority-dot { background: var(--media); }
   .task-card.baixa .priority-dot { background: var(--baixa); }
   .task-card.concluida .priority-dot { background: var(--concluida); }
 
   .task-info { flex: 1; min-width: 0; }
-
-  .task-name {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 1.3;
-    margin-bottom: 5px;
-    color: var(--text);
-  }
-
+  .task-name { font-weight: 700; font-size: 16px; line-height: 1.3; margin-bottom: 5px; color: var(--text); }
   .task-card.concluida .task-name { text-decoration: line-through; color: var(--text-dim); }
+  .task-meta { font-size: 12px; color: var(--text-dim); display: flex; gap: 10px; flex-wrap: wrap; font-weight: 600; }
 
-  .task-meta {
-    font-size: 12px;
-    color: var(--text-dim);
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-weight: 600;
-  }
-
-  .tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 9px;
-    border-radius: 6px;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border: 1px solid currentColor;
-  }
-
+  .tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid currentColor; }
   .tag.alta { background: var(--alta-bg); color: var(--alta); }
   .tag.media { background: var(--media-bg); color: var(--media); }
   .tag.baixa { background: var(--baixa-bg); color: var(--baixa); }
   .tag.concluida { background: var(--concluida-bg); color: var(--concluida); }
 
-  .task-check {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: 2px solid var(--border-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: #f8fafc;
-    color: var(--industrial-blue-strong);
-    font-size: 16px;
-    font-weight: 800;
-  }
-
-  .task-card.alta .task-check:hover { border-color: var(--alta); background: var(--alta-bg); }
-  .task-card.media .task-check:hover { border-color: var(--media); background: var(--media-bg); }
-  .task-card.baixa .task-check:hover { border-color: var(--baixa); background: var(--baixa-bg); }
+  .task-check { width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--border-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: all 0.2s; background: #f8fafc; color: var(--industrial-blue-strong); font-size: 16px; font-weight: 800; }
   .task-card.concluida .task-check { border-color: var(--concluida); background: var(--concluida-bg); color: var(--concluida); }
 
-  /* FAB */
-  .fab {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    width: 56px;
-    height: 56px;
-    background: var(--industrial-blue);
-    color: #ffffff;
-    border: 2px solid var(--industrial-blue-strong);
-    border-radius: 14px;
-    font-size: 28px;
-    font-weight: 800;
-    cursor: pointer;
-    box-shadow: 0 6px 18px rgba(7, 59, 104, 0.28);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-    z-index: 50;
-  }
-
-  .fab:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(7, 59, 104, 0.34); }
-
   /* MODAL */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.48);
-    z-index: 5000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-  }
-
+  .modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.48); z-index: 5000; display: none; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
-
-  .modal {
-    position: relative;
-    z-index: 5001;
-    background: #ffffff;
-    border-radius: 18px;
-    border: 2px solid var(--border-strong);
-    width: 100%;
-    max-width: 480px;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    padding: 24px 20px 120px;
-    animation: slideUp 0.3s ease;
-    box-shadow: 0 -10px 26px rgba(17, 24, 39, 0.18);
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(60px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  .modal-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 23px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: var(--industrial-blue-strong);
-  }
-
-  .modal-close {
-    background: #eef3f8;
-    border: 1px solid var(--border);
-    color: var(--text);
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .modal { position: relative; z-index: 5001; background: #ffffff; border-radius: 18px; border: 2px solid var(--border-strong); width: 100%; max-width: 480px; max-height: calc(100vh - 40px); overflow-y: auto; padding: 24px 20px 40px; animation: slideUp 0.3s ease; box-shadow: 0 -10px 26px rgba(17, 24, 39, 0.18); }
+  @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-title { font-family: 'Barlow Condensed', sans-serif; font-size: 23px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; color: var(--industrial-blue-strong); }
+  .modal-close { background: #eef3f8; border: 1px solid var(--border); color: var(--text); width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
 
   /* FORMS */
   .form-group { margin-bottom: 16px; }
-
-  label {
-    display: block;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--industrial-blue-strong);
-    margin-bottom: 6px;
-    font-weight: 800;
-  }
-
-  input, textarea, select {
-    width: 100%;
-    background: #ffffff;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    padding: 13px 14px;
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    -webkit-appearance: none;
-    box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.06);
-  }
-
+  label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--industrial-blue-strong); margin-bottom: 6px; font-weight: 800; }
+  input, textarea, select { width: 100%; background: #ffffff; border: 2px solid var(--border); border-radius: 8px; padding: 13px 14px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; font-weight: 600; outline: none; transition: border-color 0.2s, box-shadow 0.2s; -webkit-appearance: none; box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.06); }
   input::placeholder, textarea::placeholder { color: #6f7d8c; }
   input:focus, textarea:focus, select:focus { border-color: var(--industrial-blue); box-shadow: 0 0 0 3px rgba(11, 79, 138, 0.16); }
   textarea { resize: none; min-height: 90px; }
-  select option { background: #ffffff; color: var(--text); }
 
-  .priority-pills {
-    display: flex;
-    gap: 8px;
-  }
-
-  .priority-pill {
-    flex: 1;
-    padding: 11px 4px;
-    border-radius: 8px;
-    border: 2px solid var(--border-strong);
-    background: #ffffff;
-    color: var(--text-dim);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-  }
-
+  .priority-pills { display: flex; gap: 8px; }
+  .priority-pill { flex: 1; padding: 11px 4px; border-radius: 8px; border: 2px solid var(--border-strong); background: #ffffff; color: var(--text-dim); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; text-align: center; }
   .priority-pill.alta.selected { border-color: var(--alta); background: var(--alta-bg); color: var(--alta); }
   .priority-pill.media.selected { border-color: var(--media); background: var(--media-bg); color: var(--media); }
   .priority-pill.baixa.selected { border-color: var(--baixa); background: var(--baixa-bg); color: var(--baixa); }
-  .priority-pill:not(.selected):hover { border-color: var(--industrial-blue); color: var(--industrial-blue-strong); }
 
-  .funcionarios-check {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    max-height: 160px;
-    overflow-y: auto;
-  }
+  .tipo-pills { display: flex; gap: 8px; }
+  .tipo-pill { flex: 1; padding: 11px 4px; border-radius: 8px; border: 2px solid var(--border-strong); background: #ffffff; color: var(--text-dim); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .tipo-pill.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); color: var(--industrial-blue-strong); }
 
-  .func-check-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    background: #ffffff;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    cursor: pointer;
-    transition: border-color 0.2s, background 0.2s;
-  }
-
+  .funcionarios-check { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
+  .func-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #ffffff; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
   .func-check-item.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); }
-
-  .func-check-item input[type=checkbox] {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    accent-color: var(--industrial-blue);
-  }
-
+  .func-check-item input[type=checkbox] { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--industrial-blue); }
   .func-check-name { font-size: 15px; font-weight: 700; color: var(--text); }
   .func-check-tipo { font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 800; }
 
-  .btn {
-    width: 100%;
-    padding: 15px;
-    border-radius: 9px;
-    border: none;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-primary {
-    background: var(--industrial-blue);
-    color: #ffffff;
-    border: 2px solid var(--industrial-blue-strong);
-    box-shadow: 0 2px 8px rgba(7, 59, 104, 0.22);
-  }
-
+  .btn { width: 100%; padding: 15px; border-radius: 9px; border: none; font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: var(--industrial-blue); color: #ffffff; border: 2px solid var(--industrial-blue-strong); box-shadow: 0 2px 8px rgba(7, 59, 104, 0.22); }
   .btn-primary:hover { background: var(--industrial-blue-strong); }
+  .btn-primary:disabled { background: #aeb8c4; border-color: #aeb8c4; cursor: not-allowed; }
   .btn-danger { background: var(--alta-bg); color: var(--alta); border: 2px solid var(--alta); margin-top: 8px; }
   .btn-secondary { background: #eef3f8; color: var(--text); border: 2px solid var(--border-strong); margin-top: 8px; }
 
   /* FUNCIONÁRIOS PAGE */
-  .func-card {
-    background: #ffffff;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: var(--shadow-card);
-  }
-
+  .func-card { background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-card); }
   .func-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-strong); }
   .func-name { font-weight: 800; font-size: 16px; color: var(--text); }
-
-  .func-tipo-badge {
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    border: 1px solid currentColor;
-  }
-
+  .func-tipo-badge { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 6px; border: 1px solid currentColor; }
   .func-tipo-badge.eletricista { background: var(--media-bg); color: var(--media); }
   .func-tipo-badge.ajudante { background: var(--baixa-bg); color: var(--baixa); }
 
   /* HISTÓRICO */
-  .hist-day-header {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--industrial-blue-strong);
-    padding: 16px 0 8px;
-    border-bottom: 2px solid var(--border);
-    margin-bottom: 10px;
-    font-weight: 800;
-  }
+  .hist-day-header { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--industrial-blue-strong); padding: 16px 0 8px; border-bottom: 2px solid var(--border); margin-bottom: 10px; font-weight: 800; }
 
-  /* DETAIL VIEW */
+  /* DETAIL */
   .detail-field { margin-bottom: 16px; }
+  .detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--industrial-blue-strong); margin-bottom: 4px; font-weight: 800; }
+  .detail-value { font-size: 16px; color: var(--text); line-height: 1.5; font-weight: 600; }
+  .func-list-inline { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .func-chip { background: #eef3f8; border: 1px solid var(--border); border-radius: 6px; padding: 5px 12px; font-size: 12px; color: var(--text); font-weight: 700; }
 
-  .detail-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--industrial-blue-strong);
-    margin-bottom: 4px;
-    font-weight: 800;
-  }
-
-  .detail-value {
-    font-size: 16px;
-    color: var(--text);
-    line-height: 1.5;
-    font-weight: 600;
-  }
-
-  .func-list-inline {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 4px;
-  }
-
-  .func-chip {
-    background: #eef3f8;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 5px 12px;
-    font-size: 12px;
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  .empty-state {
-    text-align: center;
-    padding: 44px 20px;
-    color: var(--text-dim);
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius);
-  }
-
+  .empty-state { text-align: center; padding: 44px 20px; color: var(--text-dim); background: rgba(255,255,255,.55); border: 1px dashed var(--border); border-radius: var(--radius); }
   .empty-icon { font-size: 48px; margin-bottom: 12px; }
   .empty-text { font-size: 15px; font-weight: 700; }
   .loading { text-align: center; padding: 40px; color: var(--text-dim); font-size: 14px; font-weight: 700; }
+  .transfer-badge { font-size: 10px; background: #fff7e8; color: var(--media); padding: 3px 7px; border-radius: 6px; border: 1px solid #d99432; margin-left: 6px; font-weight: 800; }
 
-  /* TRANSFERRED BADGE */
-  .transfer-badge {
-    font-size: 10px;
-    background: #fff7e8;
-    color: var(--media);
-    padding: 3px 7px;
-    border-radius: 6px;
-    border: 1px solid #d99432;
-    margin-left: 6px;
-    font-weight: 800;
-  }
+  /* DEBUG BANNER */
+  .debug-banner { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #856404; font-weight: 700; display: none; }
+  .debug-banner.show { display: block; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-title" id="headerTitle">Atividades</div>
   <div class="header-date" id="headerDate"></div>
 </div>
 
 <!-- PAGE: ATIVIDADES -->
-
 <div class="page active" id="page-atividades">
   <div class="day-banner">
     <div>
@@ -777,6 +330,7 @@
 <!-- PAGE: NOVA ATIVIDADE -->
 <div class="page" id="page-nova">
   <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Nova Atividade</div>
+  <div class="debug-banner" id="debugBanner"></div>
   <div class="form-group">
     <label>Nome da Atividade *</label>
     <input type="text" id="newNome" placeholder="Ex: Trocar disjuntor quadro 3">
@@ -800,54 +354,19 @@
   <div class="form-group">
     <label>Designar Funcionários (opcional)</label>
     <div class="funcionarios-check" id="funcCheckList">
-      <div style="color:var(--text-dim);font-size:13px;">Nenhum funcionário cadastrado</div>
+      <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Carregando funcionários...</div>
     </div>
   </div>
-  <button class="btn btn-primary" onclick="salvarAtividade()">Salvar Atividade</button>
+  <button class="btn btn-primary" id="btnSalvarAtiv" onclick="salvarAtividade()">Salvar Atividade</button>
 </div>
 
 <!-- PAGE: EQUIPE -->
 <div class="page" id="page-funcionarios">
-
-  <div style="
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:24px;
-    gap:12px;
-  ">
-
-    <div style="
-      font-family:'Barlow Condensed',sans-serif;
-      font-size:22px;
-      font-weight:800;
-      text-transform:uppercase;
-      letter-spacing:1px;
-    ">
-      Equipe
-    </div>
-
-    <button
-      class="btn btn-primary"
-      style="
-        width:auto;
-        padding:12px 16px;
-        font-size:14px;
-        flex-shrink:0;
-      "
-      onclick="openModalFuncionario()"
-    >
-      ➕ Nova Equipe
-    </button>
-
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">Equipe</div>
+    <button class="btn btn-primary" style="width:auto;padding:12px 16px;font-size:14px;flex-shrink:0;" onclick="openModalFuncionario()">➕ Adicionar</button>
   </div>
-
-  <div id="funcList">
-    <div class="loading">Carregando...</div>
-  </div>
-
-  <div style="height:80px"></div>
-
+  <div id="funcList"><div class="loading">Carregando...</div></div>
 </div>
 
 <!-- PAGE: HISTÓRICO -->
@@ -855,8 +374,6 @@
   <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Histórico</div>
   <div id="histList"><div class="loading">Carregando...</div></div>
 </div>
-
-
 
 <!-- MODAL: DETALHE ATIVIDADE -->
 <div class="modal-overlay" id="modalDetalhe">
@@ -869,7 +386,7 @@
   </div>
 </div>
 
-<!-- MODAL: NOVO FUNCIONÁRIO -->
+<!-- MODAL: FUNCIONÁRIO -->
 <div class="modal-overlay" id="modalFuncionario">
   <div class="modal">
     <div class="modal-title">
@@ -882,38 +399,35 @@
     </div>
     <div class="form-group">
       <label>Função *</label>
-      <div style="display:flex;gap:8px;">
-        <button class="priority-pill baixa" id="tipoEletricista" onclick="selectTipo('eletricista')">⚡ Eletricista</button>
-        <button class="priority-pill baixa" id="tipoAjudante" onclick="selectTipo('ajudante')">🔧 Ajudante</button>
+      <div class="tipo-pills">
+        <button class="tipo-pill" id="tipoEletricista" onclick="selectTipo('eletricista')">⚡ Eletricista</button>
+        <button class="tipo-pill" id="tipoAjudante" onclick="selectTipo('ajudante')">🔧 Ajudante</button>
       </div>
     </div>
     <div class="form-group">
       <label>Informações Extras (opcional)</label>
       <textarea id="funcInfo" placeholder="Especialidade, contato..."></textarea>
     </div>
-    <button class="btn btn-primary" onclick="salvarFuncionario()">Salvar</button>
+    <button class="btn btn-primary" id="btnSalvarFunc" onclick="salvarFuncionario()">Salvar</button>
     <button class="btn btn-danger" id="btnDeletarFunc" style="display:none" onclick="deletarFuncionario()">Excluir Funcionário</button>
+    <button class="btn btn-secondary" onclick="closeModal('modalFuncionario')">Cancelar</button>
   </div>
 </div>
 
-
-<!-- BOTTOM NAVIGATION -->
+<!-- BOTTOM NAV -->
 <nav class="bottom-nav">
   <button class="bottom-item active" data-page="atividades" onclick="navigate('atividades')">
     <span class="bottom-icon">📋</span>
     <span class="bottom-label">Atividades</span>
   </button>
-
   <button class="bottom-item" data-page="nova" onclick="navigate('nova')">
     <span class="bottom-icon bottom-icon-main">➕</span>
     <span class="bottom-label">Nova</span>
   </button>
-
   <button class="bottom-item" data-page="funcionarios" onclick="navigate('funcionarios')">
     <span class="bottom-icon">👷</span>
     <span class="bottom-label">Equipe</span>
   </button>
-
   <button class="bottom-item" data-page="historico" onclick="navigate('historico')">
     <span class="bottom-icon">📂</span>
     <span class="bottom-label">Histórico</span>
@@ -921,7 +435,6 @@
 </nav>
 
 <script>
-
 const SUPABASE_URL = 'https://etudmipuztkaaujqfsqn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0dWRtaXB1enRrYWF1anFmc3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMjUzMDIsImV4cCI6MjA5MzcwMTMwMn0.4kTkstK_nQYwfQC0gnygLNb7Nk2AmCcUBvQk6UnIspk';
 const { createClient } = supabase;
@@ -933,85 +446,84 @@ let selectedTipo = null;
 let editingFuncId = null;
 let allFuncionarios = [];
 let selectedFuncIds = [];
-let editingAtivId = null;
 
 const TODAY = new Date().toISOString().split('T')[0];
 
-// DATE DISPLAY
+// ── DATA DISPLAY ──────────────────────────────────────────
 const d = new Date();
 const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 document.getElementById('headerDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
 
-// NAVIGATION
+// ── TOAST ─────────────────────────────────────────────────
+function showToast(msg, type = 'success', duration = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => { el.className = 'toast'; }, duration);
+}
+
+// ── NAVEGAÇÃO ─────────────────────────────────────────────
 function navigate(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.bottom-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + page).classList.add('active');
   document.querySelector(`.bottom-item[data-page="${page}"]`).classList.add('active');
-
   const titles = { atividades: 'Atividades', nova: 'Nova Atividade', funcionarios: 'Equipe', historico: 'Histórico' };
   document.getElementById('headerTitle').textContent = titles[page];
-
-
   currentPage = page;
-
-
   if (page === 'atividades') loadAtividades();
   if (page === 'nova') { resetNovaForm(); loadFuncsForForm(); }
   if (page === 'funcionarios') loadFuncionarios();
   if (page === 'historico') loadHistorico();
 }
 
-
-
-function openFab() {
-  if (currentPage === 'funcionarios') openModalFuncionario();
-  else navigate('nova');
-}
-
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-// PRIORITY SELECT
+// ── SELEÇÕES ──────────────────────────────────────────────
 function selectPriority(p) {
   selectedPriority = p;
-  document.querySelectorAll('.priority-pill.alta, .priority-pill.media, .priority-pill.baixa').forEach(b => {
-    if (b.closest('#page-nova') || b.closest('#page-nova')) {
-      b.classList.remove('selected');
-    }
-  });
   document.querySelectorAll('#page-nova .priority-pill').forEach(b => b.classList.remove('selected'));
   document.querySelector(`#page-nova .priority-pill.${p}`).classList.add('selected');
 }
 
 function selectTipo(t) {
   selectedTipo = t;
-  document.getElementById('tipoEletricista').classList.remove('selected');
-  document.getElementById('tipoAjudante').classList.remove('selected');
-  if (t === 'eletricista') document.getElementById('tipoEletricista').classList.add('selected');
-  else document.getElementById('tipoAjudante').classList.add('selected');
+  document.getElementById('tipoEletricista').classList.toggle('selected', t === 'eletricista');
+  document.getElementById('tipoAjudante').classList.toggle('selected', t === 'ajudante');
 }
 
-// LOAD FUNCIONÁRIOS FOR FORM
+// ── FUNCIONÁRIOS NO FORMULÁRIO ────────────────────────────
 async function loadFuncsForForm() {
-  const { data } = await db.from('funcionarios').select('*').order('nome');
-  allFuncionarios = data || [];
-  selectedFuncIds = [];
   const container = document.getElementById('funcCheckList');
-  if (!allFuncionarios.length) {
-    container.innerHTML = '<div style="color:var(--text-dim);font-size:13px;">Nenhum funcionário cadastrado</div>';
-    return;
-  }
-  container.innerHTML = allFuncionarios.map(f => `
-    <div class="func-check-item" id="fci-${f.id}" onclick="toggleFunc('${f.id}')">
-      <input type="checkbox" id="fc-${f.id}" onchange="toggleFunc('${f.id}')">
-      <div>
-        <div class="func-check-name">${f.nome}</div>
-        <div class="func-check-tipo">${f.tipo}</div>
+  try {
+    const { data, error } = await db.from('funcionarios').select('*').order('nome');
+    if (error) throw error;
+    allFuncionarios = data || [];
+    selectedFuncIds = [];
+
+    if (!allFuncionarios.length) {
+      container.innerHTML = `
+        <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">
+          Nenhum funcionário cadastrado ainda. 
+          <span style="color:var(--industrial-blue);cursor:pointer;text-decoration:underline;" onclick="navigate('funcionarios')">Cadastrar agora →</span>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = allFuncionarios.map(f => `
+      <div class="func-check-item" id="fci-${f.id}" onclick="toggleFunc('${f.id}')">
+        <input type="checkbox" id="fc-${f.id}" onclick="event.stopPropagation()">
+        <div>
+          <div class="func-check-name">${f.nome}</div>
+          <div class="func-check-tipo">${f.tipo}</div>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
+  } catch (err) {
+    container.innerHTML = `<div style="color:var(--alta);font-size:13px;">Erro ao carregar: ${err.message}</div>`;
+  }
 }
 
 function toggleFunc(id) {
@@ -1029,32 +541,45 @@ function toggleFunc(id) {
   }
 }
 
-// SALVAR ATIVIDADE
+// ── SALVAR ATIVIDADE ──────────────────────────────────────
 async function salvarAtividade() {
   const nome = document.getElementById('newNome').value.trim();
-  if (!nome) { alert('Coloca o nome da atividade!'); return; }
-  if (!selectedPriority) { alert('Seleciona a prioridade!'); return; }
+  if (!nome) { showToast('Coloca o nome da atividade!', 'warning'); return; }
+  if (!selectedPriority) { showToast('Seleciona a prioridade!', 'warning'); return; }
 
-  const payload = {
-    nome,
-    descricao: document.getElementById('newDescricao').value.trim() || null,
-    prioridade: selectedPriority,
-    prazo: document.getElementById('newPrazo').value || null,
-    data_criacao: TODAY,
-    status: 'pendente'
-  };
+  const btn = document.getElementById('btnSalvarAtiv');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
 
-  const { data: ativ, error } = await db.from('atividades').insert(payload).select().single();
-  if (error) { alert('Erro ao salvar: ' + error.message); return; }
+  try {
+    const payload = {
+      nome,
+      descricao: document.getElementById('newDescricao').value.trim() || null,
+      prioridade: selectedPriority,
+      prazo: document.getElementById('newPrazo').value || null,
+      data_criacao: TODAY,
+      status: 'pendente'
+    };
 
-  if (selectedFuncIds.length) {
-    const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid }));
-    await db.from('atividade_funcionarios').insert(links);
+    const { data: ativ, error } = await db.from('atividades').insert(payload).select().single();
+    if (error) throw error;
+
+    if (selectedFuncIds.length) {
+      const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid }));
+      const { error: linkErr } = await db.from('atividade_funcionarios').insert(links);
+      if (linkErr) console.warn('Erro ao vincular funcionários:', linkErr.message);
+    }
+
+    showToast('✅ Atividade salva com sucesso!', 'success');
+    resetNovaForm();
+    setTimeout(() => navigate('atividades'), 800);
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error', 5000);
+    console.error('Erro salvarAtividade:', err);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Salvar Atividade';
   }
-
-  alert('Atividade salva!');
-  resetNovaForm();
-  navigate('atividades');
 }
 
 function resetNovaForm() {
@@ -1066,195 +591,218 @@ function resetNovaForm() {
   selectedFuncIds = [];
 }
 
-// LOAD ATIVIDADES
+// ── LOAD ATIVIDADES ───────────────────────────────────────
 async function loadAtividades() {
   const container = document.getElementById('taskList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
 
-  // Busca atividades do dia + transferidas (pendentes de dias anteriores)
-  const { data: todas } = await db.from('atividades')
-    .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
-    .neq('status', 'concluida')
-    .lte('data_criacao', TODAY)
-    .order('criado_em', { ascending: true });
+  try {
+    const { data: todas, error: e1 } = await db
+      .from('atividades')
+      .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
+      .neq('status', 'concluida')
+      .lte('data_criacao', TODAY)
+      .order('criado_em', { ascending: true });
+    if (e1) throw e1;
 
-  const { data: concluidasHoje } = await db.from('atividades')
-    .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
-    .eq('status', 'concluida')
-    .eq('data_conclusao', TODAY)
-    .order('data_conclusao', { ascending: false });
+    const { data: concluidasHoje, error: e2 } = await db
+      .from('atividades')
+      .select('*, atividade_funcionarios(funcionario_id, funcionarios(nome,tipo))')
+      .eq('status', 'concluida')
+      .eq('data_conclusao', TODAY)
+      .order('data_conclusao', { ascending: false });
+    if (e2) throw e2;
 
-  const pendentes = todas || [];
-  const concluidas = concluidasHoje || [];
+    const pendentes = todas || [];
+    const concluidas = concluidasHoje || [];
+    const priorityOrder = { alta: 0, media: 1, baixa: 2 };
+    pendentes.sort((a, b) => priorityOrder[a.prioridade] - priorityOrder[b.prioridade]);
 
-  const priorityOrder = { alta: 0, media: 1, baixa: 2 };
-  pendentes.sort((a, b) => priorityOrder[a.prioridade] - priorityOrder[b.prioridade]);
+    document.getElementById('pendingCount').innerHTML = `${pendentes.length} <span>pendentes</span>`;
+    document.getElementById('doneCount').innerHTML = `${concluidas.length} <span>hoje</span>`;
 
-  document.getElementById('pendingCount').innerHTML = `${pendentes.length} <span>pendentes</span>`;
-  document.getElementById('doneCount').innerHTML = `${concluidas.length} <span>hoje</span>`;
+    const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
+    let html = '';
 
-  let html = '';
+    if (!pendentes.length && !concluidas.length) {
+      html = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">Nenhuma atividade por hoje!</div></div>';
+    }
 
-  if (!pendentes.length && !concluidas.length) {
-    html = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">Nenhuma atividade por hoje!</div></div>';
-  }
-
-  const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
-
-  if (pendentes.length) {
-    html += '<div class="section-label">Pendentes</div>';
-    html += pendentes.map(t => {
-      const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
-      const transferida = t.data_criacao < TODAY;
-      return `
-        <div class="task-card ${t.prioridade}" onclick="openDetalhe('${t.id}')">
-          <div class="priority-dot"></div>
-          <div class="task-info">
-            <div class="task-name">${t.nome}${transferida ? '<span class="transfer-badge">↩ transferida</span>' : ''}</div>
-            <div class="task-meta">
-              <span class="tag ${t.prioridade}">${prioLabels[t.prioridade]}</span>
-              ${t.prazo ? `<span>📅 ${formatDate(t.prazo)}</span>` : ''}
-              ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+    if (pendentes.length) {
+      html += '<div class="section-label">Pendentes</div>';
+      html += pendentes.map(t => {
+        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        const transferida = t.data_criacao < TODAY;
+        return `
+          <div class="task-card ${t.prioridade}" onclick="openDetalhe('${t.id}')">
+            <div class="priority-dot"></div>
+            <div class="task-info">
+              <div class="task-name">${t.nome}${transferida ? '<span class="transfer-badge">↩ transferida</span>' : ''}</div>
+              <div class="task-meta">
+                <span class="tag ${t.prioridade}">${prioLabels[t.prioridade]}</span>
+                ${t.prazo ? `<span>📅 ${formatDate(t.prazo)}</span>` : ''}
+                ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+              </div>
             </div>
-          </div>
-          <div class="task-check" onclick="event.stopPropagation();concluirAtividade('${t.id}')">✓</div>
-        </div>
-      `;
-    }).join('');
-  }
+            <div class="task-check" onclick="event.stopPropagation();concluirAtividade('${t.id}')">✓</div>
+          </div>`;
+      }).join('');
+    }
 
-  if (concluidas.length) {
-    html += '<div class="section-label" style="margin-top:24px">Concluídas hoje</div>';
-    html += concluidas.map(t => {
-      const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
-      return `
-        <div class="task-card concluida" onclick="openDetalhe('${t.id}')">
-          <div class="priority-dot"></div>
-          <div class="task-info">
-            <div class="task-name">${t.nome}</div>
-            <div class="task-meta">
-              <span class="tag concluida">Concluída</span>
-              ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+    if (concluidas.length) {
+      html += '<div class="section-label" style="margin-top:24px">Concluídas hoje</div>';
+      html += concluidas.map(t => {
+        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        return `
+          <div class="task-card concluida" onclick="openDetalhe('${t.id}')">
+            <div class="priority-dot"></div>
+            <div class="task-info">
+              <div class="task-name">${t.nome}</div>
+              <div class="task-meta">
+                <span class="tag concluida">Concluída</span>
+                ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+              </div>
             </div>
-          </div>
-          <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
-        </div>
-      `;
-    }).join('');
-  }
+            <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
+          </div>`;
+      }).join('');
+    }
 
-  container.innerHTML = html;
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro ao carregar: ${err.message}</div></div>`;
+    console.error('loadAtividades:', err);
+  }
 }
 
 async function concluirAtividade(id) {
-  await db.from('atividades').update({ status: 'concluida', data_conclusao: TODAY }).eq('id', id);
-  loadAtividades();
+  try {
+    const { error } = await db.from('atividades').update({ status: 'concluida', data_conclusao: TODAY }).eq('id', id);
+    if (error) throw error;
+    showToast('✅ Atividade concluída!', 'success');
+    loadAtividades();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  }
 }
 
-// DETALHE ATIVIDADE
+// ── DETALHE ATIVIDADE ─────────────────────────────────────
 async function openDetalhe(id) {
-  const { data: t } = await db.from('atividades')
-    .select('*, atividade_funcionarios(funcionarios(nome,tipo))')
-    .eq('id', id)
-    .single();
+  try {
+    const { data: t, error } = await db
+      .from('atividades')
+      .select('*, atividade_funcionarios(funcionarios(nome,tipo))')
+      .eq('id', id)
+      .single();
+    if (error) throw error;
 
-  const funcs = t.atividade_funcionarios?.map(af => af.funcionarios).filter(Boolean) || [];
-  const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
+    const funcs = t.atividade_funcionarios?.map(af => af.funcionarios).filter(Boolean) || [];
+    const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
 
-  document.getElementById('modalDetalheContent').innerHTML = `
-    <div class="detail-field">
-      <div class="detail-label">Atividade</div>
-      <div class="detail-value" style="font-size:18px;font-weight:600">${t.nome}</div>
-    </div>
-    <div class="detail-field">
-      <div class="detail-label">Prioridade</div>
-      <span class="tag ${t.prioridade}">${prioLabels[t.prioridade]}</span>
-    </div>
-    ${t.descricao ? `<div class="detail-field"><div class="detail-label">Descrição</div><div class="detail-value">${t.descricao}</div></div>` : ''}
-    ${t.prazo ? `<div class="detail-field"><div class="detail-label">Prazo</div><div class="detail-value">📅 ${formatDate(t.prazo)}</div></div>` : ''}
-    <div class="detail-field">
-      <div class="detail-label">Status</div>
-      <span class="tag ${t.status === 'concluida' ? 'concluida' : t.prioridade}">${t.status === 'concluida' ? 'Concluída' : 'Pendente'}</span>
-    </div>
-    <div class="detail-field">
-      <div class="detail-label">Criada em</div>
-      <div class="detail-value">${formatDate(t.data_criacao)}</div>
-    </div>
-    ${funcs.length ? `
+    document.getElementById('modalDetalheContent').innerHTML = `
       <div class="detail-field">
-        <div class="detail-label">Funcionários</div>
-        <div class="func-list-inline">
-          ${funcs.map(f => `<span class="func-chip">👷 ${f.nome} <span style="opacity:.6;font-size:10px">(${f.tipo})</span></span>`).join('')}
-        </div>
-      </div>` : ''}
-    <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
-      ${t.status !== 'concluida' ? `<button class="btn btn-primary" onclick="concluirAtividade('${t.id}');closeModal('modalDetalhe')">✓ Marcar como Concluída</button>` : ''}
-      <button class="btn btn-secondary" onclick="closeModal('modalDetalhe');abrirEdicao('${t.id}')">✏️ Editar Prioridade</button>
-      <button class="btn btn-danger" onclick="deletarAtividade('${t.id}')">🗑 Excluir Atividade</button>
-    </div>
-  `;
-  openModal('modalDetalhe');
+        <div class="detail-label">Atividade</div>
+        <div class="detail-value" style="font-size:18px;">${t.nome}</div>
+      </div>
+      <div class="detail-field">
+        <div class="detail-label">Prioridade</div>
+        <span class="tag ${t.prioridade}">${prioLabels[t.prioridade]}</span>
+      </div>
+      ${t.descricao ? `<div class="detail-field"><div class="detail-label">Descrição</div><div class="detail-value">${t.descricao}</div></div>` : ''}
+      ${t.prazo ? `<div class="detail-field"><div class="detail-label">Prazo</div><div class="detail-value">📅 ${formatDate(t.prazo)}</div></div>` : ''}
+      <div class="detail-field">
+        <div class="detail-label">Status</div>
+        <span class="tag ${t.status === 'concluida' ? 'concluida' : t.prioridade}">${t.status === 'concluida' ? 'Concluída' : 'Pendente'}</span>
+      </div>
+      <div class="detail-field">
+        <div class="detail-label">Criada em</div>
+        <div class="detail-value">${formatDate(t.data_criacao)}</div>
+      </div>
+      ${funcs.length ? `
+        <div class="detail-field">
+          <div class="detail-label">Funcionários</div>
+          <div class="func-list-inline">
+            ${funcs.map(f => `<span class="func-chip">👷 ${f.nome} <span style="opacity:.6;font-size:10px">(${f.tipo})</span></span>`).join('')}
+          </div>
+        </div>` : ''}
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
+        ${t.status !== 'concluida' ? `<button class="btn btn-primary" onclick="concluirAtividade('${t.id}');closeModal('modalDetalhe')">✓ Marcar como Concluída</button>` : ''}
+        <button class="btn btn-secondary" onclick="closeModal('modalDetalhe');editarPrioridade('${t.id}','${t.prioridade}')">✏️ Editar Prioridade</button>
+        <button class="btn btn-danger" onclick="deletarAtividade('${t.id}')">🗑 Excluir Atividade</button>
+      </div>`;
+    openModal('modalDetalhe');
+  } catch (err) {
+    showToast('❌ Erro ao abrir detalhes: ' + err.message, 'error');
+  }
 }
 
-async function abrirEdicao(id) {
-  const { data: t } = await db.from('atividades').select('*').eq('id', id).single();
-  const nova = prompt(`Prioridade atual: ${t.prioridade}\nDigite a nova prioridade:\n- alta\n- media\n- baixa`);
-  if (nova && ['alta','media','baixa'].includes(nova.toLowerCase())) {
-    await db.from('atividades').update({ prioridade: nova.toLowerCase() }).eq('id', id);
+async function editarPrioridade(id, atual) {
+  const nova = prompt(`Prioridade atual: ${atual}\nDigite a nova:\n- alta\n- media\n- baixa`);
+  if (nova && ['alta','media','baixa'].includes(nova.toLowerCase().trim())) {
+    const { error } = await db.from('atividades').update({ prioridade: nova.toLowerCase().trim() }).eq('id', id);
+    if (error) { showToast('❌ Erro: ' + error.message, 'error'); return; }
+    showToast('✅ Prioridade atualizada!', 'success');
     loadAtividades();
   }
 }
 
 async function deletarAtividade(id) {
   if (!confirm('Excluir esta atividade?')) return;
-  await db.from('atividade_funcionarios').delete().eq('atividade_id', id);
-  await db.from('atividades').delete().eq('id', id);
-  closeModal('modalDetalhe');
-  loadAtividades();
+  try {
+    await db.from('atividade_funcionarios').delete().eq('atividade_id', id);
+    const { error } = await db.from('atividades').delete().eq('id', id);
+    if (error) throw error;
+    showToast('🗑 Atividade excluída', 'success');
+    closeModal('modalDetalhe');
+    loadAtividades();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  }
 }
 
-// FUNCIONÁRIOS
+// ── FUNCIONÁRIOS ──────────────────────────────────────────
 async function loadFuncionarios() {
-  const { data } = await db.from('funcionarios').select('*').order('nome');
   const container = document.getElementById('funcList');
-  if (!data?.length) {
-    container.innerHTML = `
-    <div class="empty-state">
-      <div class="empty-icon">👷</div>
-      <div class="empty-text">
-        Nenhuma equipe cadastrada ainda
-      </div>
-    </div>
-  `;
-    return;
+  container.innerHTML = '<div class="loading">Carregando...</div>';
+  try {
+    const { data, error } = await db.from('funcionarios').select('*').order('nome');
+    if (error) throw error;
+
+    if (!data?.length) {
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhum funcionário cadastrado ainda</div></div>`;
+      return;
+    }
+
+    const eletricistas = data.filter(f => f.tipo === 'eletricista');
+    const ajudantes = data.filter(f => f.tipo === 'ajudante');
+    let html = '';
+    if (eletricistas.length) {
+      html += '<div class="section-label">Eletricistas</div>';
+      html += eletricistas.map(f => funcCard(f)).join('');
+    }
+    if (ajudantes.length) {
+      html += '<div class="section-label">Ajudantes</div>';
+      html += ajudantes.map(f => funcCard(f)).join('');
+    }
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
+    console.error('loadFuncionarios:', err);
   }
-  const eletricistas = data.filter(f => f.tipo === 'eletricista');
-  const ajudantes = data.filter(f => f.tipo === 'ajudante');
-  let html = '';
-  if (eletricistas.length) {
-    html += '<div class="section-label">Eletricistas</div>';
-    html += eletricistas.map(f => funcCard(f)).join('');
-  }
-  if (ajudantes.length) {
-    html += '<div class="section-label">Ajudantes</div>';
-    html += ajudantes.map(f => funcCard(f)).join('');
-  }
-  container.innerHTML = html;
 }
 
 function funcCard(f) {
   return `
-    <div class="func-card" onclick="editarFuncionario('${f.id}','${escapeQuote(f.nome)}','${f.tipo}','${escapeQuote(f.info_extra||'')}')">
+    <div class="func-card" onclick="editarFuncionario('${f.id}','${escapeQ(f.nome)}','${f.tipo}','${escapeQ(f.info_extra||'')}')">
       <div>
         <div class="func-name">${f.nome}</div>
         ${f.info_extra ? `<div style="font-size:12px;color:var(--text-dim);margin-top:2px">${f.info_extra}</div>` : ''}
       </div>
       <span class="func-tipo-badge ${f.tipo}">${f.tipo}</span>
-    </div>
-  `;
+    </div>`;
 }
 
-function escapeQuote(s) { return (s||'').replace(/'/g, "\\'"); }
+function escapeQ(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
 
 function openModalFuncionario() {
   editingFuncId = null;
@@ -1262,6 +810,8 @@ function openModalFuncionario() {
   document.getElementById('funcNome').value = '';
   document.getElementById('funcInfo').value = '';
   document.getElementById('btnDeletarFunc').style.display = 'none';
+  document.getElementById('btnSalvarFunc').textContent = 'Salvar';
+  document.getElementById('btnSalvarFunc').disabled = false;
   selectedTipo = null;
   document.getElementById('tipoEletricista').classList.remove('selected');
   document.getElementById('tipoAjudante').classList.remove('selected');
@@ -1274,6 +824,8 @@ function editarFuncionario(id, nome, tipo, info) {
   document.getElementById('funcNome').value = nome;
   document.getElementById('funcInfo').value = info;
   document.getElementById('btnDeletarFunc').style.display = 'block';
+  document.getElementById('btnSalvarFunc').textContent = 'Salvar Alterações';
+  document.getElementById('btnSalvarFunc').disabled = false;
   selectedTipo = tipo;
   document.getElementById('tipoEletricista').classList.toggle('selected', tipo === 'eletricista');
   document.getElementById('tipoAjudante').classList.toggle('selected', tipo === 'ajudante');
@@ -1282,75 +834,109 @@ function editarFuncionario(id, nome, tipo, info) {
 
 async function salvarFuncionario() {
   const nome = document.getElementById('funcNome').value.trim();
-  if (!nome) { alert('Coloca o nome!'); return; }
-  if (!selectedTipo) { alert('Seleciona a função!'); return; }
-  const payload = { nome, tipo: selectedTipo, info_extra: document.getElementById('funcInfo').value.trim() || null };
-  if (editingFuncId) {
-    await db.from('funcionarios').update(payload).eq('id', editingFuncId);
-  } else {
-    await db.from('funcionarios').insert(payload);
+  if (!nome) { showToast('Coloca o nome do funcionário!', 'warning'); return; }
+  if (!selectedTipo) { showToast('Seleciona a função (Eletricista ou Ajudante)!', 'warning'); return; }
+
+  const btn = document.getElementById('btnSalvarFunc');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+
+  try {
+    const payload = {
+      nome,
+      tipo: selectedTipo,
+      info_extra: document.getElementById('funcInfo').value.trim() || null
+    };
+
+    let error;
+    if (editingFuncId) {
+      ({ error } = await db.from('funcionarios').update(payload).eq('id', editingFuncId));
+    } else {
+      ({ error } = await db.from('funcionarios').insert(payload));
+    }
+
+    if (error) throw error;
+
+    showToast(editingFuncId ? '✅ Funcionário atualizado!' : '✅ Funcionário cadastrado!', 'success');
+    closeModal('modalFuncionario');
+    loadFuncionarios();
+  } catch (err) {
+    showToast('❌ Erro ao salvar: ' + err.message, 'error', 6000);
+    console.error('salvarFuncionario:', err);
+    btn.disabled = false;
+    btn.textContent = editingFuncId ? 'Salvar Alterações' : 'Salvar';
   }
-  closeModal('modalFuncionario');
-  loadFuncionarios();
 }
 
 async function deletarFuncionario() {
   if (!confirm('Excluir este funcionário?')) return;
-  await db.from('funcionarios').delete().eq('id', editingFuncId);
-  closeModal('modalFuncionario');
-  loadFuncionarios();
-}
-
-// HISTÓRICO
-async function loadHistorico() {
-  const { data } = await db.from('atividades')
-    .select('*, atividade_funcionarios(funcionarios(nome))')
-    .eq('status', 'concluida')
-    .order('data_conclusao', { ascending: false });
-
-  const container = document.getElementById('histList');
-  if (!data?.length) {
-    container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Nenhuma atividade concluída ainda</div></div>';
-    return;
+  try {
+    const { error } = await db.from('funcionarios').delete().eq('id', editingFuncId);
+    if (error) throw error;
+    showToast('🗑 Funcionário excluído', 'success');
+    closeModal('modalFuncionario');
+    loadFuncionarios();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
   }
-
-  const grouped = {};
-  data.forEach(t => {
-    const d = t.data_conclusao || t.data_criacao;
-    if (!grouped[d]) grouped[d] = [];
-    grouped[d].push(t);
-  });
-
-  let html = '';
-  Object.keys(grouped).sort().reverse().forEach(date => {
-    html += `<div class="hist-day-header">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</div>`;
-    grouped[date].forEach(t => {
-      const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
-      html += `
-        <div class="task-card concluida" style="margin-bottom:8px">
-          <div class="priority-dot"></div>
-          <div class="task-info">
-            <div class="task-name">${t.nome}</div>
-            <div class="task-meta">
-              ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
-            </div>
-          </div>
-          <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
-        </div>
-      `;
-    });
-  });
-  container.innerHTML = html;
 }
 
-// UTILS
+// ── HISTÓRICO ─────────────────────────────────────────────
+async function loadHistorico() {
+  const container = document.getElementById('histList');
+  container.innerHTML = '<div class="loading">Carregando...</div>';
+  try {
+    const { data, error } = await db
+      .from('atividades')
+      .select('*, atividade_funcionarios(funcionarios(nome))')
+      .eq('status', 'concluida')
+      .order('data_conclusao', { ascending: false });
+    if (error) throw error;
+
+    if (!data?.length) {
+      container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Nenhuma atividade concluída ainda</div></div>';
+      return;
+    }
+
+    const grouped = {};
+    data.forEach(t => {
+      const key = t.data_conclusao || t.data_criacao;
+      if (!grouped[key]) grouped[key] = [];
+      grouped[key].push(t);
+    });
+
+    let html = '';
+    Object.keys(grouped).sort().reverse().forEach(date => {
+      html += `<div class="hist-day-header">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</div>`;
+      grouped[date].forEach(t => {
+        const funcs = t.atividade_funcionarios?.map(af => af.funcionarios?.nome).filter(Boolean) || [];
+        html += `
+          <div class="task-card concluida" style="margin-bottom:8px">
+            <div class="priority-dot"></div>
+            <div class="task-info">
+              <div class="task-name">${t.nome}</div>
+              <div class="task-meta">
+                ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+              </div>
+            </div>
+            <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
+          </div>`;
+      });
+    });
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
+  }
+}
+
+// ── UTILS ─────────────────────────────────────────────────
 function formatDate(d) {
   if (!d) return '';
-  const [y,m,day] = d.split('-');
+  const [y, m, day] = d.split('-');
   return `${day}/${m}/${y}`;
 }
 
-// INIT
+// ── INIT ──────────────────────────────────────────────────
 loadAtividades();
 </script>
 </body>
