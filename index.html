@@ -355,6 +355,63 @@
     color: var(--text);
   }
 
+  .rdo-documento {
+    background: #ffffff;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .rdo-header h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: var(--industrial-blue-strong);
+    text-transform: uppercase;
+    letter-spacing: .8px;
+  }
+
+  .rdo-data {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+
+  .rdo-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--industrial-blue-strong);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  .bloco-rdo {
+    border: 1px solid #d6dde6;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 14px;
+    background: #f8fafc;
+  }
+
+  .titulo-rdo {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    color: #111827;
+  }
+
+  .descricao-rdo {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+  }
+
   /* DETAIL */
   .detail-field { margin-bottom: 16px; }
   .detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--industrial-blue-strong); margin-bottom: 4px; font-weight: 800; }
@@ -1070,37 +1127,46 @@ async function loadHistorico() {
 async function criarRDO(date) {
   try {
     const atividades = historicoAgrupadoAtual[date] || [];
+
     if (!atividades.length) {
       showToast('Nenhuma atividade encontrada para esta data.', 'warning');
       return;
     }
 
-    const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
-
     const linhas = atividades.map((t, index) => {
-      const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
-      return `${index + 1}. ${t.nome}
-   Descrição: ${t.descricao || 'Sem descrição cadastrada.'}
-   Prioridade: ${labelPrioridade(t.prioridade)}
-   Equipe: ${funcs.length ? funcs.join(', ') : 'Não informada.'}`;
-    }).join('\n\n');
+      return `
+        <div class="bloco-rdo">
+          <div class="titulo-rdo">
+            ${index + 1}. ${escapeHtml(t.nome)}
+          </div>
 
-    const texto = `RELATÓRIO DIÁRIO DE OBRA (RDO)
+          <div class="descricao-rdo">
+            <strong>Descrição:</strong><br>
+            ${escapeHtml(t.descricao || 'Sem descrição cadastrada.')}
+          </div>
+        </div>
+      `;
+    }).join('');
 
-Data: ${formatDate(date)}
-Total de atividades concluídas: ${atividades.length}
+    const html = `
+      <div class="rdo-documento" id="rdoTexto">
+        <div class="rdo-header">
+          <h1>Relatório Diário de Obra (RDO)</h1>
+          <div class="rdo-data">Data: ${formatDate(date)}</div>
+        </div>
 
-ATIVIDADES CONCLUÍDAS
+        <div class="rdo-section-title">Atividades concluídas</div>
 
-${linhas}`;
+        ${linhas}
+      </div>
 
-    document.getElementById('modalRDOContent').innerHTML = `
-      <div class="rdo-box" id="rdoTexto">${escapeHtml(texto)}</div>
       <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
       <button class="btn btn-secondary" onclick="imprimirRDO()">Imprimir / Salvar PDF</button>
     `;
+
+    document.getElementById('modalRDOContent').innerHTML = html;
     openModal('modalRDO');
+
   } catch (err) {
     showToast('❌ Erro ao criar RDO: ' + err.message, 'error');
   }
@@ -1192,4 +1258,4 @@ if ('serviceWorker' in navigator) {
 </script>
 
 </body>
-</html>
+</html> 
