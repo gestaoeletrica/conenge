@@ -412,6 +412,47 @@
     color: #374151;
   }
 
+
+
+  .rdo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .rdo-table th {
+    background: #eef3f8;
+    border: 1px solid #cbd5e1;
+    padding: 11px 10px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--industrial-blue-strong);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+  }
+
+  .rdo-table td {
+    border: 1px solid #cbd5e1;
+    padding: 11px 10px;
+    vertical-align: top;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .rdo-atividade {
+    width: 34%;
+    font-weight: 800;
+    color: #111827;
+  }
+
+  .rdo-descricao {
+    width: 66%;
+    color: #374151;
+  }
+
   /* DETAIL */
   .detail-field { margin-bottom: 16px; }
   .detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--industrial-blue-strong); margin-bottom: 4px; font-weight: 800; }
@@ -1133,18 +1174,12 @@ async function criarRDO(date) {
       return;
     }
 
-    const linhas = atividades.map((t, index) => {
+    const linhasTabela = atividades.map((t) => {
       return `
-        <div class="bloco-rdo">
-          <div class="titulo-rdo">
-            ${index + 1}. ${escapeHtml(t.nome)}
-          </div>
-
-          <div class="descricao-rdo">
-            <strong>Descrição:</strong><br>
-            ${escapeHtml(t.descricao || 'Sem descrição cadastrada.')}
-          </div>
-        </div>
+        <tr>
+          <td class="rdo-atividade">${escapeHtml(t.nome)}</td>
+          <td class="rdo-descricao">${escapeHtml(t.descricao || 'Sem descrição cadastrada.')}</td>
+        </tr>
       `;
     }).join('');
 
@@ -1157,7 +1192,17 @@ async function criarRDO(date) {
 
         <div class="rdo-section-title">Atividades concluídas</div>
 
-        ${linhas}
+        <table class="rdo-table">
+          <thead>
+            <tr>
+              <th>Atividade</th>
+              <th>Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${linhasTabela}
+          </tbody>
+        </table>
       </div>
 
       <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
@@ -1180,20 +1225,81 @@ function copiarRDO() {
 }
 
 function imprimirRDO() {
-  const txt = document.getElementById('rdoTexto')?.innerText || '';
+  const container = document.getElementById('rdoTexto');
+  if (!container) {
+    showToast('Não encontrei o conteúdo do RDO para imprimir.', 'warning');
+    return;
+  }
+
+  const conteudo = container.innerHTML;
   const win = window.open('', '_blank');
+
   win.document.write(`
     <html>
       <head>
         <title>RDO</title>
         <style>
-          body { font-family: Arial, sans-serif; padding: 28px; color: #111; }
-          pre { white-space: pre-wrap; font-size: 14px; line-height: 1.5; }
+          body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            color: #111;
+          }
+
+          h1 {
+            font-size: 22px;
+            margin: 0 0 8px;
+            text-transform: uppercase;
+          }
+
+          .rdo-data {
+            margin-bottom: 28px;
+            font-size: 14px;
+          }
+
+          .rdo-section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+          }
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+
+          th {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+          }
+
+          td {
+            border: 1px solid #cbd5e1;
+            padding: 12px;
+            vertical-align: top;
+            font-size: 14px;
+            line-height: 1.5;
+          }
+
+          .rdo-atividade {
+            width: 32%;
+            font-weight: bold;
+          }
+
+          .rdo-descricao {
+            width: 68%;
+          }
         </style>
       </head>
-      <body><pre>${escapeHtml(txt)}</pre></body>
+      <body>
+        ${conteudo}
+      </body>
     </html>
   `);
+
   win.document.close();
   win.focus();
   win.print();
