@@ -311,90 +311,49 @@
   .func-tipo-badge.ajudante { background: var(--baixa-bg); color: var(--baixa); }
 
   /* HISTÓRICO */
-  .hist-day-block { margin-bottom: 28px; }
   .hist-day-header {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--industrial-blue-strong);
-    padding: 14px 16px 12px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius) var(--radius) 0 0;
-    background: var(--industrial-blue-soft);
+    padding: 16px 0 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 10px;
     font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
   }
-  .hist-day-header-left { display: flex; align-items: center; gap: 8px; }
-  .hist-day-tasks { border: 2px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
-  .hist-day-tasks .task-card { border-radius: 0; border-left: none; border-right: none; border-top: none; border-bottom: 1px solid var(--border); margin-bottom: 0; box-shadow: none; }
-  .hist-day-tasks .task-card:last-child { border-bottom: none; }
-
+  .hist-day-title { flex: 1; min-width: 0; }
   .btn-rdo {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 7px 12px;
-    border-radius: 7px;
-    border: 2px solid var(--industrial-blue);
-    background: #ffffff;
-    color: var(--industrial-blue-strong);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+    width: auto;
     flex-shrink: 0;
-  }
-  .btn-rdo:hover { background: var(--industrial-blue); color: #fff; }
-
-  /* MODAL RDO */
-  .rdo-header {
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 16px;
-    margin-bottom: 20px;
-  }
-  .rdo-empresa {
+    border: 2px solid var(--industrial-blue-strong);
+    background: var(--industrial-blue);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 10px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--industrial-blue-strong);
+    letter-spacing: .8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(7, 59, 104, 0.18);
   }
-  .rdo-subtitulo {
-    font-size: 12px;
-    color: var(--text-dim);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 2px;
-  }
-  .rdo-meta-row {
-    display: flex;
-    gap: 16px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
-  .rdo-meta-item { font-size: 13px; font-weight: 700; color: var(--text-dim); }
-  .rdo-meta-item strong { color: var(--text); }
-  .rdo-atividade-item {
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 8px;
+  .rdo-box {
     background: #f8fafc;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    white-space: pre-wrap;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
   }
-  .rdo-atividade-nome { font-weight: 800; font-size: 15px; color: var(--text); margin-bottom: 4px; }
-  .rdo-atividade-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
-  .rdo-atividade-equipe { font-size: 12px; color: var(--industrial-blue-strong); font-weight: 700; margin-top: 6px; }
-  .rdo-rodape { margin-top: 20px; padding-top: 14px; border-top: 2px solid var(--border); font-size: 11px; color: var(--text-dim); font-weight: 700; text-align: center; letter-spacing: 1px; }
 
   /* DETAIL */
   .detail-field { margin-bottom: 16px; }
@@ -408,6 +367,10 @@
   .empty-text { font-size: 15px; font-weight: 700; }
   .loading { text-align: center; padding: 40px; color: var(--text-dim); font-size: 14px; font-weight: 700; }
   .transfer-badge { font-size: 10px; background: #fff7e8; color: var(--media); padding: 3px 7px; border-radius: 6px; border: 1px solid #d99432; margin-left: 6px; font-weight: 800; }
+
+  /* DEBUG BANNER */
+  .debug-banner { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #856404; font-weight: 700; display: none; }
+  .debug-banner.show { display: block; }
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -448,6 +411,7 @@
 <!-- PAGE: NOVA ATIVIDADE -->
 <div class="page" id="page-nova">
   <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Nova Atividade</div>
+  <div class="debug-banner" id="debugBanner"></div>
   <div class="form-group">
     <label>Nome da Atividade *</label>
     <input type="text" id="newNome" placeholder="Ex: Trocar disjuntor quadro 3">
@@ -503,6 +467,17 @@
   </div>
 </div>
 
+<!-- MODAL: RDO -->
+<div class="modal-overlay" id="modalRDO">
+  <div class="modal">
+    <div class="modal-title">
+      <span>RDO</span>
+      <button class="modal-close" onclick="closeModal('modalRDO')">✕</button>
+    </div>
+    <div id="modalRDOContent"></div>
+  </div>
+</div>
+
 <!-- MODAL: FUNCIONÁRIO -->
 <div class="modal-overlay" id="modalFuncionario">
   <div class="modal">
@@ -528,21 +503,6 @@
     <button class="btn btn-primary" id="btnSalvarFunc" onclick="salvarFuncionario()">Salvar</button>
     <button class="btn btn-danger" id="btnDeletarFunc" style="display:none" onclick="deletarFuncionario()">Excluir Membro</button>
     <button class="btn btn-secondary" onclick="closeModal('modalFuncionario')">Cancelar</button>
-  </div>
-</div>
-
-<!-- MODAL: RDO -->
-<div class="modal-overlay" id="modalRDO">
-  <div class="modal">
-    <div class="modal-title">
-      <span>RDO</span>
-      <button class="modal-close" onclick="closeModal('modalRDO')">✕</button>
-    </div>
-    <div id="modalRDOContent"></div>
-    <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
-      <button class="btn btn-primary" onclick="imprimirRDO()">🖨️ Imprimir / Salvar PDF</button>
-      <button class="btn btn-secondary" onclick="closeModal('modalRDO')">Fechar</button>
-    </div>
   </div>
 </div>
 
@@ -579,24 +539,27 @@ let editingFuncId = null;
 let allFuncionarios = [];
 let selectedFuncIds = [];
 
-// ── DATA LOCAL CORRETA ────────────────────────────────────
-// Usa a data local do dispositivo do usuário (não UTC), para evitar
-// problemas de fuso horário que causavam a data errada aparecer.
-function getTodayLocal() {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = String(now.getMonth() + 1).padStart(2, '0');
-  const d = String(now.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
+function getToday() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }
 
-const TODAY = getTodayLocal();
+// Mantém compatibilidade com trechos antigos do código, mas sempre recalculando a data real do dia.
+Object.defineProperty(window, 'TODAY', { get: getToday });
 
-// ── CABEÇALHO COM DATA ────────────────────────────────────
-const d = new Date();
+// ── DATA DISPLAY ──────────────────────────────────────────
 const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-document.getElementById('headerDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
+
+function updateHeaderDate() {
+  const d = new Date();
+  document.getElementById('headerDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
+}
+updateHeaderDate();
+setInterval(updateHeaderDate, 60 * 1000);
 
 // ── TOAST ─────────────────────────────────────────────────
 function showToast(msg, type = 'success', duration = 3000) {
@@ -700,7 +663,7 @@ async function salvarAtividade() {
       descricao: document.getElementById('newDescricao').value.trim() || null,
       prioridade: selectedPriority,
       prazo: document.getElementById('newPrazo').value || null,
-      data_criacao: TODAY,
+      data_criacao: getToday(),
       status: 'pendente'
     };
 
@@ -734,7 +697,7 @@ function resetNovaForm() {
   selectedFuncIds = [];
 }
 
-// ── HELPERS DE LINK ────────────────────────────────────────
+
 function getLinkEquipeId(link) {
   return link.equipe_id || link.funcionario_id || link.func_id || link.membro_id || link.pessoa_id || null;
 }
@@ -764,58 +727,54 @@ function equipeDaAtividade(atividadeId, links, equipeMap) {
     .filter(Boolean);
 }
 
+
 // ── LOAD ATIVIDADES ───────────────────────────────────────
-// Regras:
-//   - Pendentes: qualquer data de criação (transferidas de dias anteriores aparecem)
-//   - Concluídas no dashboard: SOMENTE as de hoje (data_conclusao === TODAY)
-//   - Atividades concluídas em outros dias NÃO aparecem aqui — ficam apenas no histórico
 async function loadAtividades() {
   const container = document.getElementById('taskList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
 
   try {
-    // Pendentes de qualquer data (não concluídas)
-    const { data: pendentes, error: e1 } = await db
+    const hoje = getToday();
+
+    // Dashboard mostra somente pendentes: atividades de hoje + atividades antigas não concluídas.
+    // Concluídas ficam apenas no Histórico/RDO.
+    const { data: todas, error: e1 } = await db
       .from('atividades')
       .select('*')
       .neq('status', 'concluida')
+      .lte('data_criacao', hoje)
       .order('criado_em', { ascending: true });
     if (e1) throw e1;
 
-    // Concluídas SOMENTE hoje
     const { data: concluidasHoje, error: e2 } = await db
       .from('atividades')
-      .select('*')
+      .select('id')
       .eq('status', 'concluida')
-      .eq('data_conclusao', TODAY)
-      .order('data_conclusao', { ascending: false });
+      .eq('data_conclusao', hoje);
     if (e2) throw e2;
 
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
 
+    const pendentes = todas || [];
     const priorityOrder = { alta: 0, media: 1, baixa: 2 };
-    (pendentes || []).sort((a, b) => (priorityOrder[a.prioridade] ?? 9) - (priorityOrder[b.prioridade] ?? 9));
+    pendentes.sort((a, b) => (priorityOrder[a.prioridade] ?? 9) - (priorityOrder[b.prioridade] ?? 9));
 
-    const totalPendentes = (pendentes || []).length;
-    const totalConcluidas = (concluidasHoje || []).length;
-
-    document.getElementById('pendingCount').innerHTML = `${totalPendentes} <span>pendentes</span>`;
-    document.getElementById('doneCount').innerHTML = `${totalConcluidas} <span>hoje</span>`;
+    document.getElementById('pendingCount').innerHTML = `${pendentes.length} <span>pendentes</span>`;
+    document.getElementById('doneCount').innerHTML = `${(concluidasHoje || []).length} <span>hoje</span>`;
 
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
     let htmlOut = '';
 
-    if (!totalPendentes && !totalConcluidas) {
-      htmlOut = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">Nenhuma atividade por hoje!</div></div>';
+    if (!pendentes.length) {
+      htmlOut = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">Nenhuma atividade pendente hoje!</div></div>';
     }
 
-    if (totalPendentes) {
+    if (pendentes.length) {
       htmlOut += '<div class="section-label">Pendentes</div>';
-      htmlOut += (pendentes || []).map(t => {
+      htmlOut += pendentes.map(t => {
         const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
-        // Atividades criadas em dias anteriores ganham badge "transferida"
-        const transferida = t.data_criacao < TODAY;
+        const transferida = t.data_criacao < hoje;
         return `
           <div class="task-card ${t.prioridade}" onclick="openDetalhe('${t.id}')">
             <div class="priority-dot"></div>
@@ -832,25 +791,6 @@ async function loadAtividades() {
       }).join('');
     }
 
-    if (totalConcluidas) {
-      htmlOut += '<div class="section-label" style="margin-top:24px">Concluídas hoje</div>';
-      htmlOut += (concluidasHoje || []).map(t => {
-        const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
-        return `
-          <div class="task-card concluida" onclick="openDetalhe('${t.id}')">
-            <div class="priority-dot"></div>
-            <div class="task-info">
-              <div class="task-name">${t.nome}</div>
-              <div class="task-meta">
-                <span class="tag concluida">Concluída</span>
-                ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
-              </div>
-            </div>
-            <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
-          </div>`;
-      }).join('');
-    }
-
     container.innerHTML = htmlOut;
   } catch (err) {
     container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro ao carregar: ${err.message}</div></div>`;
@@ -858,16 +798,9 @@ async function loadAtividades() {
   }
 }
 
-// ── CONCLUIR ATIVIDADE ────────────────────────────────────
-// Grava data_conclusao com a data LOCAL do dispositivo para evitar
-// problema de fuso horário (UTC vs horário de Brasília).
 async function concluirAtividade(id) {
   try {
-    const dataConc = getTodayLocal(); // data local correta
-    const { error } = await db
-      .from('atividades')
-      .update({ status: 'concluida', data_conclusao: dataConc })
-      .eq('id', id);
+    const { error } = await db.from('atividades').update({ status: 'concluida', data_conclusao: getToday() }).eq('id', id);
     if (error) throw error;
     showToast('✅ Atividade concluída!', 'success');
     loadAtividades();
@@ -910,7 +843,6 @@ async function openDetalhe(id) {
         <div class="detail-label">Criada em</div>
         <div class="detail-value">${formatDate(t.data_criacao)}</div>
       </div>
-      ${t.data_conclusao ? `<div class="detail-field"><div class="detail-label">Concluída em</div><div class="detail-value">${formatDate(t.data_conclusao)}</div></div>` : ''}
       ${funcs.length ? `
         <div class="detail-field">
           <div class="detail-label">Equipe</div>
@@ -1075,7 +1007,8 @@ async function deletarFuncionario() {
 }
 
 // ── HISTÓRICO ─────────────────────────────────────────────
-// Usa data_conclusao para agrupar. Cada grupo tem botão "Criar RDO".
+let historicoAgrupadoAtual = {};
+
 async function loadHistorico() {
   const container = document.getElementById('histList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
@@ -1084,61 +1017,49 @@ async function loadHistorico() {
       .from('atividades')
       .select('*')
       .eq('status', 'concluida')
-      .not('data_conclusao', 'is', null)
       .order('data_conclusao', { ascending: false });
     if (error) throw error;
 
     if (!data?.length) {
       container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Nenhuma atividade concluída ainda</div></div>';
+      historicoAgrupadoAtual = {};
       return;
     }
 
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
 
-    // Agrupa por data_conclusao (data real de quando foi concluída)
     const grouped = {};
     data.forEach(t => {
-      const key = t.data_conclusao; // usa data_conclusao real
+      const key = t.data_conclusao || t.data_criacao || 'sem-data';
       if (!grouped[key]) grouped[key] = [];
       grouped[key].push(t);
     });
+    historicoAgrupadoAtual = grouped;
 
     let htmlOut = '';
     Object.keys(grouped).sort().reverse().forEach(date => {
-      const tarefas = grouped[date];
-      const isToday = date === TODAY;
-      const dateLabel = isToday ? `Hoje — ${formatDate(date)}` : formatDate(date);
-
-      // Serializa IDs para o botão RDO
-      const idsJson = JSON.stringify(tarefas.map(t => t.id)).replace(/"/g, '&quot;');
-
       htmlOut += `
-        <div class="hist-day-block">
-          <div class="hist-day-header">
-            <div class="hist-day-header-left">
-              <span>📅 ${dateLabel}</span>
-              <span style="background:var(--concluida-bg);color:var(--concluida);border:1px solid var(--concluida);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:800;">${tarefas.length} ativ.</span>
-            </div>
-            <button class="btn-rdo" onclick="abrirRDO('${date}', ${idsJson})">📄 RDO</button>
-          </div>
-          <div class="hist-day-tasks">
-            ${tarefas.map(t => {
-              const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
-              return `
-                <div class="task-card concluida" onclick="openDetalhe('${t.id}')">
-                  <div class="priority-dot"></div>
-                  <div class="task-info">
-                    <div class="task-name">${t.nome}</div>
-                    <div class="task-meta">
-                      ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
-                    </div>
-                  </div>
-                  <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
-                </div>`;
-            }).join('')}
-          </div>
+        <div class="hist-day-header">
+          <span class="hist-day-title">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</span>
+          <button class="btn-rdo" onclick="event.stopPropagation();criarRDO('${date}')">Criar RDO</button>
         </div>`;
+
+      grouped[date].forEach(t => {
+        const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
+        htmlOut += `
+          <div class="task-card concluida" style="margin-bottom:8px" onclick="openDetalhe('${t.id}')">
+            <div class="priority-dot"></div>
+            <div class="task-info">
+              <div class="task-name">${t.nome}</div>
+              <div class="task-meta">
+                ${t.descricao ? `<span>📝 ${escapeHtml(t.descricao).slice(0, 60)}${t.descricao.length > 60 ? '...' : ''}</span>` : ''}
+                ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
+              </div>
+            </div>
+            <div class="task-check" style="border-color:var(--concluida);background:var(--concluida-bg);color:var(--concluida)">✓</div>
+          </div>`;
+      });
     });
     container.innerHTML = htmlOut;
   } catch (err) {
@@ -1146,86 +1067,118 @@ async function loadHistorico() {
   }
 }
 
-// ── RDO ───────────────────────────────────────────────────
-async function abrirRDO(date, ids) {
+async function criarRDO(date) {
   try {
-    // Busca as atividades do dia
-    const { data: tarefas, error } = await db
-      .from('atividades')
-      .select('*')
-      .in('id', ids);
-    if (error) throw error;
+    const atividades = historicoAgrupadoAtual[date] || [];
+    if (!atividades.length) {
+      showToast('Nenhuma atividade encontrada para esta data.', 'warning');
+      return;
+    }
 
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
 
-    // Coleta toda a equipe que trabalhou nesse dia
-    const equipeDoDia = new Map();
-    tarefas.forEach(t => {
-      equipeDaAtividade(t.id, links, equipeMap).forEach(f => {
-        equipeDoDia.set(f.id, f);
-      });
-    });
-    const membrosUnicos = [...equipeDoDia.values()];
+    const linhas = atividades.map((t, index) => {
+      const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
+      return `${index + 1}. ${t.nome}
+   Descrição: ${t.descricao || 'Sem descrição cadastrada.'}
+   Prioridade: ${labelPrioridade(t.prioridade)}
+   Equipe: ${funcs.length ? funcs.join(', ') : 'Não informada.'}`;
+    }).join('\n\n');
 
-    const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
+    const texto = `RELATÓRIO DIÁRIO DE OBRA (RDO)
 
-    const html = `
-      <div class="rdo-header">
-        <div class="rdo-empresa">⚡ Gestão Elétrica</div>
-        <div class="rdo-subtitulo">Relatório Diário de Obra — RDO</div>
-        <div class="rdo-meta-row">
-          <div class="rdo-meta-item">📅 <strong>${formatDate(date)}</strong></div>
-          <div class="rdo-meta-item">✅ <strong>${tarefas.length}</strong> atividade(s) concluída(s)</div>
-          ${membrosUnicos.length ? `<div class="rdo-meta-item">👷 <strong>${membrosUnicos.length}</strong> membro(s)</div>` : ''}
-        </div>
-        ${membrosUnicos.length ? `
-          <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;">
-            ${membrosUnicos.map(f => `<span class="func-chip">👷 ${f.nome} <span style="opacity:.6;font-size:10px">(${f.tipo})</span></span>`).join('')}
-          </div>` : ''}
-      </div>
+Data: ${formatDate(date)}
+Total de atividades concluídas: ${atividades.length}
 
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--industrial-blue-strong);margin-bottom:12px;">
-        Atividades Realizadas
-      </div>
+ATIVIDADES CONCLUÍDAS
 
-      ${tarefas.map((t, i) => {
-        const funcs = equipeDaAtividade(t.id, links, equipeMap);
-        return `
-          <div class="rdo-atividade-item">
-            <div class="rdo-atividade-nome">${i + 1}. ${t.nome}</div>
-            ${t.descricao ? `<div class="rdo-atividade-desc">${t.descricao}</div>` : ''}
-            ${funcs.length ? `<div class="rdo-atividade-equipe">👷 ${funcs.map(f => f.nome).join(', ')}</div>` : ''}
-            <div style="margin-top:6px;">
-              <span class="tag ${t.prioridade}" style="font-size:10px;">${prioLabels[t.prioridade] || t.prioridade}</span>
-            </div>
-          </div>`;
-      }).join('')}
+${linhas}`;
 
-      <div class="rdo-rodape">
-        Gerado automaticamente em ${new Date().toLocaleString('pt-BR')} • Gestão Elétrica
-      </div>`;
-
-    document.getElementById('modalRDOContent').innerHTML = html;
+    document.getElementById('modalRDOContent').innerHTML = `
+      <div class="rdo-box" id="rdoTexto">${escapeHtml(texto)}</div>
+      <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
+      <button class="btn btn-secondary" onclick="imprimirRDO()">Imprimir / Salvar PDF</button>
+    `;
     openModal('modalRDO');
   } catch (err) {
-    showToast('❌ Erro ao gerar RDO: ' + err.message, 'error');
+    showToast('❌ Erro ao criar RDO: ' + err.message, 'error');
   }
 }
 
+function copiarRDO() {
+  const txt = document.getElementById('rdoTexto')?.innerText || '';
+  navigator.clipboard.writeText(txt)
+    .then(() => showToast('📋 RDO copiado!', 'success'))
+    .catch(() => showToast('Não consegui copiar automaticamente.', 'warning'));
+}
+
 function imprimirRDO() {
-  window.print();
+  const txt = document.getElementById('rdoTexto')?.innerText || '';
+  const win = window.open('', '_blank');
+  win.document.write(`
+    <html>
+      <head>
+        <title>RDO</title>
+        <style>
+          body { font-family: Arial, sans-serif; padding: 28px; color: #111; }
+          pre { white-space: pre-wrap; font-size: 14px; line-height: 1.5; }
+        </style>
+      </head>
+      <body><pre>${escapeHtml(txt)}</pre></body>
+    </html>
+  `);
+  win.document.close();
+  win.focus();
+  win.print();
+}
+
+function labelPrioridade(p) {
+  const labels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
+  return labels[p] || p || 'Não informada';
+}
+
+// Corrige o erro específico informado: atividades concluídas em 25/05/2026
+// que ficaram registradas no histórico como 26/05/2026.
+async function corrigirHistorico25Maio() {
+  const migrationKey = 'gestao_eletrica_fix_25_05_2026_v1';
+  if (localStorage.getItem(migrationKey)) return;
+
+  try {
+    const { error } = await db
+      .from('atividades')
+      .update({ data_conclusao: '2026-05-25' })
+      .eq('status', 'concluida')
+      .eq('data_conclusao', '2026-05-26')
+      .lte('data_criacao', '2026-05-25');
+
+    if (error) throw error;
+
+    localStorage.setItem(migrationKey, 'ok');
+    console.log('Correção 25/05/2026 aplicada ao histórico.');
+  } catch (err) {
+    console.warn('Não foi possível aplicar a correção automática do histórico:', err.message);
+  }
 }
 
 // ── UTILS ─────────────────────────────────────────────────
 function formatDate(d) {
-  if (!d) return '';
+  if (!d || d === 'sem-data') return 'Sem data';
   const [y, m, day] = d.split('-');
   return `${day}/${m}/${y}`;
 }
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
 // ── INIT ──────────────────────────────────────────────────
-loadAtividades();
+corrigirHistorico25Maio().finally(() => loadAtividades());
 </script>
 
 <script>
