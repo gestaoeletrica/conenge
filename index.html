@@ -1315,9 +1315,12 @@ function imprimirRDO() {
   const win = window.open('', '_blank');
 
   win.document.write(`
-    <html>
+    <!DOCTYPE html>
+    <html lang="pt-BR">
       <head>
+        <meta charset="UTF-8">
         <title>RDO</title>
+
         <style>
           body {
             font-family: Arial, sans-serif;
@@ -1372,13 +1375,32 @@ function imprimirRDO() {
           .rdo-descricao {
             width: 68%;
           }
+
+          @media print {
+            @page {
+              margin: 18mm;
+              size: auto;
+            }
+
+            html,
+            body {
+              margin: 0;
+              padding: 0;
+            }
+          }
         </style>
       </head>
+
       <body>
         <h1>Relatório Diário de Obra (RDO)</h1>
-        <div class="rdo-data">Data: ${formatDate(rdo.date)}</div>
 
-        <div class="rdo-section-title">Atividades concluídas</div>
+        <div class="rdo-data">
+          Data: ${formatDate(rdo.date)}
+        </div>
+
+        <div class="rdo-section-title">
+          Atividades concluídas
+        </div>
 
         <table>
           <thead>
@@ -1387,6 +1409,7 @@ function imprimirRDO() {
               <th>Descrição</th>
             </tr>
           </thead>
+
           <tbody>
             ${linhasTabela}
           </tbody>
