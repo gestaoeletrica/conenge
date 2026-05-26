@@ -1174,17 +1174,32 @@ async function criarRDO(date) {
       return;
     }
 
-    const linhasTabela = atividades.map((t) => {
+    // Guarda os dados do RDO em memória.
+    // A tela usa um layout normal em blocos.
+    // O botão copiar usa texto limpo.
+    // O PDF usa tabela.
+    window.rdoAtual = {
+      date,
+      atividades: atividades.map(t => ({
+        nome: t.nome || '',
+        descricao: t.descricao || 'Sem descrição cadastrada.'
+      }))
+    };
+
+    const linhasTela = window.rdoAtual.atividades.map((t, index) => {
       return `
-        <tr>
-          <td class="rdo-atividade">${escapeHtml(t.nome)}</td>
-          <td class="rdo-descricao">${escapeHtml(t.descricao || 'Sem descrição cadastrada.')}</td>
-        </tr>
+        <div class="bloco-rdo">
+          <div class="titulo-rdo">${index + 1}. ${escapeHtml(t.nome)}</div>
+          <div class="descricao-rdo">
+            <strong>Descrição:</strong><br>
+            ${escapeHtml(t.descricao)}
+          </div>
+        </div>
       `;
     }).join('');
 
     const html = `
-      <div class="rdo-documento" id="rdoTexto">
+      <div class="rdo-documento" id="rdoVisual">
         <div class="rdo-header">
           <h1>Relatório Diário de Obra (RDO)</h1>
           <div class="rdo-data">Data: ${formatDate(date)}</div>
@@ -1192,17 +1207,7 @@ async function criarRDO(date) {
 
         <div class="rdo-section-title">Atividades concluídas</div>
 
-        <table class="rdo-table">
-          <thead>
-            <tr>
-              <th>Atividade</th>
-              <th>Descrição</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${linhasTabela}
-          </tbody>
-        </table>
+        ${linhasTela}
       </div>
 
       <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
@@ -1217,21 +1222,76 @@ async function criarRDO(date) {
   }
 }
 
+function montarTextoRDO() {
+  const rdo = window.rdoAtual;
+
+  if (!rdo || !rdo.atividades || !rdo.atividades.length) {
+    return '';
+  }
+
+  const linhas = rdo.atividades.map((t, index) => {
+    return `${index + 1}. ${t.nome}
+
+Descrição:
+${t.descricao}`;
+  }).join('\n\n');
+
+  return `RELATÓRIO DIÁRIO DE OBRA (RDO)
+
+Data: ${formatDate(rdo.date)}
+
+ATIVIDADES CONCLUÍDAS
+
+${linhas}`;
+}
+
 function copiarRDO() {
-  const txt = document.getElementById('rdoTexto')?.innerText || '';
-  navigator.clipboard.writeText(txt)
+  const texto = montarTextoRDO();
+
+  if (!texto) {
+    showToast('Não encontrei o conteúdo do RDO para copiar.', 'warning');
+    return;
+  }
+
+  navigator.clipboard.writeText(texto)
     .then(() => showToast('📋 RDO copiado!', 'success'))
-    .catch(() => showToast('Não consegui copiar automaticamente.', 'warning'));
+    .catch(() => {
+      const area = document.createElement('textarea');
+      area.value = texto;
+      area.style.position = 'fixed';
+      area.style.left = '-9999px';
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+
+      try {
+        document.execCommand('copy');
+        showToast('📋 RDO copiado!', 'success');
+      } catch (err) {
+        showToast('Não consegui copiar automaticamente.', 'warning');
+      }
+
+      document.body.removeChild(area);
+    });
 }
 
 function imprimirRDO() {
-  const container = document.getElementById('rdoTexto');
-  if (!container) {
+  const rdo = window.rdoAtual;
+
+  if (!rdo || !rdo.atividades || !rdo.atividades.length) {
     showToast('Não encontrei o conteúdo do RDO para imprimir.', 'warning');
     return;
   }
 
-  const conteudo = container.innerHTML;
+  const linhasTabela = rdo.atividades.map((t) => {
+    return `
+      <tr>
+        <td class="rdo-atividade">${escapeHtml(t.nome)}</td>
+        <td class="rdo-descricao">${escapeHtml(t.descricao)}</td>
+      </tr>
+    `;
+  }).join('');
+
   const win = window.open('', '_blank');
 
   win.document.write(`
@@ -1295,7 +1355,22 @@ function imprimirRDO() {
         </style>
       </head>
       <body>
-        ${conteudo}
+        <h1>Relatório Diário de Obra (RDO)</h1>
+        <div class="rdo-data">Data: ${formatDate(rdo.date)}</div>
+
+        <div class="rdo-section-title">Atividades concluídas</div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Atividade</th>
+              <th>Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${linhasTabela}
+          </tbody>
+        </table>
       </body>
     </html>
   `);
