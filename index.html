@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Gestão Elétrica</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.4/dist/jspdf.plugin.autotable.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -1211,7 +1213,7 @@ async function criarRDO(date) {
       </div>
 
       <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
-      <button class="btn btn-secondary" onclick="imprimirRDO()">Imprimir / Salvar PDF</button>
+      <button class="btn btn-secondary" onclick="imprimirRDO()">Baixar PDF</button>
     `;
 
     document.getElementById('modalRDOContent').innerHTML = html;
@@ -1299,128 +1301,75 @@ function imprimirRDO() {
   const rdo = window.rdoAtual;
 
   if (!rdo || !rdo.atividades || !rdo.atividades.length) {
-    showToast('Não encontrei o conteúdo do RDO para imprimir.', 'warning');
+    showToast('Não encontrei o conteúdo do RDO para gerar PDF.', 'warning');
     return;
   }
 
-  const linhasTabela = rdo.atividades.map((t) => {
-    return `
-      <tr>
-        <td class="rdo-atividade">${escapeHtml(t.nome)}</td>
-        <td class="rdo-descricao">${escapeHtml(t.descricao)}</td>
-      </tr>
-    `;
-  }).join('');
+  if (!window.jspdf || !window.jspdf.jsPDF) {
+    showToast('Não consegui carregar o gerador de PDF. Verifique a internet e tente novamente.', 'error', 5000);
+    return;
+  }
 
-  const win = window.open('', '_blank');
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'mm',
+    format: 'a4'
+  });
 
-  win.document.write(`
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-      <head>
-        <meta charset="UTF-8">
-        <title>RDO</title>
+  const dataFormatada = formatDate(rdo.date);
+  const nomeArquivo = `RDO_${dataFormatada.replaceAll('/', '-')}.pdf`;
 
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            padding: 40px;
-            color: #111;
-          }
+  doc.setProperties({
+    title: `RDO - ${dataFormatada}`,
+    subject: 'Relatório Diário de Obra',
+    creator: 'Gestão Elétrica'
+  });
 
-          h1 {
-            font-size: 22px;
-            margin: 0 0 8px;
-            text-transform: uppercase;
-          }
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text('RELATÓRIO DIÁRIO DE OBRA (RDO)', 14, 18);
 
-          .rdo-data {
-            margin-bottom: 28px;
-            font-size: 14px;
-          }
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.text(`Data: ${dataFormatada}`, 14, 28);
 
-          .rdo-section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-          }
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(13);
+  doc.text('ATIVIDADES CONCLUÍDAS', 14, 42);
 
-          table {
-            width: 100%;
-            border-collapse: collapse;
-          }
+  const body = rdo.atividades.map(t => [
+    t.nome || '',
+    t.descricao || 'Sem descrição cadastrada.'
+  ]);
 
-          th {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 12px;
-            text-align: left;
-            font-size: 14px;
-          }
+  doc.autoTable({
+    startY: 48,
+    head: [['Atividade', 'Descrição']],
+    body,
+    theme: 'grid',
+    styles: {
+      font: 'helvetica',
+      fontSize: 10,
+      cellPadding: 3,
+      valign: 'top',
+      lineColor: [203, 213, 225],
+      lineWidth: 0.2,
+      textColor: [17, 17, 17]
+    },
+    headStyles: {
+      fillColor: [241, 245, 249],
+      textColor: [17, 17, 17],
+      fontStyle: 'bold'
+    },
+    columnStyles: {
+      0: { cellWidth: 55, fontStyle: 'bold' },
+      1: { cellWidth: 125 }
+    },
+    margin: { top: 14, right: 14, bottom: 14, left: 14 }
+  });
 
-          td {
-            border: 1px solid #cbd5e1;
-            padding: 12px;
-            vertical-align: top;
-            font-size: 14px;
-            line-height: 1.5;
-          }
-
-          .rdo-atividade {
-            width: 32%;
-            font-weight: bold;
-          }
-
-          .rdo-descricao {
-            width: 68%;
-          }
-
-          @media print {
-            @page {
-              margin: 18mm;
-              size: auto;
-            }
-
-            html,
-            body {
-              margin: 0;
-              padding: 0;
-            }
-          }
-        </style>
-      </head>
-
-      <body>
-        <h1>Relatório Diário de Obra (RDO)</h1>
-
-        <div class="rdo-data">
-          Data: ${formatDate(rdo.date)}
-        </div>
-
-        <div class="rdo-section-title">
-          Atividades concluídas
-        </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>Atividade</th>
-              <th>Descrição</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            ${linhasTabela}
-          </tbody>
-        </table>
-      </body>
-    </html>
-  `);
-
-  win.document.close();
-  win.focus();
-  win.print();
+  doc.save(nomeArquivo);
 }
 
 function labelPrioridade(p) {
