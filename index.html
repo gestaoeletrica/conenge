@@ -954,6 +954,7 @@ async function carregarPerfil() {
 function mostrarApp() {
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appScreen').style.display = 'block';
+  seedCargosDener().catch(e => console.warn('seed falhou:', e));
   loadAtividades();
 }
 
