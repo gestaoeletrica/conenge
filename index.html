@@ -872,6 +872,7 @@ async function getLinksAtividades(atividadeIds = []) {
   if (!atividadeIds.length) return [];
   const { data, error } = await db.from('atividade_equipe')
     .select('*')
+    .eq('user_id', uid())
     .in('atividade_id', atividadeIds);
   if (error) throw error;
   return data || [];
@@ -1373,7 +1374,7 @@ async function salvarAtividade() {
     const { data: ativ, error } = await db.from('atividades').insert(payload).select().single();
     if (error) throw error;
     if (selectedFuncIds.length) {
-      const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid }));
+      const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid, user_id: uid() }));
       await db.from('atividade_equipe').insert(links);
     }
     showToast('✅ Atividade salva!', 'success');
@@ -1409,7 +1410,7 @@ async function loadAtividades() {
       .eq('user_id', uid())
       .neq('status', 'concluida')
       .lte('data_criacao', hoje)
-      .order('criado_em', { ascending: true });
+      .order('data_criacao', { ascending: true });
     if (e1) throw e1;
 
     // Concluídas hoje pelo usuário atual
@@ -1420,8 +1421,8 @@ async function loadAtividades() {
     if (e2) throw e2;
 
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
     const pendentes = todas || [];
+    const links = await getLinksAtividades(pendentes.map(t => t.id));
     const priorityOrder = { alta: 0, media: 1, baixa: 2 };
     pendentes.sort((a, b) => (priorityOrder[a.prioridade] ?? 9) - (priorityOrder[b.prioridade] ?? 9));
 
@@ -1481,7 +1482,7 @@ async function openDetalhe(id) {
       .single();
     if (error) throw error;
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
+    const links = await getLinksAtividades([t.id]);
     const funcs = equipeDaAtividade(t.id, links, equipeMap);
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
 
@@ -1529,7 +1530,7 @@ async function editarPrioridade(id, atual) {
 async function deletarAtividade(id) {
   if (!confirm('Excluir esta atividade?')) return;
   try {
-    await db.from('atividade_equipe').delete().eq('atividade_id', id);
+    await db.from('atividade_equipe').delete().eq('atividade_id', id).eq('user_id', uid());
     const { error } = await db.from('atividades').delete().eq('id', id).eq('user_id', uid());
     if (error) throw error;
     showToast('🗑 Atividade excluída', 'success');
@@ -1558,7 +1559,7 @@ async function loadHistorico() {
       return;
     }
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
+    const links = await getLinksAtividades((data || []).map(t => t.id));
     const grouped = {};
     data.forEach(t => {
       const key = t.data_conclusao || t.data_criacao || 'sem-data';
@@ -1792,4 +1793,4 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 </body>
-</html>  
+</html>   
