@@ -119,21 +119,6 @@
   .auth-panel { display: none; }
   .auth-panel.active { display: block; }
 
-  .auth-footer-link {
-    text-align: center;
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-top: 16px;
-    font-weight: 600;
-  }
-
-  .auth-footer-link span {
-    color: var(--industrial-blue);
-    cursor: pointer;
-    text-decoration: underline;
-    font-weight: 700;
-  }
-
   /* ── APP SCREEN ── */
   #appScreen { display: none; }
 
@@ -364,10 +349,6 @@
   .priority-pill.media.selected { border-color: var(--media); background: var(--media-bg); color: var(--media); }
   .priority-pill.baixa.selected { border-color: var(--baixa); background: var(--baixa-bg); color: var(--baixa); }
 
-  .tipo-pills { display: flex; gap: 8px; }
-  .tipo-pill { flex: 1; padding: 11px 4px; border-radius: 8px; border: 2px solid var(--border-strong); background: #ffffff; color: var(--text-dim); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; text-align: center; }
-  .tipo-pill.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); color: var(--industrial-blue-strong); }
-
   .equipe-check { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
   .func-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #ffffff; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
   .func-check-item.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); }
@@ -395,10 +376,7 @@
   .func-card { background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: all 0.2s; box-shadow: var(--shadow-card); }
   .func-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-strong); }
   .func-name { font-weight: 800; font-size: 16px; color: var(--text); }
-  .func-tipo-badge { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 6px; border: 1px solid currentColor; }
-  .func-tipo-badge.eletricista { background: var(--media-bg); color: var(--media); }
-  .func-tipo-badge.ajudante { background: var(--baixa-bg); color: var(--baixa); }
-  .func-tipo-badge.custom { background: #f0edf9; color: #5b3ea6; border-color: #5b3ea6; }
+  .func-tipo-badge { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 6px; border: 1px solid currentColor; background: var(--industrial-blue-soft); color: var(--industrial-blue-strong); }
 
   /* Cargo card */
   .cargo-card { background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.2s; }
@@ -504,34 +482,6 @@
   }
   .rdo-add-item:hover { background: #c9dff5; }
 
-  /* Steps RDO */
-  .rdo-steps {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-  .rdo-step {
-    flex: 1; padding: 9px 4px;
-    border-radius: 8px;
-    border: 2px solid var(--border);
-    background: #f3f6f9;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px; font-weight: 800;
-    text-transform: uppercase; letter-spacing: .5px;
-    color: var(--text-dim);
-    text-align: center;
-  }
-  .rdo-step.active {
-    border-color: var(--industrial-blue);
-    background: var(--industrial-blue-soft);
-    color: var(--industrial-blue-strong);
-  }
-  .rdo-step.done {
-    border-color: var(--concluida);
-    background: var(--concluida-bg);
-    color: var(--concluida);
-  }
-
   /* DETAIL */
   .detail-field { margin-bottom: 16px; }
   .detail-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--industrial-blue-strong); margin-bottom: 4px; font-weight: 800; }
@@ -545,17 +495,17 @@
   .loading { text-align: center; padding: 40px; color: var(--text-dim); font-size: 14px; font-weight: 700; }
   .transfer-badge { font-size: 10px; background: #fff7e8; color: var(--media); padding: 3px 7px; border-radius: 6px; border: 1px solid #d99432; margin-left: 6px; font-weight: 800; }
 
-  /* Perfil info banner */
-  .perfil-banner {
-    background: linear-gradient(135deg, var(--industrial-blue-soft) 0%, #eef3f8 100%);
-    border: 2px solid var(--border-strong);
+  /* Onboarding banner */
+  .onboarding-banner {
+    background: linear-gradient(135deg, #fff8e6 0%, #fff3d6 100%);
+    border: 2px solid #d99432;
     border-radius: var(--radius);
-    padding: 14px 16px;
+    padding: 16px 18px;
     margin-bottom: 20px;
     box-shadow: var(--shadow-card);
   }
-  .perfil-nome { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; color: var(--industrial-blue-strong); }
-  .perfil-meta { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
+  .onboarding-title { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; color: #7a4a00; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+  .onboarding-text { font-size: 13px; color: #5a3800; font-weight: 600; line-height: 1.5; margin-bottom: 10px; }
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -605,10 +555,7 @@
       </div>
       <div class="form-group">
         <label>Cargo / Função *</label>
-        <select id="cadCargo">
-          <option value="">Selecione ou crie abaixo...</option>
-        </select>
-        <input type="text" id="cadCargoCustom" placeholder="Ou digite um cargo personalizado..." style="margin-top:8px">
+        <input type="text" id="cadCargo" placeholder="Ex: Encarregado, Supervisor de obras...">
       </div>
       <div class="form-group">
         <label>Área de Atuação *</label>
@@ -756,7 +703,7 @@
   </div>
 </div>
 
-<!-- MODAL: RDO (editor + preview) -->
+<!-- MODAL: RDO (preview + export) -->
 <div class="modal-overlay" id="modalRDO">
   <div class="modal">
     <div class="modal-title">
@@ -764,6 +711,23 @@
       <button class="modal-close" onclick="closeModal('modalRDO')">✕</button>
     </div>
     <div id="modalRDOContent"></div>
+  </div>
+</div>
+
+<!-- MODAL: ALTERAR DATA (oculto — long press na data do histórico) -->
+<div class="modal-overlay" id="modalAlterarData">
+  <div class="modal" style="max-width:340px;">
+    <div class="modal-title" style="font-size:16px;letter-spacing:.5px;">
+      <span>Alterar data</span>
+      <button class="modal-close" onclick="closeModal('modalAlterarData')">✕</button>
+    </div>
+    <div class="form-group">
+      <label>Nova data de conclusão</label>
+      <input type="date" id="inputNovaData">
+    </div>
+    <div style="font-size:12px;color:var(--text-dim);margin-bottom:16px;font-weight:600;" id="alterarDataInfo"></div>
+    <button class="btn btn-primary" id="btnConfirmarNovaData" onclick="confirmarAlterarData()">Confirmar</button>
+    <button class="btn btn-secondary" onclick="closeModal('modalAlterarData')">Cancelar</button>
   </div>
 </div>
 
@@ -780,10 +744,8 @@
     </div>
     <div class="form-group">
       <label>Função *</label>
-      <select id="funcTipoSelect" onchange="onFuncTipoChange()">
+      <select id="funcTipoSelect">
         <option value="">Selecione uma função...</option>
-        <option value="eletricista">⚡ Eletricista</option>
-        <option value="ajudante">🔧 Ajudante</option>
       </select>
     </div>
     <div class="form-group">
@@ -805,7 +767,7 @@
     </div>
     <div class="form-group">
       <label>Nome da Função/Cargo *</label>
-      <input type="text" id="cargoNome" placeholder="Ex: Técnico de SPDA, Encarregado...">
+      <input type="text" id="cargoNome" placeholder="Ex: Eletricista, Ajudante, Técnico SPDA...">
     </div>
     <div class="form-group">
       <label>Área de Atuação</label>
@@ -827,6 +789,10 @@
 <script>
 const SUPABASE_URL = 'https://etudmipuztkaaujqfsqn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0dWRtaXB1enRrYWF1anFmc3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMjUzMDIsImV4cCI6MjA5MzcwMTMwMn0.4kTkstK_nQYwfQC0gnygLNb7Nk2AmCcUBvQk6UnIspk';
+
+// ID do Dener — dados legados pertencem a ele
+const DENER_USER_ID = 'f2f495a0-42dd-42f8-ab8f-f89ff4f6098f';
+
 const { createClient } = supabase;
 const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -872,6 +838,8 @@ function showToast(msg, type = 'success', duration = 3000) {
 }
 
 // ── UTILS ─────────────────────────────────────────────────
+function uid() { return currentUser?.id || null; }
+
 function formatDate(d) {
   if (!d || d === 'sem-data') return 'Sem data';
   const [y, m, day] = d.split('-');
@@ -891,29 +859,49 @@ function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
 // ── HELPERS DE EQUIPE ─────────────────────────────────────
-function getLinkEquipeId(link) {
-  return link.equipe_id || link.funcionario_id || link.func_id || link.membro_id || link.pessoa_id || null;
-}
-function getAtividadeId(link) {
-  return link.atividade_id || link.ativ_id || null;
-}
 async function getEquipeMap() {
-  const { data, error } = await db.from('equipe').select('*').order('nome');
+  // Filtra membros do usuário atual
+  const { data, error } = await db.from('equipe').select('*').eq('user_id', uid()).order('nome');
   if (error) throw error;
   const map = {};
   (data || []).forEach(p => { map[p.id] = p; });
   return { lista: data || [], map };
 }
+
 async function getLinksAtividades() {
   const { data, error } = await db.from('atividade_equipe').select('*');
   if (error) throw error;
   return data || [];
 }
+
 function equipeDaAtividade(atividadeId, links, equipeMap) {
   return (links || [])
-    .filter(l => getAtividadeId(l) === atividadeId)
-    .map(l => equipeMap[getLinkEquipeId(l)])
+    .filter(l => (l.atividade_id || l.ativ_id) === atividadeId)
+    .map(l => equipeMap[l.funcionario_id || l.equipe_id || l.func_id || l.membro_id])
     .filter(Boolean);
+}
+
+// ══════════════════════════════════════════════════════════
+// MIGRAÇÃO: atribui dados legados ao Dener
+// ══════════════════════════════════════════════════════════
+async function migrarDadosDener() {
+  const key = 'gestao_eletrica_migra_userid_v3';
+  if (localStorage.getItem(key)) return;
+  try {
+    // Atualiza atividades sem user_id → Dener
+    await db.from('atividades').update({ user_id: DENER_USER_ID })
+      .is('user_id', null);
+    // Atualiza equipe sem user_id → Dener
+    await db.from('equipe').update({ user_id: DENER_USER_ID })
+      .is('user_id', null);
+    // Atualiza cargos sem user_id → Dener
+    await db.from('cargos').update({ user_id: DENER_USER_ID })
+      .is('user_id', null);
+    localStorage.setItem(key, 'ok');
+    console.log('✅ Migração user_id concluída');
+  } catch(e) {
+    console.warn('Migração user_id falhou (normal se colunas ainda não existem):', e.message);
+  }
 }
 
 // ══════════════════════════════════════════════════════════
@@ -926,43 +914,22 @@ function switchAuthTab(tab) {
   document.getElementById('panelCadastro').classList.toggle('active', tab === 'cadastro');
 }
 
-async function carregarCargosNoSelect(selectId) {
-  const sel = document.getElementById(selectId);
-  if (!sel) return;
-  try {
-    const { data } = await db.from('cargos').select('*').order('nome');
-    const cargos = data || [];
-    const base = sel.options[0] ? [sel.options[0]] : [];
-    while (sel.options.length > 0) sel.remove(0);
-    if (base.length) sel.add(base[0]);
-    cargos.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.nome;
-      opt.textContent = c.area ? `${c.nome} — ${c.area}` : c.nome;
-      sel.add(opt);
-    });
-  } catch(e) { /* silently fail */ }
-}
-
 async function initAuth() {
-  // Carregar cargos no select de cadastro
-  await carregarCargosNoSelect('cadCargo');
-
-  // Verifica sessão ativa
   const { data: { session } } = await db.auth.getSession();
   if (session?.user) {
     currentUser = session.user;
     await carregarPerfil();
+    await migrarDadosDener();
     mostrarApp();
   } else {
     mostrarAuth();
   }
 
-  // Listener de mudanças de sessão
   db.auth.onAuthStateChange(async (_event, session) => {
     if (session?.user) {
       currentUser = session.user;
       await carregarPerfil();
+      await migrarDadosDener();
       mostrarApp();
     } else {
       currentUser = null;
@@ -1013,9 +980,7 @@ async function fazerLogin() {
 
 async function criarConta() {
   const nome = document.getElementById('cadNome').value.trim();
-  const cargoSel = document.getElementById('cadCargo').value.trim();
-  const cargoCustom = document.getElementById('cadCargoCustom').value.trim();
-  const cargo = cargoCustom || cargoSel;
+  const cargo = document.getElementById('cadCargo').value.trim();
   const area = document.getElementById('cadArea').value.trim();
   const email = document.getElementById('cadEmail').value.trim();
   const senha = document.getElementById('cadSenha').value;
@@ -1034,11 +999,13 @@ async function criarConta() {
 
     const userId = data.user?.id;
     if (userId) {
+      // Salva perfil
       await db.from('perfis').upsert({
         user_id: userId, nome, cargo, area_atuacao: area, email
       });
     }
-    showToast('✅ Conta criada! Verifique seu email se necessário.', 'success');
+    showToast('✅ Conta criada! Faça login para continuar.', 'success');
+    switchAuthTab('login');
   } catch (err) {
     showToast('❌ ' + traduzirErroAuth(err.message), 'error', 5000);
   } finally {
@@ -1089,16 +1056,24 @@ function switchEquipeTab(tab) {
 }
 
 // ══════════════════════════════════════════════════════════
-// CARGOS / FUNÇÕES
+// CARGOS / FUNÇÕES — filtradas por user_id
 // ══════════════════════════════════════════════════════════
 async function loadCargos() {
   const container = document.getElementById('cargosList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
-    const { data, error } = await db.from('cargos').select('*').order('nome');
+    const { data, error } = await db.from('cargos').select('*')
+      .eq('user_id', uid())
+      .order('nome');
     if (error) throw error;
+
     if (!data?.length) {
-      container.innerHTML = `<div class="empty-state"><div class="empty-icon">🏷️</div><div class="empty-text">Nenhuma função cadastrada ainda</div></div>`;
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🏷️</div>
+          <div class="empty-text">Nenhuma função cadastrada ainda</div>
+          <div style="font-size:13px;margin-top:8px;color:var(--text-dim);">Crie funções para poder adicionar membros à equipe.</div>
+        </div>`;
       return;
     }
     container.innerHTML = data.map(c => `
@@ -1110,10 +1085,6 @@ async function loadCargos() {
         </div>
         <button class="cargo-del-btn" onclick="event.stopPropagation();confirmarDeletarCargo('${c.id}')">🗑</button>
       </div>`).join('');
-
-    // Atualiza também o select do modal de funcionário
-    await carregarCargosNoFuncSelect();
-    await carregarCargosNoSelect('cadCargo');
   } catch (err) {
     container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
   }
@@ -1122,16 +1093,27 @@ async function loadCargos() {
 async function carregarCargosNoFuncSelect() {
   const sel = document.getElementById('funcTipoSelect');
   if (!sel) return;
-  // Remove opções customizadas anteriores (mantém as 3 base: placeholder, eletricista, ajudante)
-  while (sel.options.length > 3) sel.remove(3);
+  // Limpa opções existentes (mantém placeholder)
+  while (sel.options.length > 1) sel.remove(1);
   try {
-    const { data } = await db.from('cargos').select('*').order('nome');
-    (data || []).forEach(c => {
+    const { data } = await db.from('cargos').select('*')
+      .eq('user_id', uid())
+      .order('nome');
+    const cargos = data || [];
+    if (!cargos.length) {
       const opt = document.createElement('option');
-      opt.value = c.nome;
-      opt.textContent = `🏷️ ${c.nome}${c.area ? ' — ' + c.area : ''}`;
+      opt.value = '';
+      opt.disabled = true;
+      opt.textContent = '— Nenhuma função cadastrada. Crie em Equipe → Funções/Cargos';
       sel.add(opt);
-    });
+    } else {
+      cargos.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.nome;
+        opt.textContent = c.area ? `${c.nome} — ${c.area}` : c.nome;
+        sel.add(opt);
+      });
+    }
   } catch(e) { /* silently fail */ }
 }
 
@@ -1162,11 +1144,12 @@ async function salvarCargo() {
     const payload = {
       nome,
       area: document.getElementById('cargoArea').value.trim() || null,
-      descricao: document.getElementById('cargoDesc').value.trim() || null
+      descricao: document.getElementById('cargoDesc').value.trim() || null,
+      user_id: uid()  // <-- sempre salva com user_id
     };
     let error;
     if (editingCargoId) {
-      ({ error } = await db.from('cargos').update(payload).eq('id', editingCargoId));
+      ({ error } = await db.from('cargos').update(payload).eq('id', editingCargoId).eq('user_id', uid()));
     } else {
       ({ error } = await db.from('cargos').insert(payload));
     }
@@ -1184,7 +1167,7 @@ async function salvarCargo() {
 async function deletarCargo() {
   if (!confirm('Excluir esta função?')) return;
   try {
-    const { error } = await db.from('cargos').delete().eq('id', editingCargoId);
+    const { error } = await db.from('cargos').delete().eq('id', editingCargoId).eq('user_id', uid());
     if (error) throw error;
     showToast('🗑 Função excluída', 'success');
     closeModal('modalCargo');
@@ -1197,7 +1180,7 @@ async function deletarCargo() {
 async function confirmarDeletarCargo(id) {
   if (!confirm('Excluir esta função?')) return;
   try {
-    const { error } = await db.from('cargos').delete().eq('id', id);
+    const { error } = await db.from('cargos').delete().eq('id', id).eq('user_id', uid());
     if (error) throw error;
     showToast('🗑 Função excluída', 'success');
     loadCargos();
@@ -1207,25 +1190,34 @@ async function confirmarDeletarCargo(id) {
 }
 
 // ══════════════════════════════════════════════════════════
-// FUNCIONÁRIOS
+// FUNCIONÁRIOS — filtrados por user_id
 // ══════════════════════════════════════════════════════════
 async function loadFuncionarios() {
   const container = document.getElementById('funcList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
-    const { data, error } = await db.from('equipe').select('*').order('nome');
+    const { data, error } = await db.from('equipe').select('*')
+      .eq('user_id', uid())
+      .order('nome');
     if (error) throw error;
     if (!data?.length) {
       container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhuma pessoa da equipe cadastrada ainda</div></div>`;
       return;
     }
-    const eletricistas = data.filter(f => f.tipo === 'eletricista');
-    const ajudantes = data.filter(f => f.tipo === 'ajudante');
-    const outros = data.filter(f => f.tipo !== 'eletricista' && f.tipo !== 'ajudante');
+
+    // Agrupa por tipo
+    const grupos = {};
+    data.forEach(f => {
+      const key = f.tipo || 'Outros';
+      if (!grupos[key]) grupos[key] = [];
+      grupos[key].push(f);
+    });
+
     let html = '';
-    if (eletricistas.length) { html += '<div class="section-label">Eletricistas</div>'; html += eletricistas.map(f => funcCard(f)).join(''); }
-    if (ajudantes.length) { html += '<div class="section-label">Ajudantes</div>'; html += ajudantes.map(f => funcCard(f)).join(''); }
-    if (outros.length) { html += '<div class="section-label">Outros</div>'; html += outros.map(f => funcCard(f)).join(''); }
+    Object.keys(grupos).sort().forEach(tipo => {
+      html += `<div class="section-label">${escapeHtml(tipo)}s</div>`;
+      html += grupos[tipo].map(f => funcCard(f)).join('');
+    });
     container.innerHTML = html;
   } catch (err) {
     container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
@@ -1233,14 +1225,13 @@ async function loadFuncionarios() {
 }
 
 function funcCard(f) {
-  const isCustom = f.tipo !== 'eletricista' && f.tipo !== 'ajudante';
   return `
     <div class="func-card" onclick="editarFuncionario('${f.id}','${escapeQ(f.nome)}','${escapeQ(f.tipo)}','${escapeQ(f.info_extra||'')}')">
       <div>
         <div class="func-name">${escapeHtml(f.nome)}</div>
         ${f.info_extra ? `<div style="font-size:12px;color:var(--text-dim);margin-top:2px">${escapeHtml(f.info_extra)}</div>` : ''}
       </div>
-      <span class="func-tipo-badge ${isCustom ? 'custom' : f.tipo}">${escapeHtml(f.tipo)}</span>
+      <span class="func-tipo-badge">${escapeHtml(f.tipo)}</span>
     </div>`;
 }
 
@@ -1249,7 +1240,6 @@ function openModalFuncionario() {
   document.getElementById('funcModalTitle').textContent = 'Novo Membro';
   document.getElementById('funcNome').value = '';
   document.getElementById('funcInfo').value = '';
-  document.getElementById('funcTipoSelect').value = '';
   document.getElementById('btnDeletarFunc').style.display = 'none';
   document.getElementById('btnSalvarFunc').textContent = 'Salvar';
   document.getElementById('btnSalvarFunc').disabled = false;
@@ -1271,8 +1261,6 @@ function editarFuncionario(id, nome, tipo, info) {
   openModal('modalFuncionario');
 }
 
-function onFuncTipoChange() { /* placeholder for future use */ }
-
 async function salvarFuncionario() {
   const nome = document.getElementById('funcNome').value.trim();
   const tipo = document.getElementById('funcTipoSelect').value;
@@ -1283,10 +1271,15 @@ async function salvarFuncionario() {
   btn.disabled = true; btn.textContent = 'Salvando...';
 
   try {
-    const payload = { nome, tipo, info_extra: document.getElementById('funcInfo').value.trim() || null };
+    const payload = {
+      nome,
+      tipo,
+      info_extra: document.getElementById('funcInfo').value.trim() || null,
+      user_id: uid()  // <-- sempre salva com user_id
+    };
     let error;
     if (editingFuncId) {
-      ({ error } = await db.from('equipe').update(payload).eq('id', editingFuncId));
+      ({ error } = await db.from('equipe').update(payload).eq('id', editingFuncId).eq('user_id', uid()));
     } else {
       ({ error } = await db.from('equipe').insert(payload));
     }
@@ -1303,7 +1296,7 @@ async function salvarFuncionario() {
 async function deletarFuncionario() {
   if (!confirm('Excluir este membro?')) return;
   try {
-    const { error } = await db.from('equipe').delete().eq('id', editingFuncId);
+    const { error } = await db.from('equipe').delete().eq('id', editingFuncId).eq('user_id', uid());
     if (error) throw error;
     showToast('🗑 Membro excluído', 'success');
     closeModal('modalFuncionario');
@@ -1325,7 +1318,9 @@ function selectPriority(p) {
 async function loadFuncsForForm() {
   const container = document.getElementById('funcCheckList');
   try {
-    const { data, error } = await db.from('equipe').select('*').order('nome');
+    const { data, error } = await db.from('equipe').select('*')
+      .eq('user_id', uid())
+      .order('nome');
     if (error) throw error;
     allFuncionarios = data || [];
     selectedFuncIds = [];
@@ -1369,7 +1364,8 @@ async function salvarAtividade() {
       prioridade: selectedPriority,
       prazo: document.getElementById('newPrazo').value || null,
       data_criacao: getToday(),
-      status: 'pendente'
+      status: 'pendente',
+      user_id: uid()  // <-- sempre salva com user_id
     };
     const { data: ativ, error } = await db.from('atividades').insert(payload).select().single();
     if (error) throw error;
@@ -1397,16 +1393,27 @@ function resetNovaForm() {
 }
 
 // ══════════════════════════════════════════════════════════
-// ATIVIDADES
+// ATIVIDADES — filtradas por user_id
 // ══════════════════════════════════════════════════════════
 async function loadAtividades() {
   const container = document.getElementById('taskList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
     const hoje = getToday();
-    const { data: todas, error: e1 } = await db.from('atividades').select('*').neq('status', 'concluida').lte('data_criacao', hoje).order('criado_em', { ascending: true });
+
+    // Pendentes do usuário atual
+    const { data: todas, error: e1 } = await db.from('atividades').select('*')
+      .eq('user_id', uid())
+      .neq('status', 'concluida')
+      .lte('data_criacao', hoje)
+      .order('criado_em', { ascending: true });
     if (e1) throw e1;
-    const { data: concluidasHoje, error: e2 } = await db.from('atividades').select('id').eq('status', 'concluida').eq('data_conclusao', hoje);
+
+    // Concluídas hoje pelo usuário atual
+    const { data: concluidasHoje, error: e2 } = await db.from('atividades').select('id')
+      .eq('user_id', uid())
+      .eq('status', 'concluida')
+      .eq('data_conclusao', hoje);
     if (e2) throw e2;
 
     const { map: equipeMap } = await getEquipeMap();
@@ -1451,7 +1458,10 @@ async function loadAtividades() {
 
 async function concluirAtividade(id) {
   try {
-    const { error } = await db.from('atividades').update({ status: 'concluida', data_conclusao: getToday() }).eq('id', id);
+    const { error } = await db.from('atividades')
+      .update({ status: 'concluida', data_conclusao: getToday() })
+      .eq('id', id)
+      .eq('user_id', uid());
     if (error) throw error;
     showToast('✅ Atividade concluída!', 'success');
     loadAtividades();
@@ -1462,7 +1472,10 @@ async function concluirAtividade(id) {
 
 async function openDetalhe(id) {
   try {
-    const { data: t, error } = await db.from('atividades').select('*').eq('id', id).single();
+    const { data: t, error } = await db.from('atividades').select('*')
+      .eq('id', id)
+      .eq('user_id', uid())
+      .single();
     if (error) throw error;
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
@@ -1500,7 +1513,10 @@ async function openDetalhe(id) {
 async function editarPrioridade(id, atual) {
   const nova = prompt(`Prioridade atual: ${atual}\nDigite a nova:\n- alta\n- media\n- baixa`);
   if (nova && ['alta','media','baixa'].includes(nova.toLowerCase().trim())) {
-    const { error } = await db.from('atividades').update({ prioridade: nova.toLowerCase().trim() }).eq('id', id);
+    const { error } = await db.from('atividades')
+      .update({ prioridade: nova.toLowerCase().trim() })
+      .eq('id', id)
+      .eq('user_id', uid());
     if (error) { showToast('❌ Erro: ' + error.message, 'error'); return; }
     showToast('✅ Prioridade atualizada!', 'success');
     loadAtividades();
@@ -1511,7 +1527,7 @@ async function deletarAtividade(id) {
   if (!confirm('Excluir esta atividade?')) return;
   try {
     await db.from('atividade_equipe').delete().eq('atividade_id', id);
-    const { error } = await db.from('atividades').delete().eq('id', id);
+    const { error } = await db.from('atividades').delete().eq('id', id).eq('user_id', uid());
     if (error) throw error;
     showToast('🗑 Atividade excluída', 'success');
     closeModal('modalDetalhe');
@@ -1522,13 +1538,16 @@ async function deletarAtividade(id) {
 }
 
 // ══════════════════════════════════════════════════════════
-// HISTÓRICO
+// HISTÓRICO — filtrado por user_id
 // ══════════════════════════════════════════════════════════
 async function loadHistorico() {
   const container = document.getElementById('histList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
-    const { data, error } = await db.from('atividades').select('*').eq('status', 'concluida').order('data_conclusao', { ascending: false });
+    const { data, error } = await db.from('atividades').select('*')
+      .eq('user_id', uid())
+      .eq('status', 'concluida')
+      .order('data_conclusao', { ascending: false });
     if (error) throw error;
     if (!data?.length) {
       container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Nenhuma atividade concluída ainda</div></div>';
@@ -1548,7 +1567,7 @@ async function loadHistorico() {
     Object.keys(grouped).sort().reverse().forEach(date => {
       htmlOut += `
         <div class="hist-day-header">
-          <span class="hist-day-title">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</span>
+          <span class="hist-day-title" id="histdate-${date}" data-date="${date}">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</span>
           <button class="btn-rdo" onclick="event.stopPropagation();criarRDO('${date}')">Criar RDO</button>
         </div>`;
       grouped[date].forEach(t => {
@@ -1568,13 +1587,88 @@ async function loadHistorico() {
       });
     });
     container.innerHTML = htmlOut;
+
+    // Registra long press em cada cabeçalho de data
+    Object.keys(grouped).forEach(date => {
+      const el = document.getElementById(`histdate-${date}`);
+      if (el) attachLongPress(el, () => abrirAlterarData(date));
+    });
   } catch (err) {
     container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
   }
 }
 
+// ── LONG PRESS ────────────────────────────────────────────
+function attachLongPress(el, callback, delay = 600) {
+  let timer = null;
+  let moved = false;
+
+  const start = (e) => {
+    moved = false;
+    timer = setTimeout(() => {
+      if (!moved) {
+        // Feedback tátil se disponível
+        if (navigator.vibrate) navigator.vibrate(40);
+        callback();
+      }
+    }, delay);
+  };
+  const cancel = () => { clearTimeout(timer); };
+  const move = () => { moved = true; clearTimeout(timer); };
+
+  el.addEventListener('touchstart', start, { passive: true });
+  el.addEventListener('touchend', cancel);
+  el.addEventListener('touchmove', move, { passive: true });
+  // Suporte mouse (desktop)
+  el.addEventListener('mousedown', start);
+  el.addEventListener('mouseup', cancel);
+  el.addEventListener('mouseleave', cancel);
+  el.addEventListener('mousemove', move);
+  // Evita menu de contexto nativo no mobile
+  el.addEventListener('contextmenu', e => e.preventDefault());
+}
+
+// ── ALTERAR DATA DO GRUPO ─────────────────────────────────
+let alterarDataAtual = null; // { date, ids }
+
+function abrirAlterarData(date) {
+  const ativs = historicoAgrupadoAtual[date] || [];
+  if (!ativs.length) return;
+  alterarDataAtual = { date, ids: ativs.map(a => a.id) };
+  document.getElementById('inputNovaData').value = date;
+  document.getElementById('alterarDataInfo').textContent =
+    `${ativs.length} atividade(s) concluída(s) em ${formatDate(date)} serão movidas para a nova data.`;
+  document.getElementById('btnConfirmarNovaData').disabled = false;
+  document.getElementById('btnConfirmarNovaData').textContent = 'Confirmar';
+  openModal('modalAlterarData');
+}
+
+async function confirmarAlterarData() {
+  const novaData = document.getElementById('inputNovaData').value;
+  if (!novaData || !alterarDataAtual) return;
+  if (novaData === alterarDataAtual.date) { closeModal('modalAlterarData'); return; }
+
+  const btn = document.getElementById('btnConfirmarNovaData');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  try {
+    const { error } = await db.from('atividades')
+      .update({ data_conclusao: novaData })
+      .in('id', alterarDataAtual.ids)
+      .eq('user_id', uid());
+    if (error) throw error;
+    showToast('✅ Data atualizada!', 'success');
+    closeModal('modalAlterarData');
+    loadHistorico();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  } finally {
+    btn.disabled = false; btn.textContent = 'Confirmar';
+  }
+}
+
 // ══════════════════════════════════════════════════════════
-// RDO — EDITOR + PREVIEW + EXPORT
+// RDO — PREVIEW DIRETO + EXPORT
 // ══════════════════════════════════════════════════════════
 async function criarRDO(date) {
   const atividades = historicoAgrupadoAtual[date] || [];
@@ -1586,71 +1680,13 @@ async function criarRDO(date) {
     descricao: t.descricao || ''
   }));
 
-  document.getElementById('rdoModalTitleText').textContent = 'Editar RDO';
-  renderRDOEditor();
+  document.getElementById('rdoModalTitleText').textContent = 'RDO';
+  renderRDOPreview();
   openModal('modalRDO');
 }
 
-function renderRDOEditor() {
+function renderRDOPreview() {
   const container = document.getElementById('modalRDOContent');
-
-  const blocos = rdoEditData.map((item, i) => `
-    <div class="rdo-edit-block" id="rdoBlock-${i}">
-      <div class="rdo-edit-block-header">
-        <span class="rdo-edit-num">Atividade ${i + 1}</span>
-        <button class="rdo-edit-del" onclick="rdoRemoverItem(${i})">✕ Remover</button>
-      </div>
-      <div class="rdo-edit-nome">
-        <label>Nome da atividade</label>
-        <input type="text" value="${escapeHtml(item.nome)}" oninput="rdoUpdateNome(${i}, this.value)" placeholder="Nome da atividade...">
-      </div>
-      <div class="rdo-edit-desc">
-        <label>Descrição / O que foi feito</label>
-        <textarea oninput="rdoUpdateDesc(${i}, this.value)" placeholder="Descreva o que foi realizado...">${escapeHtml(item.descricao)}</textarea>
-      </div>
-    </div>`).join('');
-
-  container.innerHTML = `
-    <div style="margin-bottom:14px;">
-      <div style="font-size:13px;color:var(--text-dim);font-weight:600;">
-        📅 <strong>${formatDate(rdoEditDate)}</strong> — ${rdoEditData.length} atividade(s)
-      </div>
-      <div style="font-size:12px;color:var(--text-soft);margin-top:4px;">
-        Edite nomes e descrições antes de exportar o relatório.
-      </div>
-    </div>
-
-    ${blocos}
-
-    <button class="rdo-add-item" onclick="rdoAdicionarItem()">➕ Adicionar Item</button>
-
-    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
-      <button class="btn btn-primary" onclick="rdoVerPreview()">👁 Visualizar RDO</button>
-      <button class="btn btn-secondary" onclick="copiarRDO()">📋 Copiar Texto</button>
-      <button class="btn btn-secondary" style="margin-top:0" onclick="imprimirRDO()">⬇️ Baixar PDF</button>
-    </div>
-  `;
-}
-
-function rdoUpdateNome(i, val) { rdoEditData[i].nome = val; }
-function rdoUpdateDesc(i, val) { rdoEditData[i].descricao = val; }
-
-function rdoRemoverItem(i) {
-  rdoEditData.splice(i, 1);
-  renderRDOEditor();
-}
-
-function rdoAdicionarItem() {
-  rdoEditData.push({ nome: '', descricao: '' });
-  renderRDOEditor();
-  // Scroll to bottom of modal
-  const modal = document.querySelector('#modalRDO .modal');
-  setTimeout(() => { modal.scrollTop = modal.scrollHeight; }, 50);
-}
-
-function rdoVerPreview() {
-  const container = document.getElementById('modalRDOContent');
-
   const blocos = rdoEditData.filter(i => i.nome.trim()).map((item, idx) => `
     <div class="bloco-rdo">
       <div class="titulo-rdo">${idx + 1}. ${escapeHtml(item.nome)}</div>
@@ -1664,10 +1700,9 @@ function rdoVerPreview() {
         <div class="rdo-data">Data: ${formatDate(rdoEditDate)}</div>
       </div>
       <div class="rdo-section-title">Atividades concluídas</div>
-      ${blocos || '<div style="color:var(--text-dim);font-size:14px;">Nenhum item com nome preenchido.</div>'}
+      ${blocos || '<div style="color:var(--text-dim);font-size:14px;">Sem atividades.</div>'}
     </div>
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
-      <button class="btn btn-secondary" onclick="renderRDOEditor()">✏️ Voltar e Editar</button>
       <button class="btn btn-primary" onclick="copiarRDO()">📋 Copiar Texto</button>
       <button class="btn btn-secondary" style="margin-top:0" onclick="imprimirRDO()">⬇️ Baixar PDF</button>
     </div>`;
@@ -1739,20 +1774,8 @@ function imprimirRDO() {
 }
 
 // ══════════════════════════════════════════════════════════
-// MIGRAÇÃO / INIT
+// INICIA
 // ══════════════════════════════════════════════════════════
-async function corrigirHistorico25Maio() {
-  const key = 'gestao_eletrica_fix_25_05_2026_v1';
-  if (localStorage.getItem(key)) return;
-  try {
-    await db.from('atividades').update({ data_conclusao: '2026-05-25' })
-      .eq('status', 'concluida').eq('data_conclusao', '2026-05-26').lte('data_criacao', '2026-05-25');
-    localStorage.setItem(key, 'ok');
-  } catch(e) { /* silently fail */ }
-}
-
-// Inicia tudo
-corrigirHistorico25Maio();
 initAuth();
 </script>
 
