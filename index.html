@@ -50,6 +50,93 @@
     border-right: 1px solid #d2d8df;
   }
 
+  /* ── AUTH SCREEN ── */
+  #authScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 40px 24px 40px;
+    background: linear-gradient(160deg, #eef3f8 0%, #dce6f0 100%);
+  }
+
+  .auth-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--industrial-blue-strong);
+    margin-bottom: 6px;
+  }
+
+  .auth-sub {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-weight: 600;
+    margin-bottom: 36px;
+    letter-spacing: .5px;
+  }
+
+  .auth-card {
+    background: #ffffff;
+    border: 2px solid var(--border-strong);
+    border-radius: 18px;
+    padding: 28px 22px 32px;
+    width: 100%;
+    box-shadow: 0 8px 24px rgba(7, 59, 104, 0.14);
+  }
+
+  .auth-tabs {
+    display: flex;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 24px;
+  }
+
+  .auth-tab {
+    flex: 1;
+    padding: 12px;
+    background: #f3f6f9;
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .auth-tab.active {
+    background: var(--industrial-blue);
+    color: #fff;
+  }
+
+  .auth-panel { display: none; }
+  .auth-panel.active { display: block; }
+
+  .auth-footer-link {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 16px;
+    font-weight: 600;
+  }
+
+  .auth-footer-link span {
+    color: var(--industrial-blue);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 700;
+  }
+
+  /* ── APP SCREEN ── */
+  #appScreen { display: none; }
+
   .header {
     background: #ffffff;
     border-bottom: 2px solid var(--border-strong);
@@ -73,6 +160,12 @@
     color: var(--industrial-blue-strong);
   }
 
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
   .header-date {
     font-size: 12px;
     color: var(--text-dim);
@@ -82,6 +175,21 @@
     padding: 5px 8px;
     border-radius: 6px;
     white-space: nowrap;
+  }
+
+  .btn-logout {
+    background: #f3f6f9;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
   }
 
   .page { display: none; padding: 18px 18px 120px; }
@@ -264,36 +372,15 @@
   .func-check-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #ffffff; border-radius: 8px; border: 2px solid var(--border); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
   .func-check-item.selected { border-color: var(--industrial-blue); background: var(--industrial-blue-soft); }
   .func-check-item input[type=checkbox] {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    border: 2px solid var(--border);
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    appearance: none; -webkit-appearance: none;
+    width: 30px; height: 30px; flex-shrink: 0;
+    border: 2px solid var(--border); border-radius: 8px;
+    background: #ffffff; box-shadow: inset 0 1px 2px rgba(17, 24, 39, 0.08);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0; margin: 0; cursor: pointer; transition: all 0.2s ease;
   }
-  .func-check-item input[type=checkbox]:checked {
-    background: var(--industrial-blue);
-    border-color: var(--industrial-blue-strong);
-    box-shadow: 0 2px 8px rgba(7, 59, 104, 0.20);
-  }
-  .func-check-item input[type=checkbox]:checked::after {
-    content: '✓';
-    color: #ffffff;
-    font-family: 'Barlow', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
-    line-height: 1;
-  }
+  .func-check-item input[type=checkbox]:checked { background: var(--industrial-blue); border-color: var(--industrial-blue-strong); box-shadow: 0 2px 8px rgba(7, 59, 104, 0.20); }
+  .func-check-item input[type=checkbox]:checked::after { content: '✓'; color: #ffffff; font-family: 'Barlow', sans-serif; font-size: 20px; font-weight: 900; line-height: 1; }
   .func-check-name { font-size: 15px; font-weight: 700; color: var(--text); }
   .func-check-tipo { font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 800; }
 
@@ -311,6 +398,14 @@
   .func-tipo-badge { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 6px; border: 1px solid currentColor; }
   .func-tipo-badge.eletricista { background: var(--media-bg); color: var(--media); }
   .func-tipo-badge.ajudante { background: var(--baixa-bg); color: var(--baixa); }
+  .func-tipo-badge.custom { background: #f0edf9; color: #5b3ea6; border-color: #5b3ea6; }
+
+  /* Cargo card */
+  .cargo-card { background: #ffffff; border: 2px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-card); cursor: pointer; transition: all 0.2s; }
+  .cargo-card:hover { border-color: var(--border-strong); box-shadow: var(--shadow-strong); }
+  .cargo-card-name { font-weight: 800; font-size: 15px; color: var(--text); }
+  .cargo-card-area { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 2px; }
+  .cargo-del-btn { background: var(--alta-bg); border: 1px solid var(--alta); color: var(--alta); border-radius: 7px; padding: 6px 10px; font-size: 13px; font-weight: 800; cursor: pointer; white-space: nowrap; }
 
   /* HISTÓRICO */
   .hist-day-header {
@@ -330,129 +425,111 @@
   }
   .hist-day-title { flex: 1; min-width: 0; }
   .btn-rdo {
-    width: auto;
-    flex-shrink: 0;
+    width: auto; flex-shrink: 0;
     border: 2px solid var(--industrial-blue-strong);
     background: var(--industrial-blue);
-    color: #fff;
-    border-radius: 8px;
+    color: #fff; border-radius: 8px;
     padding: 8px 10px;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 12px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .8px;
+    font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .8px;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(7, 59, 104, 0.18);
   }
-  .rdo-box {
-    background: #f8fafc;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    white-space: pre-wrap;
-    font-family: 'Barlow', sans-serif;
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--text);
-  }
 
+  /* RDO EDITOR */
   .rdo-documento {
     background: #ffffff;
     border: 2px solid var(--border);
     border-radius: 12px;
     padding: 20px;
   }
-
   .rdo-header h1 {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 24px;
-    line-height: 1.1;
-    margin-bottom: 10px;
+    font-size: 24px; line-height: 1.1; margin-bottom: 10px;
     color: var(--industrial-blue-strong);
-    text-transform: uppercase;
-    letter-spacing: .8px;
+    text-transform: uppercase; letter-spacing: .8px;
   }
-
-  .rdo-data {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 24px;
-    font-weight: 700;
-  }
-
+  .rdo-data { font-size: 14px; color: var(--text-dim); margin-bottom: 24px; font-weight: 700; }
   .rdo-section-title {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 17px;
-    font-weight: 800;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-size: 17px; font-weight: 800; margin-bottom: 16px;
+    text-transform: uppercase; letter-spacing: 1px;
     color: var(--industrial-blue-strong);
-    border-bottom: 2px solid var(--border);
-    padding-bottom: 8px;
+    border-bottom: 2px solid var(--border); padding-bottom: 8px;
   }
+  .bloco-rdo { border: 1px solid #d6dde6; border-radius: 10px; padding: 14px; margin-bottom: 14px; background: #f8fafc; }
+  .titulo-rdo { font-size: 16px; font-weight: 800; margin-bottom: 10px; color: #111827; }
+  .descricao-rdo { font-size: 14px; line-height: 1.6; color: #374151; }
 
-  .bloco-rdo {
-    border: 1px solid #d6dde6;
+  /* RDO EDIT FIELDS */
+  .rdo-edit-block {
+    border: 2px solid var(--border);
     border-radius: 10px;
     padding: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
     background: #f8fafc;
   }
-
-  .titulo-rdo {
-    font-size: 16px;
-    font-weight: 800;
+  .rdo-edit-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
-    color: #111827;
   }
-
-  .descricao-rdo {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #374151;
-  }
-
-
-
-  .rdo-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #ffffff;
-    overflow: hidden;
-    border-radius: 10px;
-  }
-
-  .rdo-table th {
-    background: #eef3f8;
-    border: 1px solid #cbd5e1;
-    padding: 11px 10px;
-    text-align: left;
-    font-size: 13px;
-    font-weight: 800;
+  .rdo-edit-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px;
     color: var(--industrial-blue-strong);
-    text-transform: uppercase;
-    letter-spacing: .6px;
   }
-
-  .rdo-table td {
-    border: 1px solid #cbd5e1;
-    padding: 11px 10px;
-    vertical-align: top;
-    font-size: 14px;
-    line-height: 1.45;
+  .rdo-edit-del {
+    background: var(--alta-bg); border: 1px solid var(--alta);
+    color: var(--alta); border-radius: 7px;
+    padding: 4px 10px; font-size: 12px; font-weight: 800;
+    cursor: pointer;
   }
-
-  .rdo-atividade {
-    width: 34%;
-    font-weight: 800;
-    color: #111827;
+  .rdo-edit-nome { margin-bottom: 8px; font-size: 15px; font-weight: 800; }
+  .rdo-edit-nome input { font-size: 15px; font-weight: 700; padding: 10px 12px; }
+  .rdo-edit-desc textarea { min-height: 70px; font-size: 14px; }
+  .rdo-add-item {
+    width: 100%; padding: 12px; border-radius: 9px;
+    border: 2px dashed var(--industrial-blue);
+    background: var(--industrial-blue-soft);
+    color: var(--industrial-blue-strong);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 1px;
+    cursor: pointer; margin-top: 4px; margin-bottom: 16px;
+    transition: all 0.2s;
   }
+  .rdo-add-item:hover { background: #c9dff5; }
 
-  .rdo-descricao {
-    width: 66%;
-    color: #374151;
+  /* Steps RDO */
+  .rdo-steps {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .rdo-step {
+    flex: 1; padding: 9px 4px;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+    background: #f3f6f9;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+  .rdo-step.active {
+    border-color: var(--industrial-blue);
+    background: var(--industrial-blue-soft);
+    color: var(--industrial-blue-strong);
+  }
+  .rdo-step.done {
+    border-color: var(--concluida);
+    background: var(--concluida-bg);
+    color: var(--concluida);
   }
 
   /* DETAIL */
@@ -468,9 +545,17 @@
   .loading { text-align: center; padding: 40px; color: var(--text-dim); font-size: 14px; font-weight: 700; }
   .transfer-badge { font-size: 10px; background: #fff7e8; color: var(--media); padding: 3px 7px; border-radius: 6px; border: 1px solid #d99432; margin-left: 6px; font-weight: 800; }
 
-  /* DEBUG BANNER */
-  .debug-banner { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; color: #856404; font-weight: 700; display: none; }
-  .debug-banner.show { display: block; }
+  /* Perfil info banner */
+  .perfil-banner {
+    background: linear-gradient(135deg, var(--industrial-blue-soft) 0%, #eef3f8 100%);
+    border: 2px solid var(--border-strong);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .perfil-nome { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 800; color: var(--industrial-blue-strong); }
+  .perfil-meta { font-size: 12px; color: var(--text-dim); font-weight: 600; margin-top: 4px; }
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -480,81 +565,185 @@
 <meta name="apple-mobile-web-app-title" content="Gestão Elétrica">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="apple-touch-icon" href="icon-192.png">
-
 </head>
 <body>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- HEADER -->
-<div class="header">
-  <div class="header-title" id="headerTitle">Atividades</div>
-  <div class="header-date" id="headerDate"></div>
+<!-- ═══════════════════════════════════════════════════════
+     AUTH SCREEN
+════════════════════════════════════════════════════════ -->
+<div id="authScreen">
+  <div class="auth-logo">⚡ Gestão Elétrica</div>
+  <div class="auth-sub">Plataforma de gestão de obras elétricas</div>
+
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Entrar</button>
+      <button class="auth-tab" id="tabCadastro" onclick="switchAuthTab('cadastro')">Criar Conta</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="auth-panel active" id="panelLogin">
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Senha</label>
+        <input type="password" id="loginSenha" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+    </div>
+
+    <!-- CADASTRO -->
+    <div class="auth-panel" id="panelCadastro">
+      <div class="form-group">
+        <label>Nome completo *</label>
+        <input type="text" id="cadNome" placeholder="Seu nome">
+      </div>
+      <div class="form-group">
+        <label>Cargo / Função *</label>
+        <select id="cadCargo">
+          <option value="">Selecione ou crie abaixo...</option>
+        </select>
+        <input type="text" id="cadCargoCustom" placeholder="Ou digite um cargo personalizado..." style="margin-top:8px">
+      </div>
+      <div class="form-group">
+        <label>Área de Atuação *</label>
+        <input type="text" id="cadArea" placeholder="Ex: Instalações prediais, SPDA...">
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="cadEmail" placeholder="seu@email.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label>Senha * (mínimo 6 caracteres)</label>
+        <input type="password" id="cadSenha" placeholder="••••••••" autocomplete="new-password">
+      </div>
+      <button class="btn btn-primary" id="btnCadastro" onclick="criarConta()">Criar Conta</button>
+    </div>
+  </div>
 </div>
 
-<!-- PAGE: ATIVIDADES -->
-<div class="page active" id="page-atividades">
-  <div class="day-banner">
-    <div>
-      <div class="day-label">Hoje</div>
-      <div class="day-count" id="pendingCount">0 <span>pendentes</span></div>
-    </div>
-    <div style="text-align:right">
-      <div class="day-label">Concluídas</div>
-      <div class="day-count" id="doneCount">0 <span>hoje</span></div>
-    </div>
-  </div>
-  <div id="taskList"><div class="loading">Carregando...</div></div>
-</div>
+<!-- ═══════════════════════════════════════════════════════
+     APP SCREEN
+════════════════════════════════════════════════════════ -->
+<div id="appScreen">
 
-<!-- PAGE: NOVA ATIVIDADE -->
-<div class="page" id="page-nova">
-  <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Nova Atividade</div>
-  <div class="debug-banner" id="debugBanner"></div>
-  <div class="form-group">
-    <label>Nome da Atividade *</label>
-    <input type="text" id="newNome" placeholder="Ex: Trocar disjuntor quadro 3">
-  </div>
-  <div class="form-group">
-    <label>Descrição / Detalhes</label>
-    <textarea id="newDescricao" placeholder="Informações adicionais..."></textarea>
-  </div>
-  <div class="form-group">
-    <label>Prioridade *</label>
-    <div class="priority-pills">
-      <button class="priority-pill alta" onclick="selectPriority('alta')">🔴 Alta</button>
-      <button class="priority-pill media" onclick="selectPriority('media')">🟠 Média</button>
-      <button class="priority-pill baixa" onclick="selectPriority('baixa')">🔵 Baixa</button>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-title" id="headerTitle">Atividades</div>
+    <div class="header-right">
+      <div class="header-date" id="headerDate"></div>
+      <button class="btn-logout" title="Sair" onclick="fazerLogout()">🚪</button>
     </div>
   </div>
-  <div class="form-group">
-    <label>Prazo (opcional)</label>
-    <input type="date" id="newPrazo">
+
+  <!-- PAGE: ATIVIDADES -->
+  <div class="page active" id="page-atividades">
+    <div class="day-banner">
+      <div>
+        <div class="day-label">Hoje</div>
+        <div class="day-count" id="pendingCount">0 <span>pendentes</span></div>
+      </div>
+      <div style="text-align:right">
+        <div class="day-label">Concluídas</div>
+        <div class="day-count" id="doneCount">0 <span>hoje</span></div>
+      </div>
+    </div>
+    <div id="taskList"><div class="loading">Carregando...</div></div>
   </div>
-  <div class="form-group">
-    <label>Designar Equipe (opcional)</label>
-    <div class="equipe-check" id="funcCheckList">
-      <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Carregando membros...</div>
+
+  <!-- PAGE: NOVA ATIVIDADE -->
+  <div class="page" id="page-nova">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Nova Atividade</div>
+    <div class="form-group">
+      <label>Nome da Atividade *</label>
+      <input type="text" id="newNome" placeholder="Ex: Trocar disjuntor quadro 3">
+    </div>
+    <div class="form-group">
+      <label>Descrição / Detalhes</label>
+      <textarea id="newDescricao" placeholder="Informações adicionais..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Prioridade *</label>
+      <div class="priority-pills">
+        <button class="priority-pill alta" onclick="selectPriority('alta')">🔴 Alta</button>
+        <button class="priority-pill media" onclick="selectPriority('media')">🟠 Média</button>
+        <button class="priority-pill baixa" onclick="selectPriority('baixa')">🔵 Baixa</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Prazo (opcional)</label>
+      <input type="date" id="newPrazo">
+    </div>
+    <div class="form-group">
+      <label>Designar Equipe (opcional)</label>
+      <div class="equipe-check" id="funcCheckList">
+        <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Carregando membros...</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="btnSalvarAtiv" onclick="salvarAtividade()">Salvar Atividade</button>
+  </div>
+
+  <!-- PAGE: EQUIPE -->
+  <div class="page" id="page-equipe">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">Equipe</div>
+      <button class="btn btn-primary" style="width:auto;padding:12px 16px;font-size:14px;flex-shrink:0;" onclick="openModalFuncionario()">➕ Membro</button>
+    </div>
+
+    <!-- Sub-tabs equipe -->
+    <div class="auth-tabs" style="margin-bottom:20px;">
+      <button class="auth-tab active" id="subTabMembros" onclick="switchEquipeTab('membros')">Membros</button>
+      <button class="auth-tab" id="subTabCargos" onclick="switchEquipeTab('cargos')">Funções/Cargos</button>
+    </div>
+
+    <div id="equipeMembrosPanel">
+      <div id="funcList"><div class="loading">Carregando...</div></div>
+    </div>
+    <div id="equipeCargosPanel" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;">
+        <div style="font-size:13px;color:var(--text-dim);font-weight:600;">Gerencie as funções e cargos disponíveis.</div>
+        <button class="btn btn-primary" style="width:auto;padding:10px 14px;font-size:13px;flex-shrink:0;" onclick="openModalCargo()">➕ Nova Função</button>
+      </div>
+      <div id="cargosList"><div class="loading">Carregando...</div></div>
     </div>
   </div>
-  <button class="btn btn-primary" id="btnSalvarAtiv" onclick="salvarAtividade()">Salvar Atividade</button>
-</div>
 
-<!-- PAGE: EQUIPE -->
-<div class="page" id="page-equipe">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;">
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">Equipe</div>
-    <button class="btn btn-primary" style="width:auto;padding:12px 16px;font-size:14px;flex-shrink:0;" onclick="openModalFuncionario()">➕ Adicionar</button>
+  <!-- PAGE: HISTÓRICO -->
+  <div class="page" id="page-historico">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Histórico</div>
+    <div id="histList"><div class="loading">Carregando...</div></div>
   </div>
-  <div id="funcList"><div class="loading">Carregando...</div></div>
-</div>
 
-<!-- PAGE: HISTÓRICO -->
-<div class="page" id="page-historico">
-  <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:24px;">Histórico</div>
-  <div id="histList"><div class="loading">Carregando...</div></div>
-</div>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="bottom-item active" data-page="atividades" onclick="navigate('atividades')">
+      <span class="bottom-icon">📋</span>
+      <span class="bottom-label">Atividades</span>
+    </button>
+    <button class="bottom-item" data-page="nova" onclick="navigate('nova')">
+      <span class="bottom-icon bottom-icon-main">➕</span>
+      <span class="bottom-label">Nova</span>
+    </button>
+    <button class="bottom-item" data-page="equipe" onclick="navigate('equipe')">
+      <span class="bottom-icon">👷</span>
+      <span class="bottom-label">Equipe</span>
+    </button>
+    <button class="bottom-item" data-page="historico" onclick="navigate('historico')">
+      <span class="bottom-icon">📂</span>
+      <span class="bottom-label">Histórico</span>
+    </button>
+  </nav>
+
+</div><!-- /appScreen -->
+
+<!-- ═══════════════════════════════════════════════════════
+     MODAIS
+════════════════════════════════════════════════════════ -->
 
 <!-- MODAL: DETALHE ATIVIDADE -->
 <div class="modal-overlay" id="modalDetalhe">
@@ -567,11 +756,11 @@
   </div>
 </div>
 
-<!-- MODAL: RDO -->
+<!-- MODAL: RDO (editor + preview) -->
 <div class="modal-overlay" id="modalRDO">
   <div class="modal">
     <div class="modal-title">
-      <span>RDO</span>
+      <span id="rdoModalTitleText">RDO</span>
       <button class="modal-close" onclick="closeModal('modalRDO')">✕</button>
     </div>
     <div id="modalRDOContent"></div>
@@ -591,10 +780,11 @@
     </div>
     <div class="form-group">
       <label>Função *</label>
-      <div class="tipo-pills">
-        <button class="tipo-pill" id="tipoEletricista" onclick="selectTipo('eletricista')">⚡ Eletricista</button>
-        <button class="tipo-pill" id="tipoAjudante" onclick="selectTipo('ajudante')">🔧 Ajudante</button>
-      </div>
+      <select id="funcTipoSelect" onchange="onFuncTipoChange()">
+        <option value="">Selecione uma função...</option>
+        <option value="eletricista">⚡ Eletricista</option>
+        <option value="ajudante">🔧 Ajudante</option>
+      </select>
     </div>
     <div class="form-group">
       <label>Informações Extras (opcional)</label>
@@ -606,26 +796,34 @@
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="bottom-item active" data-page="atividades" onclick="navigate('atividades')">
-    <span class="bottom-icon">📋</span>
-    <span class="bottom-label">Atividades</span>
-  </button>
-  <button class="bottom-item" data-page="nova" onclick="navigate('nova')">
-    <span class="bottom-icon bottom-icon-main">➕</span>
-    <span class="bottom-label">Nova</span>
-  </button>
-  <button class="bottom-item" data-page="equipe" onclick="navigate('equipe')">
-    <span class="bottom-icon">👷</span>
-    <span class="bottom-label">Equipe</span>
-  </button>
-  <button class="bottom-item" data-page="historico" onclick="navigate('historico')">
-    <span class="bottom-icon">📂</span>
-    <span class="bottom-label">Histórico</span>
-  </button>
-</nav>
+<!-- MODAL: CARGO/FUNÇÃO -->
+<div class="modal-overlay" id="modalCargo">
+  <div class="modal">
+    <div class="modal-title">
+      <span id="cargoModalTitle">Nova Função</span>
+      <button class="modal-close" onclick="closeModal('modalCargo')">✕</button>
+    </div>
+    <div class="form-group">
+      <label>Nome da Função/Cargo *</label>
+      <input type="text" id="cargoNome" placeholder="Ex: Técnico de SPDA, Encarregado...">
+    </div>
+    <div class="form-group">
+      <label>Área de Atuação</label>
+      <input type="text" id="cargoArea" placeholder="Ex: Alta tensão, Automação...">
+    </div>
+    <div class="form-group">
+      <label>Descrição (opcional)</label>
+      <textarea id="cargoDesc" placeholder="Detalhes sobre esta função..." style="min-height:70px"></textarea>
+    </div>
+    <button class="btn btn-primary" id="btnSalvarCargo" onclick="salvarCargo()">Salvar Função</button>
+    <button class="btn btn-danger" id="btnDeletarCargo" style="display:none" onclick="deletarCargo()">Excluir Função</button>
+    <button class="btn btn-secondary" onclick="closeModal('modalCargo')">Cancelar</button>
+  </div>
+</div>
 
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════════ -->
 <script>
 const SUPABASE_URL = 'https://etudmipuztkaaujqfsqn.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0dWRtaXB1enRrYWF1anFmc3FuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgxMjUzMDIsImV4cCI6MjA5MzcwMTMwMn0.4kTkstK_nQYwfQC0gnygLNb7Nk2AmCcUBvQk6UnIspk';
@@ -634,11 +832,17 @@ const db = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 let currentPage = 'atividades';
 let selectedPriority = null;
-let selectedTipo = null;
 let editingFuncId = null;
+let editingCargoId = null;
 let allFuncionarios = [];
 let selectedFuncIds = [];
+let currentUser = null;
+let currentPerfil = null;
+let historicoAgrupadoAtual = {};
+let rdoEditData = [];
+let rdoEditDate = null;
 
+// ── DATA ──────────────────────────────────────────────────
 function getToday() {
   const d = new Date();
   const y = d.getFullYear();
@@ -647,19 +851,17 @@ function getToday() {
   return `${y}-${m}-${day}`;
 }
 
-// Mantém compatibilidade com trechos antigos do código, mas sempre recalculando a data real do dia.
-Object.defineProperty(window, 'TODAY', { get: getToday });
-
-// ── DATA DISPLAY ──────────────────────────────────────────
 const days = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
 const months = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 
 function updateHeaderDate() {
+  const el = document.getElementById('headerDate');
+  if (!el) return;
   const d = new Date();
-  document.getElementById('headerDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
+  el.textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]}`;
 }
 updateHeaderDate();
-setInterval(updateHeaderDate, 60 * 1000);
+setInterval(updateHeaderDate, 60000);
 
 // ── TOAST ─────────────────────────────────────────────────
 function showToast(msg, type = 'success', duration = 3000) {
@@ -669,7 +871,199 @@ function showToast(msg, type = 'success', duration = 3000) {
   setTimeout(() => { el.className = 'toast'; }, duration);
 }
 
-// ── NAVEGAÇÃO ─────────────────────────────────────────────
+// ── UTILS ─────────────────────────────────────────────────
+function formatDate(d) {
+  if (!d || d === 'sem-data') return 'Sem data';
+  const [y, m, day] = d.split('-');
+  return `${day}/${m}/${y}`;
+}
+
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;').replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;').replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function escapeQ(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ── HELPERS DE EQUIPE ─────────────────────────────────────
+function getLinkEquipeId(link) {
+  return link.equipe_id || link.funcionario_id || link.func_id || link.membro_id || link.pessoa_id || null;
+}
+function getAtividadeId(link) {
+  return link.atividade_id || link.ativ_id || null;
+}
+async function getEquipeMap() {
+  const { data, error } = await db.from('equipe').select('*').order('nome');
+  if (error) throw error;
+  const map = {};
+  (data || []).forEach(p => { map[p.id] = p; });
+  return { lista: data || [], map };
+}
+async function getLinksAtividades() {
+  const { data, error } = await db.from('atividade_equipe').select('*');
+  if (error) throw error;
+  return data || [];
+}
+function equipeDaAtividade(atividadeId, links, equipeMap) {
+  return (links || [])
+    .filter(l => getAtividadeId(l) === atividadeId)
+    .map(l => equipeMap[getLinkEquipeId(l)])
+    .filter(Boolean);
+}
+
+// ══════════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════════
+function switchAuthTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabCadastro').classList.toggle('active', tab === 'cadastro');
+  document.getElementById('panelLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('panelCadastro').classList.toggle('active', tab === 'cadastro');
+}
+
+async function carregarCargosNoSelect(selectId) {
+  const sel = document.getElementById(selectId);
+  if (!sel) return;
+  try {
+    const { data } = await db.from('cargos').select('*').order('nome');
+    const cargos = data || [];
+    const base = sel.options[0] ? [sel.options[0]] : [];
+    while (sel.options.length > 0) sel.remove(0);
+    if (base.length) sel.add(base[0]);
+    cargos.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.nome;
+      opt.textContent = c.area ? `${c.nome} — ${c.area}` : c.nome;
+      sel.add(opt);
+    });
+  } catch(e) { /* silently fail */ }
+}
+
+async function initAuth() {
+  // Carregar cargos no select de cadastro
+  await carregarCargosNoSelect('cadCargo');
+
+  // Verifica sessão ativa
+  const { data: { session } } = await db.auth.getSession();
+  if (session?.user) {
+    currentUser = session.user;
+    await carregarPerfil();
+    mostrarApp();
+  } else {
+    mostrarAuth();
+  }
+
+  // Listener de mudanças de sessão
+  db.auth.onAuthStateChange(async (_event, session) => {
+    if (session?.user) {
+      currentUser = session.user;
+      await carregarPerfil();
+      mostrarApp();
+    } else {
+      currentUser = null;
+      currentPerfil = null;
+      mostrarAuth();
+    }
+  });
+}
+
+async function carregarPerfil() {
+  try {
+    const { data } = await db.from('perfis').select('*').eq('user_id', currentUser.id).single();
+    currentPerfil = data;
+  } catch(e) {
+    currentPerfil = null;
+  }
+}
+
+function mostrarApp() {
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  loadAtividades();
+}
+
+function mostrarAuth() {
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('authScreen').style.display = 'flex';
+}
+
+async function fazerLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const senha = document.getElementById('loginSenha').value;
+  if (!email || !senha) { showToast('Preencha email e senha!', 'warning'); return; }
+
+  const btn = document.getElementById('btnLogin');
+  btn.disabled = true; btn.textContent = 'Entrando...';
+
+  try {
+    const { error } = await db.auth.signInWithPassword({ email, password: senha });
+    if (error) throw error;
+    showToast('✅ Login realizado!', 'success');
+  } catch (err) {
+    showToast('❌ ' + traduzirErroAuth(err.message), 'error', 5000);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Entrar';
+  }
+}
+
+async function criarConta() {
+  const nome = document.getElementById('cadNome').value.trim();
+  const cargoSel = document.getElementById('cadCargo').value.trim();
+  const cargoCustom = document.getElementById('cadCargoCustom').value.trim();
+  const cargo = cargoCustom || cargoSel;
+  const area = document.getElementById('cadArea').value.trim();
+  const email = document.getElementById('cadEmail').value.trim();
+  const senha = document.getElementById('cadSenha').value;
+
+  if (!nome || !cargo || !area || !email || !senha) {
+    showToast('Preencha todos os campos obrigatórios!', 'warning'); return;
+  }
+  if (senha.length < 6) { showToast('A senha precisa ter pelo menos 6 caracteres!', 'warning'); return; }
+
+  const btn = document.getElementById('btnCadastro');
+  btn.disabled = true; btn.textContent = 'Criando conta...';
+
+  try {
+    const { data, error } = await db.auth.signUp({ email, password: senha });
+    if (error) throw error;
+
+    const userId = data.user?.id;
+    if (userId) {
+      await db.from('perfis').upsert({
+        user_id: userId, nome, cargo, area_atuacao: area, email
+      });
+    }
+    showToast('✅ Conta criada! Verifique seu email se necessário.', 'success');
+  } catch (err) {
+    showToast('❌ ' + traduzirErroAuth(err.message), 'error', 5000);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Criar Conta';
+  }
+}
+
+async function fazerLogout() {
+  if (!confirm('Deseja sair?')) return;
+  await db.auth.signOut();
+  showToast('Até logo!', 'success');
+}
+
+function traduzirErroAuth(msg) {
+  if (!msg) return 'Erro desconhecido.';
+  if (msg.includes('Invalid login credentials')) return 'Email ou senha incorretos.';
+  if (msg.includes('Email not confirmed')) return 'Confirme seu email antes de entrar.';
+  if (msg.includes('User already registered')) return 'Este email já está cadastrado.';
+  if (msg.includes('Password should be')) return 'Senha muito curta (mínimo 6 caracteres).';
+  return msg;
+}
+
+// ══════════════════════════════════════════════════════════
+// NAVEGAÇÃO
+// ══════════════════════════════════════════════════════════
 function navigate(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.bottom-item').forEach(n => n.classList.remove('active'));
@@ -680,27 +1074,254 @@ function navigate(page) {
   currentPage = page;
   if (page === 'atividades') loadAtividades();
   if (page === 'nova') { resetNovaForm(); loadFuncsForForm(); }
-  if (page === 'equipe') loadFuncionarios();
+  if (page === 'equipe') { loadFuncionarios(); loadCargos(); }
   if (page === 'historico') loadHistorico();
 }
 
-function openModal(id) { document.getElementById(id).classList.add('open'); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+// ══════════════════════════════════════════════════════════
+// EQUIPE SUB-TABS
+// ══════════════════════════════════════════════════════════
+function switchEquipeTab(tab) {
+  document.getElementById('subTabMembros').classList.toggle('active', tab === 'membros');
+  document.getElementById('subTabCargos').classList.toggle('active', tab === 'cargos');
+  document.getElementById('equipeMembrosPanel').style.display = tab === 'membros' ? 'block' : 'none';
+  document.getElementById('equipeCargosPanel').style.display = tab === 'cargos' ? 'block' : 'none';
+}
 
-// ── SELEÇÕES ──────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// CARGOS / FUNÇÕES
+// ══════════════════════════════════════════════════════════
+async function loadCargos() {
+  const container = document.getElementById('cargosList');
+  container.innerHTML = '<div class="loading">Carregando...</div>';
+  try {
+    const { data, error } = await db.from('cargos').select('*').order('nome');
+    if (error) throw error;
+    if (!data?.length) {
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">🏷️</div><div class="empty-text">Nenhuma função cadastrada ainda</div></div>`;
+      return;
+    }
+    container.innerHTML = data.map(c => `
+      <div class="cargo-card" onclick="editarCargo('${c.id}','${escapeQ(c.nome)}','${escapeQ(c.area||'')}','${escapeQ(c.descricao||'')}')">
+        <div>
+          <div class="cargo-card-name">${escapeHtml(c.nome)}</div>
+          ${c.area ? `<div class="cargo-card-area">📍 ${escapeHtml(c.area)}</div>` : ''}
+          ${c.descricao ? `<div class="cargo-card-area" style="margin-top:2px">${escapeHtml(c.descricao)}</div>` : ''}
+        </div>
+        <button class="cargo-del-btn" onclick="event.stopPropagation();confirmarDeletarCargo('${c.id}')">🗑</button>
+      </div>`).join('');
+
+    // Atualiza também o select do modal de funcionário
+    await carregarCargosNoFuncSelect();
+    await carregarCargosNoSelect('cadCargo');
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
+  }
+}
+
+async function carregarCargosNoFuncSelect() {
+  const sel = document.getElementById('funcTipoSelect');
+  if (!sel) return;
+  // Remove opções customizadas anteriores (mantém as 3 base: placeholder, eletricista, ajudante)
+  while (sel.options.length > 3) sel.remove(3);
+  try {
+    const { data } = await db.from('cargos').select('*').order('nome');
+    (data || []).forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.nome;
+      opt.textContent = `🏷️ ${c.nome}${c.area ? ' — ' + c.area : ''}`;
+      sel.add(opt);
+    });
+  } catch(e) { /* silently fail */ }
+}
+
+function openModalCargo(id, nome, area, desc) {
+  editingCargoId = id || null;
+  document.getElementById('cargoModalTitle').textContent = id ? 'Editar Função' : 'Nova Função';
+  document.getElementById('cargoNome').value = nome || '';
+  document.getElementById('cargoArea').value = area || '';
+  document.getElementById('cargoDesc').value = desc || '';
+  document.getElementById('btnDeletarCargo').style.display = id ? 'block' : 'none';
+  document.getElementById('btnSalvarCargo').disabled = false;
+  document.getElementById('btnSalvarCargo').textContent = 'Salvar Função';
+  openModal('modalCargo');
+}
+
+function editarCargo(id, nome, area, desc) {
+  openModalCargo(id, nome, area, desc);
+}
+
+async function salvarCargo() {
+  const nome = document.getElementById('cargoNome').value.trim();
+  if (!nome) { showToast('Coloca o nome da função!', 'warning'); return; }
+
+  const btn = document.getElementById('btnSalvarCargo');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  try {
+    const payload = {
+      nome,
+      area: document.getElementById('cargoArea').value.trim() || null,
+      descricao: document.getElementById('cargoDesc').value.trim() || null
+    };
+    let error;
+    if (editingCargoId) {
+      ({ error } = await db.from('cargos').update(payload).eq('id', editingCargoId));
+    } else {
+      ({ error } = await db.from('cargos').insert(payload));
+    }
+    if (error) throw error;
+    showToast(editingCargoId ? '✅ Função atualizada!' : '✅ Função criada!', 'success');
+    closeModal('modalCargo');
+    loadCargos();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error', 5000);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Salvar Função';
+  }
+}
+
+async function deletarCargo() {
+  if (!confirm('Excluir esta função?')) return;
+  try {
+    const { error } = await db.from('cargos').delete().eq('id', editingCargoId);
+    if (error) throw error;
+    showToast('🗑 Função excluída', 'success');
+    closeModal('modalCargo');
+    loadCargos();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  }
+}
+
+async function confirmarDeletarCargo(id) {
+  if (!confirm('Excluir esta função?')) return;
+  try {
+    const { error } = await db.from('cargos').delete().eq('id', id);
+    if (error) throw error;
+    showToast('🗑 Função excluída', 'success');
+    loadCargos();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// FUNCIONÁRIOS
+// ══════════════════════════════════════════════════════════
+async function loadFuncionarios() {
+  const container = document.getElementById('funcList');
+  container.innerHTML = '<div class="loading">Carregando...</div>';
+  try {
+    const { data, error } = await db.from('equipe').select('*').order('nome');
+    if (error) throw error;
+    if (!data?.length) {
+      container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhuma pessoa da equipe cadastrada ainda</div></div>`;
+      return;
+    }
+    const eletricistas = data.filter(f => f.tipo === 'eletricista');
+    const ajudantes = data.filter(f => f.tipo === 'ajudante');
+    const outros = data.filter(f => f.tipo !== 'eletricista' && f.tipo !== 'ajudante');
+    let html = '';
+    if (eletricistas.length) { html += '<div class="section-label">Eletricistas</div>'; html += eletricistas.map(f => funcCard(f)).join(''); }
+    if (ajudantes.length) { html += '<div class="section-label">Ajudantes</div>'; html += ajudantes.map(f => funcCard(f)).join(''); }
+    if (outros.length) { html += '<div class="section-label">Outros</div>'; html += outros.map(f => funcCard(f)).join(''); }
+    container.innerHTML = html;
+  } catch (err) {
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
+  }
+}
+
+function funcCard(f) {
+  const isCustom = f.tipo !== 'eletricista' && f.tipo !== 'ajudante';
+  return `
+    <div class="func-card" onclick="editarFuncionario('${f.id}','${escapeQ(f.nome)}','${escapeQ(f.tipo)}','${escapeQ(f.info_extra||'')}')">
+      <div>
+        <div class="func-name">${escapeHtml(f.nome)}</div>
+        ${f.info_extra ? `<div style="font-size:12px;color:var(--text-dim);margin-top:2px">${escapeHtml(f.info_extra)}</div>` : ''}
+      </div>
+      <span class="func-tipo-badge ${isCustom ? 'custom' : f.tipo}">${escapeHtml(f.tipo)}</span>
+    </div>`;
+}
+
+function openModalFuncionario() {
+  editingFuncId = null;
+  document.getElementById('funcModalTitle').textContent = 'Novo Membro';
+  document.getElementById('funcNome').value = '';
+  document.getElementById('funcInfo').value = '';
+  document.getElementById('funcTipoSelect').value = '';
+  document.getElementById('btnDeletarFunc').style.display = 'none';
+  document.getElementById('btnSalvarFunc').textContent = 'Salvar';
+  document.getElementById('btnSalvarFunc').disabled = false;
+  carregarCargosNoFuncSelect();
+  openModal('modalFuncionario');
+}
+
+function editarFuncionario(id, nome, tipo, info) {
+  editingFuncId = id;
+  document.getElementById('funcModalTitle').textContent = 'Editar Membro';
+  document.getElementById('funcNome').value = nome;
+  document.getElementById('funcInfo').value = info;
+  document.getElementById('btnDeletarFunc').style.display = 'block';
+  document.getElementById('btnSalvarFunc').textContent = 'Salvar Alterações';
+  document.getElementById('btnSalvarFunc').disabled = false;
+  carregarCargosNoFuncSelect().then(() => {
+    document.getElementById('funcTipoSelect').value = tipo;
+  });
+  openModal('modalFuncionario');
+}
+
+function onFuncTipoChange() { /* placeholder for future use */ }
+
+async function salvarFuncionario() {
+  const nome = document.getElementById('funcNome').value.trim();
+  const tipo = document.getElementById('funcTipoSelect').value;
+  if (!nome) { showToast('Coloca o nome da pessoa!', 'warning'); return; }
+  if (!tipo) { showToast('Seleciona a função!', 'warning'); return; }
+
+  const btn = document.getElementById('btnSalvarFunc');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  try {
+    const payload = { nome, tipo, info_extra: document.getElementById('funcInfo').value.trim() || null };
+    let error;
+    if (editingFuncId) {
+      ({ error } = await db.from('equipe').update(payload).eq('id', editingFuncId));
+    } else {
+      ({ error } = await db.from('equipe').insert(payload));
+    }
+    if (error) throw error;
+    showToast(editingFuncId ? '✅ Membro atualizado!' : '✅ Membro cadastrado!', 'success');
+    closeModal('modalFuncionario');
+    loadFuncionarios();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error', 5000);
+    btn.disabled = false; btn.textContent = editingFuncId ? 'Salvar Alterações' : 'Salvar';
+  }
+}
+
+async function deletarFuncionario() {
+  if (!confirm('Excluir este membro?')) return;
+  try {
+    const { error } = await db.from('equipe').delete().eq('id', editingFuncId);
+    if (error) throw error;
+    showToast('🗑 Membro excluído', 'success');
+    closeModal('modalFuncionario');
+    loadFuncionarios();
+  } catch (err) {
+    showToast('❌ Erro: ' + err.message, 'error');
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// NOVA ATIVIDADE
+// ══════════════════════════════════════════════════════════
 function selectPriority(p) {
   selectedPriority = p;
   document.querySelectorAll('#page-nova .priority-pill').forEach(b => b.classList.remove('selected'));
   document.querySelector(`#page-nova .priority-pill.${p}`).classList.add('selected');
 }
 
-function selectTipo(t) {
-  selectedTipo = t;
-  document.getElementById('tipoEletricista').classList.toggle('selected', t === 'eletricista');
-  document.getElementById('tipoAjudante').classList.toggle('selected', t === 'ajudante');
-}
-
-// ── FUNCIONÁRIOS NO FORMULÁRIO ────────────────────────────
 async function loadFuncsForForm() {
   const container = document.getElementById('funcCheckList');
   try {
@@ -708,27 +1329,20 @@ async function loadFuncsForForm() {
     if (error) throw error;
     allFuncionarios = data || [];
     selectedFuncIds = [];
-
     if (!allFuncionarios.length) {
-      container.innerHTML = `
-        <div style="color:var(--text-dim);font-size:13px;padding:8px 0;">
-          Nenhuma pessoa da equipe cadastrada ainda. 
-          <span style="color:var(--industrial-blue);cursor:pointer;text-decoration:underline;" onclick="navigate('equipe')">Cadastrar agora →</span>
-        </div>`;
+      container.innerHTML = `<div style="color:var(--text-dim);font-size:13px;padding:8px 0;">Nenhum membro cadastrado. <span style="color:var(--industrial-blue);cursor:pointer;text-decoration:underline;" onclick="navigate('equipe')">Cadastrar →</span></div>`;
       return;
     }
-
     container.innerHTML = allFuncionarios.map(f => `
       <div class="func-check-item" id="fci-${f.id}" onclick="toggleFunc('${f.id}')">
         <input type="checkbox" id="fc-${f.id}" onclick="event.stopPropagation(); toggleFunc('${f.id}')">
         <div>
-          <div class="func-check-name">${f.nome}</div>
-          <div class="func-check-tipo">${f.tipo}</div>
+          <div class="func-check-name">${escapeHtml(f.nome)}</div>
+          <div class="func-check-tipo">${escapeHtml(f.tipo)}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   } catch (err) {
-    container.innerHTML = `<div style="color:var(--alta);font-size:13px;">Erro ao carregar: ${err.message}</div>`;
+    container.innerHTML = `<div style="color:var(--alta);font-size:13px;">Erro: ${err.message}</div>`;
   }
 }
 
@@ -736,26 +1350,17 @@ function toggleFunc(id) {
   const idx = selectedFuncIds.indexOf(id);
   const el = document.getElementById('fci-' + id);
   const cb = document.getElementById('fc-' + id);
-  if (idx === -1) {
-    selectedFuncIds.push(id);
-    el.classList.add('selected');
-    cb.checked = true;
-  } else {
-    selectedFuncIds.splice(idx, 1);
-    el.classList.remove('selected');
-    cb.checked = false;
-  }
+  if (idx === -1) { selectedFuncIds.push(id); el.classList.add('selected'); cb.checked = true; }
+  else { selectedFuncIds.splice(idx, 1); el.classList.remove('selected'); cb.checked = false; }
 }
 
-// ── SALVAR ATIVIDADE ──────────────────────────────────────
 async function salvarAtividade() {
   const nome = document.getElementById('newNome').value.trim();
   if (!nome) { showToast('Coloca o nome da atividade!', 'warning'); return; }
   if (!selectedPriority) { showToast('Seleciona a prioridade!', 'warning'); return; }
 
   const btn = document.getElementById('btnSalvarAtiv');
-  btn.disabled = true;
-  btn.textContent = 'Salvando...';
+  btn.disabled = true; btn.textContent = 'Salvando...';
 
   try {
     const payload = {
@@ -766,25 +1371,19 @@ async function salvarAtividade() {
       data_criacao: getToday(),
       status: 'pendente'
     };
-
     const { data: ativ, error } = await db.from('atividades').insert(payload).select().single();
     if (error) throw error;
-
     if (selectedFuncIds.length) {
       const links = selectedFuncIds.map(fid => ({ atividade_id: ativ.id, funcionario_id: fid }));
-      const { error: linkErr } = await db.from('atividade_equipe').insert(links);
-      if (linkErr) console.warn('Erro ao vincular membros:', linkErr.message);
+      await db.from('atividade_equipe').insert(links);
     }
-
-    showToast('✅ Atividade salva com sucesso!', 'success');
+    showToast('✅ Atividade salva!', 'success');
     resetNovaForm();
     setTimeout(() => navigate('atividades'), 800);
   } catch (err) {
     showToast('❌ Erro: ' + err.message, 'error', 5000);
-    console.error('Erro salvarAtividade:', err);
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Salvar Atividade';
+    btn.disabled = false; btn.textContent = 'Salvar Atividade';
   }
 }
 
@@ -797,65 +1396,21 @@ function resetNovaForm() {
   selectedFuncIds = [];
 }
 
-
-function getLinkEquipeId(link) {
-  return link.equipe_id || link.funcionario_id || link.func_id || link.membro_id || link.pessoa_id || null;
-}
-
-function getAtividadeId(link) {
-  return link.atividade_id || link.ativ_id || null;
-}
-
-async function getEquipeMap() {
-  const { data, error } = await db.from('equipe').select('*').order('nome');
-  if (error) throw error;
-  const map = {};
-  (data || []).forEach(p => { map[p.id] = p; });
-  return { lista: data || [], map };
-}
-
-async function getLinksAtividades() {
-  const { data, error } = await db.from('atividade_equipe').select('*');
-  if (error) throw error;
-  return data || [];
-}
-
-function equipeDaAtividade(atividadeId, links, equipeMap) {
-  return (links || [])
-    .filter(l => getAtividadeId(l) === atividadeId)
-    .map(l => equipeMap[getLinkEquipeId(l)])
-    .filter(Boolean);
-}
-
-
-// ── LOAD ATIVIDADES ───────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+// ATIVIDADES
+// ══════════════════════════════════════════════════════════
 async function loadAtividades() {
   const container = document.getElementById('taskList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
-
   try {
     const hoje = getToday();
-
-    // Dashboard mostra somente pendentes: atividades de hoje + atividades antigas não concluídas.
-    // Concluídas ficam apenas no Histórico/RDO.
-    const { data: todas, error: e1 } = await db
-      .from('atividades')
-      .select('*')
-      .neq('status', 'concluida')
-      .lte('data_criacao', hoje)
-      .order('criado_em', { ascending: true });
+    const { data: todas, error: e1 } = await db.from('atividades').select('*').neq('status', 'concluida').lte('data_criacao', hoje).order('criado_em', { ascending: true });
     if (e1) throw e1;
-
-    const { data: concluidasHoje, error: e2 } = await db
-      .from('atividades')
-      .select('id')
-      .eq('status', 'concluida')
-      .eq('data_conclusao', hoje);
+    const { data: concluidasHoje, error: e2 } = await db.from('atividades').select('id').eq('status', 'concluida').eq('data_conclusao', hoje);
     if (e2) throw e2;
 
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
-
     const pendentes = todas || [];
     const priorityOrder = { alta: 0, media: 1, baixa: 2 };
     pendentes.sort((a, b) => (priorityOrder[a.prioridade] ?? 9) - (priorityOrder[b.prioridade] ?? 9));
@@ -868,9 +1423,7 @@ async function loadAtividades() {
 
     if (!pendentes.length) {
       htmlOut = '<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-text">Nenhuma atividade pendente hoje!</div></div>';
-    }
-
-    if (pendentes.length) {
+    } else {
       htmlOut += '<div class="section-label">Pendentes</div>';
       htmlOut += pendentes.map(t => {
         const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
@@ -879,9 +1432,9 @@ async function loadAtividades() {
           <div class="task-card ${t.prioridade}" onclick="openDetalhe('${t.id}')">
             <div class="priority-dot"></div>
             <div class="task-info">
-              <div class="task-name">${t.nome}${transferida ? '<span class="transfer-badge">↩ transferida</span>' : ''}</div>
+              <div class="task-name">${escapeHtml(t.nome)}${transferida ? '<span class="transfer-badge">↩ transferida</span>' : ''}</div>
               <div class="task-meta">
-                <span class="tag ${t.prioridade}">${prioLabels[t.prioridade] || t.prioridade || 'Prioridade'}</span>
+                <span class="tag ${t.prioridade}">${prioLabels[t.prioridade] || t.prioridade}</span>
                 ${t.prazo ? `<span>📅 ${formatDate(t.prazo)}</span>` : ''}
                 ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
               </div>
@@ -890,11 +1443,9 @@ async function loadAtividades() {
           </div>`;
       }).join('');
     }
-
     container.innerHTML = htmlOut;
   } catch (err) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro ao carregar: ${err.message}</div></div>`;
-    console.error('loadAtividades:', err);
+    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
   }
 }
 
@@ -909,16 +1460,10 @@ async function concluirAtividade(id) {
   }
 }
 
-// ── DETALHE ATIVIDADE ─────────────────────────────────────
 async function openDetalhe(id) {
   try {
-    const { data: t, error } = await db
-      .from('atividades')
-      .select('*')
-      .eq('id', id)
-      .single();
+    const { data: t, error } = await db.from('atividades').select('*').eq('id', id).single();
     if (error) throw error;
-
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
     const funcs = equipeDaAtividade(t.id, links, equipeMap);
@@ -927,29 +1472,20 @@ async function openDetalhe(id) {
     document.getElementById('modalDetalheContent').innerHTML = `
       <div class="detail-field">
         <div class="detail-label">Atividade</div>
-        <div class="detail-value" style="font-size:18px;">${t.nome}</div>
+        <div class="detail-value" style="font-size:18px;">${escapeHtml(t.nome)}</div>
       </div>
       <div class="detail-field">
         <div class="detail-label">Prioridade</div>
-        <span class="tag ${t.prioridade}">${prioLabels[t.prioridade] || t.prioridade || 'Prioridade'}</span>
+        <span class="tag ${t.prioridade}">${prioLabels[t.prioridade] || t.prioridade}</span>
       </div>
-      ${t.descricao ? `<div class="detail-field"><div class="detail-label">Descrição</div><div class="detail-value">${t.descricao}</div></div>` : ''}
+      ${t.descricao ? `<div class="detail-field"><div class="detail-label">Descrição</div><div class="detail-value">${escapeHtml(t.descricao)}</div></div>` : ''}
       ${t.prazo ? `<div class="detail-field"><div class="detail-label">Prazo</div><div class="detail-value">📅 ${formatDate(t.prazo)}</div></div>` : ''}
       <div class="detail-field">
         <div class="detail-label">Status</div>
         <span class="tag ${t.status === 'concluida' ? 'concluida' : t.prioridade}">${t.status === 'concluida' ? 'Concluída' : 'Pendente'}</span>
       </div>
-      <div class="detail-field">
-        <div class="detail-label">Criada em</div>
-        <div class="detail-value">${formatDate(t.data_criacao)}</div>
-      </div>
-      ${funcs.length ? `
-        <div class="detail-field">
-          <div class="detail-label">Equipe</div>
-          <div class="func-list-inline">
-            ${funcs.map(f => `<span class="func-chip">👷 ${f.nome} <span style="opacity:.6;font-size:10px">(${f.tipo || ''})</span></span>`).join('')}
-          </div>
-        </div>` : ''}
+      <div class="detail-field"><div class="detail-label">Criada em</div><div class="detail-value">${formatDate(t.data_criacao)}</div></div>
+      ${funcs.length ? `<div class="detail-field"><div class="detail-label">Equipe</div><div class="func-list-inline">${funcs.map(f => `<span class="func-chip">👷 ${escapeHtml(f.nome)}</span>`).join('')}</div></div>` : ''}
       <div style="margin-top:20px;display:flex;flex-direction:column;gap:8px">
         ${t.status !== 'concluida' ? `<button class="btn btn-primary" onclick="concluirAtividade('${t.id}');closeModal('modalDetalhe')">✓ Marcar como Concluída</button>` : ''}
         <button class="btn btn-secondary" onclick="closeModal('modalDetalhe');editarPrioridade('${t.id}','${t.prioridade}')">✏️ Editar Prioridade</button>
@@ -957,7 +1493,7 @@ async function openDetalhe(id) {
       </div>`;
     openModal('modalDetalhe');
   } catch (err) {
-    showToast('❌ Erro ao abrir detalhes: ' + err.message, 'error');
+    showToast('❌ Erro: ' + err.message, 'error');
   }
 }
 
@@ -985,150 +1521,22 @@ async function deletarAtividade(id) {
   }
 }
 
-// ── FUNCIONÁRIOS ──────────────────────────────────────────
-async function loadFuncionarios() {
-  const container = document.getElementById('funcList');
-  container.innerHTML = '<div class="loading">Carregando...</div>';
-  try {
-    const { data, error } = await db.from('equipe').select('*').order('nome');
-    if (error) throw error;
-
-    if (!data?.length) {
-      container.innerHTML = `<div class="empty-state"><div class="empty-icon">👷</div><div class="empty-text">Nenhuma pessoa da equipe cadastrada ainda</div></div>`;
-      return;
-    }
-
-    const eletricistas = data.filter(f => f.tipo === 'eletricista');
-    const ajudantes = data.filter(f => f.tipo === 'ajudante');
-    let html = '';
-    if (eletricistas.length) {
-      html += '<div class="section-label">Eletricistas</div>';
-      html += eletricistas.map(f => funcCard(f)).join('');
-    }
-    if (ajudantes.length) {
-      html += '<div class="section-label">Ajudantes</div>';
-      html += ajudantes.map(f => funcCard(f)).join('');
-    }
-    container.innerHTML = html;
-  } catch (err) {
-    container.innerHTML = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">Erro: ${err.message}</div></div>`;
-    console.error('loadFuncionarios:', err);
-  }
-}
-
-function funcCard(f) {
-  return `
-    <div class="func-card" onclick="editarFuncionario('${f.id}','${escapeQ(f.nome)}','${f.tipo}','${escapeQ(f.info_extra||'')}')">
-      <div>
-        <div class="func-name">${f.nome}</div>
-        ${f.info_extra ? `<div style="font-size:12px;color:var(--text-dim);margin-top:2px">${f.info_extra}</div>` : ''}
-      </div>
-      <span class="func-tipo-badge ${f.tipo}">${f.tipo}</span>
-    </div>`;
-}
-
-function escapeQ(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
-
-function openModalFuncionario() {
-  editingFuncId = null;
-  document.getElementById('funcModalTitle').textContent = 'Novo Membro';
-  document.getElementById('funcNome').value = '';
-  document.getElementById('funcInfo').value = '';
-  document.getElementById('btnDeletarFunc').style.display = 'none';
-  document.getElementById('btnSalvarFunc').textContent = 'Salvar';
-  document.getElementById('btnSalvarFunc').disabled = false;
-  selectedTipo = null;
-  document.getElementById('tipoEletricista').classList.remove('selected');
-  document.getElementById('tipoAjudante').classList.remove('selected');
-  openModal('modalFuncionario');
-}
-
-function editarFuncionario(id, nome, tipo, info) {
-  editingFuncId = id;
-  document.getElementById('funcModalTitle').textContent = 'Editar Membro';
-  document.getElementById('funcNome').value = nome;
-  document.getElementById('funcInfo').value = info;
-  document.getElementById('btnDeletarFunc').style.display = 'block';
-  document.getElementById('btnSalvarFunc').textContent = 'Salvar Alterações';
-  document.getElementById('btnSalvarFunc').disabled = false;
-  selectedTipo = tipo;
-  document.getElementById('tipoEletricista').classList.toggle('selected', tipo === 'eletricista');
-  document.getElementById('tipoAjudante').classList.toggle('selected', tipo === 'ajudante');
-  openModal('modalFuncionario');
-}
-
-async function salvarFuncionario() {
-  const nome = document.getElementById('funcNome').value.trim();
-  if (!nome) { showToast('Coloca o nome da pessoa!', 'warning'); return; }
-  if (!selectedTipo) { showToast('Seleciona a função (Eletricista ou Ajudante)!', 'warning'); return; }
-
-  const btn = document.getElementById('btnSalvarFunc');
-  btn.disabled = true;
-  btn.textContent = 'Salvando...';
-
-  try {
-    const payload = {
-      nome,
-      tipo: selectedTipo,
-      info_extra: document.getElementById('funcInfo').value.trim() || null
-    };
-
-    let error;
-    if (editingFuncId) {
-      ({ error } = await db.from('equipe').update(payload).eq('id', editingFuncId));
-    } else {
-      ({ error } = await db.from('equipe').insert(payload));
-    }
-
-    if (error) throw error;
-
-    showToast(editingFuncId ? '✅ Membro atualizado!' : '✅ Membro cadastrado!', 'success');
-    closeModal('modalFuncionario');
-    loadFuncionarios();
-  } catch (err) {
-    showToast('❌ Erro ao salvar: ' + err.message, 'error', 6000);
-    console.error('salvarFuncionario:', err);
-    btn.disabled = false;
-    btn.textContent = editingFuncId ? 'Salvar Alterações' : 'Salvar';
-  }
-}
-
-async function deletarFuncionario() {
-  if (!confirm('Excluir este membro?')) return;
-  try {
-    const { error } = await db.from('equipe').delete().eq('id', editingFuncId);
-    if (error) throw error;
-    showToast('🗑 Membro excluído', 'success');
-    closeModal('modalFuncionario');
-    loadFuncionarios();
-  } catch (err) {
-    showToast('❌ Erro: ' + err.message, 'error');
-  }
-}
-
-// ── HISTÓRICO ─────────────────────────────────────────────
-let historicoAgrupadoAtual = {};
-
+// ══════════════════════════════════════════════════════════
+// HISTÓRICO
+// ══════════════════════════════════════════════════════════
 async function loadHistorico() {
   const container = document.getElementById('histList');
   container.innerHTML = '<div class="loading">Carregando...</div>';
   try {
-    const { data, error } = await db
-      .from('atividades')
-      .select('*')
-      .eq('status', 'concluida')
-      .order('data_conclusao', { ascending: false });
+    const { data, error } = await db.from('atividades').select('*').eq('status', 'concluida').order('data_conclusao', { ascending: false });
     if (error) throw error;
-
     if (!data?.length) {
       container.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Nenhuma atividade concluída ainda</div></div>';
       historicoAgrupadoAtual = {};
       return;
     }
-
     const { map: equipeMap } = await getEquipeMap();
     const links = await getLinksAtividades();
-
     const grouped = {};
     data.forEach(t => {
       const key = t.data_conclusao || t.data_criacao || 'sem-data';
@@ -1136,7 +1544,6 @@ async function loadHistorico() {
       grouped[key].push(t);
     });
     historicoAgrupadoAtual = grouped;
-
     let htmlOut = '';
     Object.keys(grouped).sort().reverse().forEach(date => {
       htmlOut += `
@@ -1144,16 +1551,15 @@ async function loadHistorico() {
           <span class="hist-day-title">📅 ${formatDate(date)} — ${grouped[date].length} atividade(s)</span>
           <button class="btn-rdo" onclick="event.stopPropagation();criarRDO('${date}')">Criar RDO</button>
         </div>`;
-
       grouped[date].forEach(t => {
         const funcs = equipeDaAtividade(t.id, links, equipeMap).map(p => p.nome).filter(Boolean);
         htmlOut += `
           <div class="task-card concluida" style="margin-bottom:8px" onclick="openDetalhe('${t.id}')">
             <div class="priority-dot"></div>
             <div class="task-info">
-              <div class="task-name">${t.nome}</div>
+              <div class="task-name">${escapeHtml(t.nome)}</div>
               <div class="task-meta">
-                ${t.descricao ? `<span>📝 ${escapeHtml(t.descricao).slice(0, 60)}${t.descricao.length > 60 ? '...' : ''}</span>` : ''}
+                ${t.descricao ? `<span>📝 ${escapeHtml(t.descricao).slice(0,60)}${t.descricao.length > 60 ? '...' : ''}</span>` : ''}
                 ${funcs.length ? `<span>👷 ${funcs.join(', ')}</span>` : ''}
               </div>
             </div>
@@ -1167,268 +1573,197 @@ async function loadHistorico() {
   }
 }
 
+// ══════════════════════════════════════════════════════════
+// RDO — EDITOR + PREVIEW + EXPORT
+// ══════════════════════════════════════════════════════════
 async function criarRDO(date) {
-  try {
-    const atividades = historicoAgrupadoAtual[date] || [];
+  const atividades = historicoAgrupadoAtual[date] || [];
+  if (!atividades.length) { showToast('Nenhuma atividade para esta data.', 'warning'); return; }
 
-    if (!atividades.length) {
-      showToast('Nenhuma atividade encontrada para esta data.', 'warning');
-      return;
-    }
+  rdoEditDate = date;
+  rdoEditData = atividades.map(t => ({
+    nome: t.nome || '',
+    descricao: t.descricao || ''
+  }));
 
-    // Guarda os dados do RDO em memória.
-    // A tela usa um layout normal em blocos.
-    // O botão copiar usa texto limpo.
-    // O PDF usa tabela.
-    window.rdoAtual = {
-      date,
-      atividades: atividades.map(t => ({
-        nome: t.nome || '',
-        descricao: t.descricao || 'Sem descrição cadastrada.'
-      }))
-    };
+  document.getElementById('rdoModalTitleText').textContent = 'Editar RDO';
+  renderRDOEditor();
+  openModal('modalRDO');
+}
 
-    const linhasTela = window.rdoAtual.atividades.map((t, index) => {
-      return `
-        <div class="bloco-rdo">
-          <div class="titulo-rdo">${index + 1}. ${escapeHtml(t.nome)}</div>
-          <div class="descricao-rdo">
-            <strong>Descrição:</strong><br>
-            ${escapeHtml(t.descricao)}
-          </div>
-        </div>
-      `;
-    }).join('');
+function renderRDOEditor() {
+  const container = document.getElementById('modalRDOContent');
 
-    const html = `
-      <div class="rdo-documento" id="rdoVisual">
-        <div class="rdo-header">
-          <h1>Relatório Diário de Obra (RDO)</h1>
-          <div class="rdo-data">Data: ${formatDate(date)}</div>
-        </div>
-
-        <div class="rdo-section-title">Atividades concluídas</div>
-
-        ${linhasTela}
+  const blocos = rdoEditData.map((item, i) => `
+    <div class="rdo-edit-block" id="rdoBlock-${i}">
+      <div class="rdo-edit-block-header">
+        <span class="rdo-edit-num">Atividade ${i + 1}</span>
+        <button class="rdo-edit-del" onclick="rdoRemoverItem(${i})">✕ Remover</button>
       </div>
+      <div class="rdo-edit-nome">
+        <label>Nome da atividade</label>
+        <input type="text" value="${escapeHtml(item.nome)}" oninput="rdoUpdateNome(${i}, this.value)" placeholder="Nome da atividade...">
+      </div>
+      <div class="rdo-edit-desc">
+        <label>Descrição / O que foi feito</label>
+        <textarea oninput="rdoUpdateDesc(${i}, this.value)" placeholder="Descreva o que foi realizado...">${escapeHtml(item.descricao)}</textarea>
+      </div>
+    </div>`).join('');
 
-      <button class="btn btn-primary" style="margin-top:14px" onclick="copiarRDO()">Copiar RDO</button>
-      <button class="btn btn-secondary" onclick="imprimirRDO()">Baixar PDF</button>
-    `;
+  container.innerHTML = `
+    <div style="margin-bottom:14px;">
+      <div style="font-size:13px;color:var(--text-dim);font-weight:600;">
+        📅 <strong>${formatDate(rdoEditDate)}</strong> — ${rdoEditData.length} atividade(s)
+      </div>
+      <div style="font-size:12px;color:var(--text-soft);margin-top:4px;">
+        Edite nomes e descrições antes de exportar o relatório.
+      </div>
+    </div>
 
-    document.getElementById('modalRDOContent').innerHTML = html;
-    openModal('modalRDO');
+    ${blocos}
 
-  } catch (err) {
-    showToast('❌ Erro ao criar RDO: ' + err.message, 'error');
-  }
+    <button class="rdo-add-item" onclick="rdoAdicionarItem()">➕ Adicionar Item</button>
+
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px;">
+      <button class="btn btn-primary" onclick="rdoVerPreview()">👁 Visualizar RDO</button>
+      <button class="btn btn-secondary" onclick="copiarRDO()">📋 Copiar Texto</button>
+      <button class="btn btn-secondary" style="margin-top:0" onclick="imprimirRDO()">⬇️ Baixar PDF</button>
+    </div>
+  `;
+}
+
+function rdoUpdateNome(i, val) { rdoEditData[i].nome = val; }
+function rdoUpdateDesc(i, val) { rdoEditData[i].descricao = val; }
+
+function rdoRemoverItem(i) {
+  rdoEditData.splice(i, 1);
+  renderRDOEditor();
+}
+
+function rdoAdicionarItem() {
+  rdoEditData.push({ nome: '', descricao: '' });
+  renderRDOEditor();
+  // Scroll to bottom of modal
+  const modal = document.querySelector('#modalRDO .modal');
+  setTimeout(() => { modal.scrollTop = modal.scrollHeight; }, 50);
+}
+
+function rdoVerPreview() {
+  const container = document.getElementById('modalRDOContent');
+
+  const blocos = rdoEditData.filter(i => i.nome.trim()).map((item, idx) => `
+    <div class="bloco-rdo">
+      <div class="titulo-rdo">${idx + 1}. ${escapeHtml(item.nome)}</div>
+      <div class="descricao-rdo"><strong>Descrição:</strong><br>${escapeHtml(item.descricao || 'Sem descrição.')}</div>
+    </div>`).join('');
+
+  container.innerHTML = `
+    <div class="rdo-documento">
+      <div class="rdo-header">
+        <h1>Relatório Diário de Obra (RDO)</h1>
+        <div class="rdo-data">Data: ${formatDate(rdoEditDate)}</div>
+      </div>
+      <div class="rdo-section-title">Atividades concluídas</div>
+      ${blocos || '<div style="color:var(--text-dim);font-size:14px;">Nenhum item com nome preenchido.</div>'}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:16px;">
+      <button class="btn btn-secondary" onclick="renderRDOEditor()">✏️ Voltar e Editar</button>
+      <button class="btn btn-primary" onclick="copiarRDO()">📋 Copiar Texto</button>
+      <button class="btn btn-secondary" style="margin-top:0" onclick="imprimirRDO()">⬇️ Baixar PDF</button>
+    </div>`;
 }
 
 function montarTextoRDO() {
-  const rdo = window.rdoAtual;
-
-  if (!rdo || !rdo.atividades || !rdo.atividades.length) {
-    return '';
-  }
-
-  const linhas = rdo.atividades.map((t, index) => {
-    const nome = (t.nome || '').trim();
-    const descricao = (t.descricao || 'Sem descrição cadastrada.').trim();
-
-    return `${index + 1}. ${nome}\nDescrição: ${descricao}`;
-  }).join('\n\n');
-
-  return `RELATÓRIO DIÁRIO DE OBRA (RDO)\nData: ${formatDate(rdo.date)}\n\nATIVIDADES CONCLUÍDAS\n\n${linhas}`;
+  const itens = rdoEditData.filter(i => i.nome.trim());
+  if (!itens.length) return '';
+  const linhas = itens.map((t, i) => `${i+1}. ${t.nome.trim()}\nDescrição: ${(t.descricao || 'Sem descrição.').trim()}`).join('\n\n');
+  return `RELATÓRIO DIÁRIO DE OBRA (RDO)\nData: ${formatDate(rdoEditDate)}\n\nATIVIDADES CONCLUÍDAS\n\n${linhas}`;
 }
 
 function copiarTextoFallback(texto) {
   const area = document.createElement('textarea');
   area.value = texto;
   area.setAttribute('readonly', '');
-  area.style.position = 'fixed';
-  area.style.top = '0';
-  area.style.left = '0';
-  area.style.width = '1px';
-  area.style.height = '1px';
-  area.style.opacity = '0';
-  area.style.zIndex = '-1';
-
+  area.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;z-index:-1';
   document.body.appendChild(area);
-  area.focus();
-  area.select();
-  area.setSelectionRange(0, area.value.length);
-
-  let copiou = false;
-
-  try {
-    copiou = document.execCommand('copy');
-  } catch (err) {
-    copiou = false;
-  }
-
+  area.focus(); area.select(); area.setSelectionRange(0, area.value.length);
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) { ok = false; }
   document.body.removeChild(area);
-  return copiou;
+  return ok;
 }
 
 async function copiarRDO() {
   const texto = montarTextoRDO();
-
-  if (!texto) {
-    showToast('Não encontrei o conteúdo do RDO para copiar.', 'warning');
-    return;
-  }
-
+  if (!texto) { showToast('Preencha pelo menos um item!', 'warning'); return; }
   try {
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(texto);
-      showToast('📋 RDO copiado!', 'success');
-      return;
+      showToast('📋 RDO copiado!', 'success'); return;
     }
-  } catch (err) {
-    console.warn('Clipboard API falhou, usando fallback:', err);
-  }
-
-  const copiouFallback = copiarTextoFallback(texto);
-
-  if (copiouFallback) {
-    showToast('📋 RDO copiado!', 'success');
-  } else {
-    showToast('Não consegui copiar automaticamente. Selecione o texto do RDO e copie manualmente.', 'warning', 5000);
-  }
+  } catch(e) { /* fallback */ }
+  const ok = copiarTextoFallback(texto);
+  showToast(ok ? '📋 RDO copiado!' : 'Selecione e copie manualmente.', ok ? 'success' : 'warning', 5000);
 }
 
 function imprimirRDO() {
-  const rdo = window.rdoAtual;
-
-  if (!rdo || !rdo.atividades || !rdo.atividades.length) {
-    showToast('Não encontrei o conteúdo do RDO para gerar PDF.', 'warning');
-    return;
-  }
-
-  if (!window.jspdf || !window.jspdf.jsPDF) {
-    showToast('Não consegui carregar o gerador de PDF. Verifique a internet e tente novamente.', 'error', 5000);
-    return;
-  }
+  const itens = rdoEditData.filter(i => i.nome.trim());
+  if (!itens.length) { showToast('Preencha pelo menos um item!', 'warning'); return; }
+  if (!window.jspdf?.jsPDF) { showToast('Gerador de PDF não carregado.', 'error', 5000); return; }
 
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({
-    orientation: 'portrait',
-    unit: 'mm',
-    format: 'a4'
-  });
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const dataFormatada = formatDate(rdoEditDate);
 
-  const dataFormatada = formatDate(rdo.date);
-  const nomeArquivo = `RDO_${dataFormatada.replaceAll('/', '-')}.pdf`;
-
-  doc.setProperties({
-    title: `RDO - ${dataFormatada}`,
-    subject: 'Relatório Diário de Obra',
-    creator: 'Gestão Elétrica'
-  });
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(16);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(16);
   doc.text('RELATÓRIO DIÁRIO DE OBRA (RDO)', 14, 18);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(11);
+  doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
   doc.text(`Data: ${dataFormatada}`, 14, 28);
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(13);
+  doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
   doc.text('ATIVIDADES CONCLUÍDAS', 14, 42);
 
-  const body = rdo.atividades.map(t => [
-    t.nome || '',
-    t.descricao || 'Sem descrição cadastrada.'
-  ]);
+  const body = itens.map(t => [t.nome.trim(), t.descricao.trim() || 'Sem descrição.']);
 
   doc.autoTable({
     startY: 48,
     head: [['Atividade', 'Descrição']],
     body,
     theme: 'grid',
-    styles: {
-      font: 'helvetica',
-      fontSize: 10,
-      cellPadding: 3,
-      valign: 'top',
-      lineColor: [203, 213, 225],
-      lineWidth: 0.2,
-      textColor: [17, 17, 17]
-    },
-    headStyles: {
-      fillColor: [241, 245, 249],
-      textColor: [17, 17, 17],
-      fontStyle: 'bold'
-    },
-    columnStyles: {
-      0: { cellWidth: 55, fontStyle: 'bold' },
-      1: { cellWidth: 125 }
-    },
+    styles: { font: 'helvetica', fontSize: 10, cellPadding: 3, valign: 'top', lineColor: [203, 213, 225], lineWidth: 0.2, textColor: [17, 17, 17] },
+    headStyles: { fillColor: [241, 245, 249], textColor: [17, 17, 17], fontStyle: 'bold' },
+    columnStyles: { 0: { cellWidth: 55, fontStyle: 'bold' }, 1: { cellWidth: 125 } },
     margin: { top: 14, right: 14, bottom: 14, left: 14 }
   });
 
-  doc.save(nomeArquivo);
+  doc.save(`RDO_${dataFormatada.replaceAll('/', '-')}.pdf`);
 }
 
-function labelPrioridade(p) {
-  const labels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
-  return labels[p] || p || 'Não informada';
-}
-
-// Corrige o erro específico informado: atividades concluídas em 25/05/2026
-// que ficaram registradas no histórico como 26/05/2026.
+// ══════════════════════════════════════════════════════════
+// MIGRAÇÃO / INIT
+// ══════════════════════════════════════════════════════════
 async function corrigirHistorico25Maio() {
-  const migrationKey = 'gestao_eletrica_fix_25_05_2026_v1';
-  if (localStorage.getItem(migrationKey)) return;
-
+  const key = 'gestao_eletrica_fix_25_05_2026_v1';
+  if (localStorage.getItem(key)) return;
   try {
-    const { error } = await db
-      .from('atividades')
-      .update({ data_conclusao: '2026-05-25' })
-      .eq('status', 'concluida')
-      .eq('data_conclusao', '2026-05-26')
-      .lte('data_criacao', '2026-05-25');
-
-    if (error) throw error;
-
-    localStorage.setItem(migrationKey, 'ok');
-    console.log('Correção 25/05/2026 aplicada ao histórico.');
-  } catch (err) {
-    console.warn('Não foi possível aplicar a correção automática do histórico:', err.message);
-  }
+    await db.from('atividades').update({ data_conclusao: '2026-05-25' })
+      .eq('status', 'concluida').eq('data_conclusao', '2026-05-26').lte('data_criacao', '2026-05-25');
+    localStorage.setItem(key, 'ok');
+  } catch(e) { /* silently fail */ }
 }
 
-// ── UTILS ─────────────────────────────────────────────────
-function formatDate(d) {
-  if (!d || d === 'sem-data') return 'Sem data';
-  const [y, m, day] = d.split('-');
-  return `${day}/${m}/${y}`;
-}
-
-function escapeHtml(value) {
-  return String(value || '')
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#039;');
-}
-
-// ── INIT ──────────────────────────────────────────────────
-corrigirHistorico25Maio().finally(() => loadAtividades());
+// Inicia tudo
+corrigirHistorico25Maio();
+initAuth();
 </script>
 
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('./service-worker.js')
-      .then(() => console.log('Service Worker registrado'))
-      .catch(err => console.error('Erro no Service Worker:', err));
+      .then(() => console.log('SW registrado'))
+      .catch(err => console.error('Erro SW:', err));
   });
 }
 </script>
-
 </body>
 </html> 
