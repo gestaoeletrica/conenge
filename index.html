@@ -343,6 +343,45 @@
   input:focus, textarea:focus, select:focus { border-color: var(--industrial-blue); box-shadow: 0 0 0 3px rgba(11, 79, 138, 0.16); }
   textarea { resize: none; min-height: 90px; }
 
+  .remember-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: -4px 0 18px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .remember-login input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    margin: 0;
+    border: 2px solid var(--border-strong);
+    border-radius: 7px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .remember-login input[type=checkbox]:checked {
+    background: var(--industrial-blue);
+    border-color: var(--industrial-blue-strong);
+  }
+  .remember-login input[type=checkbox]:checked::after {
+    content: '✓';
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
   .priority-pills { display: flex; gap: 8px; }
   .priority-pill { flex: 1; padding: 11px 4px; border-radius: 8px; border: 2px solid var(--border-strong); background: #ffffff; color: var(--text-dim); font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; text-align: center; }
   .priority-pill.alta.selected { border-color: var(--alta); background: var(--alta-bg); color: var(--alta); }
@@ -544,6 +583,10 @@
         <label>Senha</label>
         <input type="password" id="loginSenha" placeholder="••••••••" autocomplete="current-password">
       </div>
+      <label class="remember-login">
+        <input type="checkbox" id="manterConectado" checked>
+        <span>Manter conectado neste dispositivo</span>
+      </label>
       <button class="btn btn-primary" id="btnLogin" onclick="fazerLogin()">Entrar</button>
     </div>
 
@@ -794,7 +837,14 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const DENER_USER_ID = 'f2f495a0-42dd-42f8-ab8f-f89ff4f6098f';
 
 const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const db = createClient(SUPABASE_URL, SUPABASE_KEY, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+    storage: window.localStorage
+  }
+});
 
 let currentPage = 'atividades';
 let selectedPriority = null;
@@ -919,6 +969,15 @@ function switchAuthTab(tab) {
 }
 
 async function initAuth() {
+  const manter = localStorage.getItem('gestao_eletrica_manter_conectado');
+  const sessaoDaAba = sessionStorage.getItem('gestao_eletrica_sessao_da_aba');
+
+  if (manter === 'nao' && !sessaoDaAba) {
+    await db.auth.signOut();
+  }
+
+  sessionStorage.setItem('gestao_eletrica_sessao_da_aba', 'ativa');
+
   const { data: { session } } = await db.auth.getSession();
   if (session?.user) {
     currentUser = session.user;
@@ -972,6 +1031,9 @@ async function fazerLogin() {
   btn.disabled = true; btn.textContent = 'Entrando...';
 
   try {
+    const manterConectado = document.getElementById('manterConectado')?.checked !== false;
+    localStorage.setItem('gestao_eletrica_manter_conectado', manterConectado ? 'sim' : 'nao');
+
     const { error } = await db.auth.signInWithPassword({ email, password: senha });
     if (error) throw error;
     showToast('✅ Login realizado!', 'success');
@@ -1023,6 +1085,8 @@ async function criarConta() {
 
 async function fazerLogout() {
   if (!confirm('Deseja sair?')) return;
+  localStorage.removeItem('gestao_eletrica_manter_conectado');
+  sessionStorage.removeItem('gestao_eletrica_sessao_da_aba');
   await db.auth.signOut();
   showToast('Até logo!', 'success');
 }
