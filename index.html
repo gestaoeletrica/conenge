@@ -545,6 +545,618 @@
   }
   .onboarding-title { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; color: #7a4a00; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
   .onboarding-text { font-size: 13px; color: #5a3800; font-weight: 600; line-height: 1.5; margin-bottom: 10px; }
+
+
+  /* ═══════════════════════════════════════════════════════
+     UX/UI REFINEMENTS — grid, tipografia e percepção SaaS
+     Mantém a estrutura e a base funcional do sistema.
+  ═══════════════════════════════════════════════════════ */
+  :root {
+    --space-1: 8px;
+    --space-2: 16px;
+    --space-3: 24px;
+    --space-4: 32px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --shadow-soft: 0 10px 30px rgba(7, 59, 104, 0.10);
+    --shadow-premium: 0 16px 40px rgba(7, 59, 104, 0.16);
+  }
+
+  body {
+    background:
+      radial-gradient(circle at top left, rgba(11,79,138,.10), transparent 32%),
+      linear-gradient(180deg, #f8fbfd 0%, #e8eef5 100%);
+  }
+
+  #authScreen {
+    justify-content: center;
+    padding: 32px 24px;
+    gap: 22px;
+  }
+
+  .auth-logo {
+    position: relative;
+    margin-bottom: 4px;
+    font-size: clamp(30px, 7vw, 40px);
+    letter-spacing: 2.4px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .auth-sub {
+    margin-bottom: 12px;
+    text-align: center;
+    max-width: 320px;
+    line-height: 1.45;
+  }
+
+  .auth-card {
+    max-width: 430px;
+    border-radius: 22px;
+    padding: 28px 24px 32px;
+    border: 1.5px solid #8190a2;
+    box-shadow: var(--shadow-premium);
+  }
+
+  .auth-tabs {
+    border-radius: 13px;
+    margin-bottom: 26px;
+    background: #eef3f8;
+  }
+
+  .auth-tab {
+    min-height: 44px;
+    letter-spacing: 1.1px;
+  }
+
+  .auth-tab.active {
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+
+  .form-group { margin-bottom: 18px; }
+
+  label {
+    letter-spacing: 1.25px;
+    margin-bottom: 8px;
+  }
+
+  input, textarea, select {
+    min-height: 48px;
+    border-radius: 10px;
+    border-width: 1.7px;
+    padding: 14px 15px;
+    background: #fff;
+  }
+
+  input:hover, textarea:hover, select:hover { border-color: #8fa0b4; }
+
+  .btn {
+    min-height: 54px;
+    border-radius: 12px;
+    box-shadow: 0 8px 18px rgba(7, 59, 104, .16);
+  }
+
+  .btn:active, .bottom-item:active, .task-card:active, .func-card:active, .cargo-card:active {
+    transform: scale(.985);
+  }
+
+  .page {
+    padding: 20px 18px 120px;
+  }
+
+  .dashboard-welcome {
+    background: linear-gradient(135deg, #073b68 0%, #0b4f8a 100%);
+    color: #fff;
+    border-radius: 20px;
+    padding: 18px 18px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-premium);
+    border: 1px solid rgba(255,255,255,.18);
+  }
+
+  .dashboard-hello {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+
+  .dashboard-subtitle {
+    color: rgba(255,255,255,.86);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border: 1.5px solid #c3ceda;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: var(--shadow-card);
+    min-height: 92px;
+  }
+
+  .stat-kicker {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .stat-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 34px;
+    line-height: 1;
+    font-weight: 800;
+    color: var(--industrial-blue-strong);
+  }
+
+  .stat-hint {
+    margin-top: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-soft);
+    line-height: 1.25;
+  }
+
+  .day-banner {
+    border-radius: 18px;
+    padding: 18px;
+    border: 1.5px solid #8190a2;
+  }
+
+  .task-card, .func-card, .cargo-card {
+    border-width: 1.5px;
+    border-radius: 16px;
+  }
+
+  .task-card {
+    padding: 16px 16px 16px 18px;
+  }
+
+  .task-name { font-size: 16.5px; }
+
+  .section-label {
+    margin: 22px 0 12px;
+    letter-spacing: 1.7px;
+  }
+
+  .header {
+    padding: 15px 18px;
+    border-bottom-width: 1.5px;
+  }
+
+  .header-title { font-size: 25px; }
+
+  .bottom-nav {
+    height: 80px;
+    border-top-width: 1.5px;
+  }
+
+  .bottom-item {
+    border-radius: 0;
+  }
+
+  .bottom-item.active {
+    background: linear-gradient(180deg, #edf5fc 0%, #e4eef8 100%);
+  }
+
+  .bottom-icon-main {
+    border-radius: 14px;
+    box-shadow: 0 8px 18px rgba(7, 59, 104, 0.24);
+  }
+
+  #page-equipe > div:first-child,
+  #equipeCargosPanel > div:first-child {
+    align-items: center;
+  }
+
+  #page-equipe .auth-tabs {
+    border-radius: 14px;
+    margin-bottom: 18px !important;
+  }
+
+  #page-equipe .auth-tab:not(.active) {
+    background: #ffffff;
+    color: #2f3b4a;
+  }
+
+  .modal {
+    border-radius: 24px;
+    border-width: 1.5px;
+    padding: 26px 22px 40px;
+  }
+
+  .modal-title { font-size: 25px; }
+
+  .remember-login {
+    margin: 0 0 18px;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 360px) {
+    #authScreen { padding: 24px 18px; }
+    .auth-card { padding: 24px 18px 28px; }
+    .dashboard-hello { font-size: 22px; }
+    .stat-value { font-size: 30px; }
+  }
+
+
+
+  /* ═══════════════════════════════════════════════════════
+     POLIMENTO PREMIUM FINAL — somente frontend/visual
+     Não altera regras, banco, autenticação ou operação do sistema.
+  ═══════════════════════════════════════════════════════ */
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  #authScreen {
+    min-height: 100dvh;
+  }
+
+  .auth-logo {
+    text-shadow: 0 1px 0 rgba(255,255,255,.75);
+  }
+
+  .auth-logo::after {
+    content: '';
+    display: block;
+    width: 58px;
+    height: 3px;
+    border-radius: 999px;
+    margin: 12px auto 0;
+    background: linear-gradient(90deg, transparent, var(--industrial-blue), transparent);
+    opacity: .55;
+  }
+
+  .auth-sub {
+    font-size: 13.5px;
+    color: #344253;
+  }
+
+  .auth-card {
+    background:
+      linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.94));
+    backdrop-filter: blur(10px);
+  }
+
+  .auth-panel.active {
+    animation: fadePanel .22s ease-out;
+  }
+
+  @keyframes fadePanel {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .auth-tabs {
+    padding: 3px;
+    border-width: 1.5px;
+  }
+
+  .auth-tab {
+    border-radius: 10px;
+  }
+
+  .auth-tab:not(.active) {
+    color: #334155;
+  }
+
+  label {
+    font-size: 10.5px;
+  }
+
+  input, textarea, select {
+    box-shadow: 0 1px 0 rgba(255,255,255,.85), inset 0 1px 2px rgba(17, 24, 39, 0.045);
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #0b4f8a;
+    box-shadow:
+      0 0 0 4px rgba(11, 79, 138, 0.12),
+      inset 0 1px 2px rgba(17, 24, 39, 0.04);
+  }
+
+  input::placeholder, textarea::placeholder {
+    font-weight: 600;
+    color: #78879a;
+  }
+
+  /* Checkbox "manter conectado" corrigido */
+  .remember-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    width: auto;
+    margin: -2px 0 20px;
+    padding: 2px 0;
+    font-size: 13px;
+    line-height: 1;
+    font-weight: 600;
+    color: #334155;
+    text-transform: none;
+    letter-spacing: 0;
+    cursor: pointer;
+  }
+
+  .remember-login span {
+    display: inline-block;
+    transform: translateY(.5px);
+  }
+
+  .remember-login input[type=checkbox] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    min-width: 18px;
+    max-width: 18px;
+    height: 18px;
+    min-height: 18px;
+    padding: 0;
+    margin: 0;
+    border: 1.7px solid #7c8b9e;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: none;
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 18px;
+    cursor: pointer;
+  }
+
+  .remember-login input[type=checkbox]:checked {
+    background: var(--industrial-blue);
+    border-color: var(--industrial-blue-strong);
+  }
+
+  .remember-login input[type=checkbox]:checked::after {
+    content: '✓';
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 900;
+    line-height: 1;
+    transform: translateY(-.5px);
+  }
+
+  .remember-login:hover {
+    color: var(--industrial-blue-strong);
+  }
+
+  .btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary {
+    background: linear-gradient(180deg, #12619e 0%, #0b4f8a 100%);
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(180deg, #0d528a 0%, #073b68 100%);
+  }
+
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+    transform: translateX(-120%);
+    transition: transform .55s ease;
+  }
+
+  .btn-primary:hover::after {
+    transform: translateX(120%);
+  }
+
+  .header {
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(12px);
+  }
+
+  .header-date {
+    border-radius: 999px;
+    padding: 6px 10px;
+  }
+
+  .btn-logout {
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+
+  .btn-logout:hover {
+    background: #e9f1f9;
+    border-color: var(--industrial-blue);
+    transform: translateY(-1px);
+  }
+
+  .dashboard-welcome {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dashboard-welcome::after {
+    content: '⚡';
+    position: absolute;
+    right: 18px;
+    top: 12px;
+    font-size: 54px;
+    line-height: 1;
+    opacity: .10;
+    transform: rotate(10deg);
+  }
+
+  .stat-card {
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-1px);
+    border-color: #8ea0b4;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .day-banner {
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.98) 0%, rgba(237,243,248,.98) 100%);
+  }
+
+  .task-card, .func-card, .cargo-card {
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  }
+
+  .task-card:hover, .func-card:hover, .cargo-card:hover {
+    background: #ffffff;
+  }
+
+  .task-check {
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+
+  .task-check:hover {
+    transform: scale(1.04);
+  }
+
+  .priority-pill {
+    min-height: 44px;
+  }
+
+  .priority-pill:hover {
+    background: #f8fafc;
+  }
+
+  .func-check-item {
+    min-height: 56px;
+  }
+
+  .modal-overlay {
+    backdrop-filter: blur(4px);
+  }
+
+  .modal {
+    box-shadow: 0 22px 60px rgba(15,23,42,.26);
+  }
+
+  .modal-close {
+    transition: transform .18s ease, background .18s ease;
+  }
+
+  .modal-close:hover {
+    background: #e4edf7;
+    transform: rotate(3deg);
+  }
+
+  .empty-state {
+    background: rgba(255,255,255,.72);
+    border-radius: 18px;
+    border-color: #bdc8d5;
+  }
+
+  .loading {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loading::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #c7d2df;
+    border-top-color: var(--industrial-blue);
+    animation: spinLoading .8s linear infinite;
+  }
+
+  @keyframes spinLoading {
+    to { transform: rotate(360deg); }
+  }
+
+  #page-equipe .auth-tab {
+    font-size: 13.5px;
+  }
+
+  #page-equipe .auth-tab:not(.active) {
+    background: #ffffff;
+  }
+
+  #page-equipe .btn-primary[style],
+  #equipeCargosPanel .btn-primary[style] {
+    border-radius: 12px;
+    min-height: 44px;
+    padding-inline: 14px !important;
+    white-space: nowrap;
+  }
+
+  .bottom-nav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .bottom-item {
+    position: relative;
+  }
+
+  .bottom-item.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 28%;
+    right: 28%;
+    height: 3px;
+    border-radius: 0 0 999px 999px;
+    background: var(--industrial-blue);
+  }
+
+  @media (hover: none) {
+    .btn-primary:hover::after { transform: translateX(-120%); }
+    .stat-card:hover,
+    .task-card:hover,
+    .func-card:hover,
+    .cargo-card:hover {
+      transform: none;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .remember-login {
+      font-size: 12.5px;
+    }
+
+    .stats-grid {
+      gap: 8px;
+    }
+
+    .stat-card {
+      padding: 12px;
+    }
+
+    .auth-logo {
+      font-size: 30px;
+    }
+  }
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -565,7 +1177,7 @@
 ════════════════════════════════════════════════════════ -->
 <div id="authScreen">
   <div class="auth-logo">⚡ Gestão Elétrica</div>
-  <div class="auth-sub">Plataforma de gestão de obras elétricas</div>
+  <div class="auth-sub">Controle de equipes, atividades, RDO e histórico em um só lugar</div>
 
   <div class="auth-card">
     <div class="auth-tabs">
@@ -576,16 +1188,16 @@
     <!-- LOGIN -->
     <div class="auth-panel active" id="panelLogin">
       <div class="form-group">
-        <label>Email</label>
+        <label>✉️ Email</label>
         <input type="email" id="loginEmail" placeholder="seu@email.com" autocomplete="email">
       </div>
       <div class="form-group">
-        <label>Senha</label>
+        <label>🔒 Senha</label>
         <input type="password" id="loginSenha" placeholder="••••••••" autocomplete="current-password">
       </div>
       <label class="remember-login">
         <input type="checkbox" id="manterConectado" checked>
-        <span>Manter conectado neste dispositivo</span>
+        <span>Manter conectado</span>
       </label>
       <button class="btn btn-primary" id="btnLogin" onclick="fazerLogin()">Entrar</button>
     </div>
@@ -593,23 +1205,23 @@
     <!-- CADASTRO -->
     <div class="auth-panel" id="panelCadastro">
       <div class="form-group">
-        <label>Nome completo *</label>
+        <label>👤 Nome completo *</label>
         <input type="text" id="cadNome" placeholder="Seu nome">
       </div>
       <div class="form-group">
-        <label>Cargo / Função *</label>
+        <label>🏷️ Cargo / Função *</label>
         <input type="text" id="cadCargo" placeholder="Ex: Encarregado, Supervisor de obras...">
       </div>
       <div class="form-group">
-        <label>Área de Atuação *</label>
+        <label>📍 Área de Atuação *</label>
         <input type="text" id="cadArea" placeholder="Ex: Instalações prediais, SPDA...">
       </div>
       <div class="form-group">
-        <label>Email *</label>
+        <label>✉️ Email *</label>
         <input type="email" id="cadEmail" placeholder="seu@email.com" autocomplete="email">
       </div>
       <div class="form-group">
-        <label>Senha * (mínimo 6 caracteres)</label>
+        <label>🔒 Senha * (mínimo 6 caracteres)</label>
         <input type="password" id="cadSenha" placeholder="••••••••" autocomplete="new-password">
       </div>
       <button class="btn btn-primary" id="btnCadastro" onclick="criarConta()">Criar Conta</button>
@@ -633,6 +1245,34 @@
 
   <!-- PAGE: ATIVIDADES -->
   <div class="page active" id="page-atividades">
+    <div class="dashboard-welcome">
+      <div class="dashboard-hello" id="dashboardHello">Bom trabalho 👋</div>
+      <div class="dashboard-subtitle" id="dashboardSubtitle">Organize sua equipe, acompanhe as atividades e mantenha o histórico da operação atualizado.</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-kicker">Pendentes</div>
+        <div class="stat-value" id="statPendentes">0</div>
+        <div class="stat-hint">atividades em aberto</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-kicker">Concluídas</div>
+        <div class="stat-value" id="statConcluidas">0</div>
+        <div class="stat-hint">finalizadas hoje</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-kicker">Equipe</div>
+        <div class="stat-value" id="statMembros">0</div>
+        <div class="stat-hint">membros cadastrados</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-kicker">Funções</div>
+        <div class="stat-value" id="statFuncoes">0</div>
+        <div class="stat-hint">cargos disponíveis</div>
+      </div>
+    </div>
+
     <div class="day-banner">
       <div>
         <div class="day-label">Hoje</div>
@@ -682,13 +1322,13 @@
   <div class="page" id="page-equipe">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:1px;">Equipe</div>
-      <button class="btn btn-primary" style="width:auto;padding:12px 16px;font-size:14px;flex-shrink:0;" onclick="openModalFuncionario()">➕ Membro</button>
+      <button class="btn btn-primary" style="width:auto;padding:12px 16px;font-size:14px;flex-shrink:0;" onclick="openModalFuncionario()">＋ Novo membro</button>
     </div>
 
     <!-- Sub-tabs equipe -->
     <div class="auth-tabs" style="margin-bottom:20px;">
-      <button class="auth-tab active" id="subTabMembros" onclick="switchEquipeTab('membros')">Membros</button>
-      <button class="auth-tab" id="subTabCargos" onclick="switchEquipeTab('cargos')">Funções/Cargos</button>
+      <button class="auth-tab active" id="subTabMembros" onclick="switchEquipeTab('membros')">👷 Membros</button>
+      <button class="auth-tab" id="subTabCargos" onclick="switchEquipeTab('cargos')">🏷️ Funções</button>
     </div>
 
     <div id="equipeMembrosPanel">
@@ -697,7 +1337,7 @@
     <div id="equipeCargosPanel" style="display:none">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;">
         <div style="font-size:13px;color:var(--text-dim);font-weight:600;">Gerencie as funções e cargos disponíveis.</div>
-        <button class="btn btn-primary" style="width:auto;padding:10px 14px;font-size:13px;flex-shrink:0;" onclick="openModalCargo()">➕ Nova Função</button>
+        <button class="btn btn-primary" style="width:auto;padding:10px 14px;font-size:13px;flex-shrink:0;" onclick="openModalCargo()">＋ Nova função</button>
       </div>
       <div id="cargosList"><div class="loading">Carregando...</div></div>
     </div>
@@ -1488,7 +2128,15 @@ async function loadAtividades() {
       .eq('data_conclusao', hoje);
     if (e2) throw e2;
 
-    const { map: equipeMap } = await getEquipeMap();
+    const { lista: equipeLista, map: equipeMap } = await getEquipeMap();
+    let cargosCount = 0;
+    try {
+      const { count, error: eCargos } = await db.from('cargos')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', uid());
+      if (!eCargos) cargosCount = count || 0;
+    } catch (_) {}
+
     const pendentes = todas || [];
     const links = await getLinksAtividades(pendentes.map(t => t.id));
     const priorityOrder = { alta: 0, media: 1, baixa: 2 };
@@ -1496,6 +2144,25 @@ async function loadAtividades() {
 
     document.getElementById('pendingCount').innerHTML = `${pendentes.length} <span>pendentes</span>`;
     document.getElementById('doneCount').innerHTML = `${(concluidasHoje || []).length} <span>hoje</span>`;
+
+    const primeiroNome = (currentPerfil?.nome || currentUser?.email || '').split(' ')[0] || 'bem-vindo';
+    const dashboardHello = document.getElementById('dashboardHello');
+    const dashboardSubtitle = document.getElementById('dashboardSubtitle');
+    const statPendentes = document.getElementById('statPendentes');
+    const statConcluidas = document.getElementById('statConcluidas');
+    const statMembros = document.getElementById('statMembros');
+    const statFuncoes = document.getElementById('statFuncoes');
+
+    if (dashboardHello) dashboardHello.textContent = `Bom trabalho, ${primeiroNome} 👋`;
+    if (dashboardSubtitle) {
+      dashboardSubtitle.textContent = pendentes.length
+        ? `${pendentes.length} atividade${pendentes.length === 1 ? '' : 's'} pendente${pendentes.length === 1 ? '' : 's'} para acompanhar hoje.`
+        : 'Nenhuma atividade pendente no momento. Operação em dia.';
+    }
+    if (statPendentes) statPendentes.textContent = pendentes.length;
+    if (statConcluidas) statConcluidas.textContent = (concluidasHoje || []).length;
+    if (statMembros) statMembros.textContent = equipeLista.length;
+    if (statFuncoes) statFuncoes.textContent = cargosCount;
 
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
     let htmlOut = '';
