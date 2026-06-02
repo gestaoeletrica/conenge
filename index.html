@@ -955,7 +955,7 @@ async function carregarPerfil() {
 function mostrarApp() {
   document.getElementById('authScreen').style.display = 'none';
   document.getElementById('appScreen').style.display = 'block';
-  loadAtividades();
+  navigate(currentPage || 'atividades');
 }
 
 function mostrarAuth() {
@@ -1035,18 +1035,114 @@ function traduzirErroAuth(msg) {
 // ══════════════════════════════════════════════════════════
 // NAVEGAÇÃO
 // ══════════════════════════════════════════════════════════
-function navigate(page) {
+async function ensureUserLoaded() {
+  if (currentUser?.id) return true;
+
+  try {
+    const { data, error } = await db.auth.getSession();
+    if (error) throw error;
+
+    if (data?.session?.user) {
+      currentUser = data.session.user;
+      await carregarPerfil();
+      return true;
+    }
+
+    showToast('Sessão expirada. Faça login novamente.', 'warning');
+    mostrarAuth();
+    return false;
+  } catch (err) {
+    console.error('Erro ao verificar sessão:', err);
+    showToast('Erro ao verificar sessão. Atualize a página.', 'error');
+    return false;
+  }
+}
+
+function setPageLoadError(page, msg = 'Erro ao carregar dados. Atualize a página.') {
+  const html = `<div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-text">${escapeHtml(msg)}</div></div>`;
+
+  if (page === 'atividades') {
+    const taskList = document.getElementById('taskList');
+    if (taskList) taskList.innerHTML = html;
+  }
+
+  if (page === 'nova') {
+    const funcCheckList = document.getElementById('funcCheckList');
+    if (funcCheckList) funcCheckList.innerHTML = `<div style="color:var(--alta);font-size:13px;padding:8px 0;">${escapeHtml(msg)}</div>`;
+  }
+
+  if (page === 'equipe') {
+    const funcList = document.getElementById('funcList');
+    const cargosList = document.getElementById('cargosList');
+    if (funcList) funcList.innerHTML = html;
+    if (cargosList) cargosList.innerHTML = html;
+  }
+
+  if (page === 'historico') {
+    const histList = document.getElementById('histList');
+    if (histList) histList.innerHTML = html;
+  }
+}
+
+function withTimeout(promise, ms = 12000) {
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => setTimeout(() => reject(new Error('Tempo limite ao carregar dados')), ms))
+  ]);
+}
+
+async function navigate(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.bottom-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.querySelector(`.bottom-item[data-page="${page}"]`).classList.add('active');
-  const titles = { atividades: 'Atividades', nova: 'Nova Atividade', equipe: 'Equipe', historico: 'Histórico' };
-  document.getElementById('headerTitle').textContent = titles[page];
+
+  const pageEl = document.getElementById('page-' + page);
+  const navEl = document.querySelector(`.bottom-item[data-page="${page}"]`);
+
+  if (!pageEl || !navEl) {
+    console.warn('Página não encontrada:', page);
+    return;
+  }
+
+  pageEl.classList.add('active');
+  navEl.classList.add('active');
+
+  const titles = {
+    atividades: 'Atividades',
+    nova: 'Nova Atividade',
+    equipe: 'Equipe',
+    historico: 'Histórico'
+  };
+
+  document.getElementById('headerTitle').textContent = titles[page] || 'Gestão Elétrica';
   currentPage = page;
-  if (page === 'atividades') loadAtividades();
-  if (page === 'nova') { resetNovaForm(); loadFuncsForForm(); }
-  if (page === 'equipe') { loadFuncionarios(); loadCargos(); }
-  if (page === 'historico') loadHistorico();
+
+  const ok = await ensureUserLoaded();
+  if (!ok) return;
+
+  try {
+    if (page === 'atividades') {
+      await withTimeout(loadAtividades());
+    }
+
+    if (page === 'nova') {
+      resetNovaForm();
+      await withTimeout(loadFuncsForForm());
+    }
+
+    if (page === 'equipe') {
+      switchEquipeTab('membros');
+      await withTimeout(loadFuncionarios());
+      await withTimeout(loadCargos());
+    }
+
+    if (page === 'historico') {
+      await withTimeout(loadHistorico());
+    }
+  } catch (err) {
+    console.error('Erro ao carregar aba:', page, err);
+    setPageLoadError(page, err.message || 'Erro ao carregar dados. Atualize a página.');
+    showToast('Erro ao carregar dados. Tente novamente.', 'error', 5000);
+  }
 }
 
 // ══════════════════════════════════════════════════════════
