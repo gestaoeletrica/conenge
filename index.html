@@ -2527,7 +2527,7 @@ function renderRDOPreview() {
   const blocos = rdoEditData.filter(i => i.nome.trim()).map((item, idx) => `
     <div class="bloco-rdo">
       <div class="titulo-rdo">${idx + 1}. ${escapeHtml(item.nome)}</div>
-      <div class="descricao-rdo"><strong>Descrição:</strong><br>${escapeHtml(item.descricao || 'Sem descrição.')}</div>
+      ${item.descricao && item.descricao.trim() ? `<div class="descricao-rdo"><strong>Descrição:</strong><br>${escapeHtml(item.descricao)}</div>` : ''}
     </div>`).join('');
 
   container.innerHTML = `
@@ -2549,7 +2549,7 @@ function renderRDOPreview() {
 function montarTextoRDO() {
   const itens = rdoEditData.filter(i => i.nome.trim());
   if (!itens.length) return '';
-  const linhas = itens.map((t, i) => `${i+1}. ${t.nome.trim()}\nDescrição: ${(t.descricao || 'Sem descrição.').trim()}`).join('\n\n');
+  const linhas = itens.map((t, i) => `${i+1}. ${t.nome.trim()}${t.descricao && t.descricao.trim() ? `\nDescrição: ${t.descricao.trim()}` : ''}`).join('\n\n');
   return `RELATÓRIO DIÁRIO DE OBRA (RDO)\nData: ${formatDate(rdoEditDate)}\n\nATIVIDADES CONCLUÍDAS\n\n${linhas}`;
 }
 
@@ -2605,7 +2605,7 @@ function imprimirRDO() {
   doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
   doc.text('ATIVIDADES CONCLUÍDAS', 14, 68);
 
-  const body = itens.map(t => [t.nome.trim(), t.descricao.trim() || 'Sem descrição.']);
+  const body = itens.map(t => [t.nome.trim(), t.descricao && t.descricao.trim() ? t.descricao.trim() : '']);
 
   doc.autoTable({
     startY: 74,
