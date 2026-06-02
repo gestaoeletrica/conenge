@@ -1420,7 +1420,7 @@ async function loadAtividades() {
     if (e2) throw e2;
 
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
+const links = await getLinksAtividades((pendentes || []).map(t => t.id));
     const pendentes = todas || [];
     const priorityOrder = { alta: 0, media: 1, baixa: 2 };
     pendentes.sort((a, b) => (priorityOrder[a.prioridade] ?? 9) - (priorityOrder[b.prioridade] ?? 9));
@@ -1481,7 +1481,7 @@ async function openDetalhe(id) {
       .single();
     if (error) throw error;
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
+    const links = await getLinksAtividades((data || []).map(t => t.id));
     const funcs = equipeDaAtividade(t.id, links, equipeMap);
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
 
@@ -1558,7 +1558,7 @@ async function loadHistorico() {
       return;
     }
     const { map: equipeMap } = await getEquipeMap();
-    const links = await getLinksAtividades();
+    const links = await getLinksAtividades([id]);
     const grouped = {};
     data.forEach(t => {
       const key = t.data_conclusao || t.data_criacao || 'sem-data';
