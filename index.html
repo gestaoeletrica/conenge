@@ -644,74 +644,6 @@
     padding: 20px 18px 120px;
   }
 
-  .dashboard-welcome {
-    background: linear-gradient(135deg, #073b68 0%, #0b4f8a 100%);
-    color: #fff;
-    border-radius: 20px;
-    padding: 18px 18px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow-premium);
-    border: 1px solid rgba(255,255,255,.18);
-  }
-
-  .dashboard-hello {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 24px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 1.05;
-    margin-bottom: 6px;
-  }
-
-  .dashboard-subtitle {
-    color: rgba(255,255,255,.86);
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.45;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .stat-card {
-    background: #ffffff;
-    border: 1.5px solid #c3ceda;
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: var(--shadow-card);
-    min-height: 92px;
-  }
-
-  .stat-kicker {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 11px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    color: var(--text-dim);
-    margin-bottom: 8px;
-  }
-
-  .stat-value {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 34px;
-    line-height: 1;
-    font-weight: 800;
-    color: var(--industrial-blue-strong);
-  }
-
-  .stat-hint {
-    margin-top: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text-soft);
-    line-height: 1.25;
-  }
 
   .day-banner {
     border-radius: 18px;
@@ -791,7 +723,6 @@
   @media (max-width: 360px) {
     #authScreen { padding: 24px 18px; }
     .auth-card { padding: 24px 18px 28px; }
-    .dashboard-hello { font-size: 22px; }
     .stat-value { font-size: 30px; }
   }
 
@@ -990,21 +921,6 @@
     transform: translateY(-1px);
   }
 
-  .dashboard-welcome {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .dashboard-welcome::after {
-    content: '⚡';
-    position: absolute;
-    right: 18px;
-    top: 12px;
-    font-size: 54px;
-    line-height: 1;
-    opacity: .10;
-    transform: rotate(10deg);
-  }
 
   .stat-card {
     transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
@@ -1144,9 +1060,6 @@
       font-size: 12.5px;
     }
 
-    .stats-grid {
-      gap: 8px;
-    }
 
     .stat-card {
       padding: 12px;
@@ -1245,34 +1158,6 @@
 
   <!-- PAGE: ATIVIDADES -->
   <div class="page active" id="page-atividades">
-    <div class="dashboard-welcome">
-      <div class="dashboard-hello" id="dashboardHello">Bom trabalho 👋</div>
-      <div class="dashboard-subtitle" id="dashboardSubtitle">Organize sua equipe, acompanhe as atividades e mantenha o histórico da operação atualizado.</div>
-    </div>
-
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-kicker">Pendentes</div>
-        <div class="stat-value" id="statPendentes">0</div>
-        <div class="stat-hint">atividades em aberto</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-kicker">Concluídas</div>
-        <div class="stat-value" id="statConcluidas">0</div>
-        <div class="stat-hint">finalizadas hoje</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-kicker">Equipe</div>
-        <div class="stat-value" id="statMembros">0</div>
-        <div class="stat-hint">membros cadastrados</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-kicker">Funções</div>
-        <div class="stat-value" id="statFuncoes">0</div>
-        <div class="stat-hint">cargos disponíveis</div>
-      </div>
-    </div>
-
     <div class="day-banner">
       <div>
         <div class="day-label">Hoje</div>
@@ -2153,13 +2038,6 @@ async function loadAtividades() {
     if (e2) throw e2;
 
     const { lista: equipeLista, map: equipeMap } = await getEquipeMap();
-    let cargosCount = 0;
-    try {
-      const { count, error: eCargos } = await db.from('cargos')
-        .select('id', { count: 'exact', head: true })
-        .eq('user_id', uid());
-      if (!eCargos) cargosCount = count || 0;
-    } catch (_) {}
 
     const pendentes = todas || [];
     const links = await getLinksAtividades(pendentes.map(t => t.id));
@@ -2168,25 +2046,6 @@ async function loadAtividades() {
 
     document.getElementById('pendingCount').innerHTML = `${pendentes.length} <span>pendentes</span>`;
     document.getElementById('doneCount').innerHTML = `${(concluidasHoje || []).length} <span>hoje</span>`;
-
-    const primeiroNome = (currentPerfil?.nome || currentUser?.email || '').split(' ')[0] || 'bem-vindo';
-    const dashboardHello = document.getElementById('dashboardHello');
-    const dashboardSubtitle = document.getElementById('dashboardSubtitle');
-    const statPendentes = document.getElementById('statPendentes');
-    const statConcluidas = document.getElementById('statConcluidas');
-    const statMembros = document.getElementById('statMembros');
-    const statFuncoes = document.getElementById('statFuncoes');
-
-    if (dashboardHello) dashboardHello.textContent = `Bom trabalho, ${primeiroNome} 👋`;
-    if (dashboardSubtitle) {
-      dashboardSubtitle.textContent = pendentes.length
-        ? `${pendentes.length} atividade${pendentes.length === 1 ? '' : 's'} pendente${pendentes.length === 1 ? '' : 's'} para acompanhar hoje.`
-        : 'Nenhuma atividade pendente no momento. Operação em dia.';
-    }
-    if (statPendentes) statPendentes.textContent = pendentes.length;
-    if (statConcluidas) statConcluidas.textContent = (concluidasHoje || []).length;
-    if (statMembros) statMembros.textContent = equipeLista.length;
-    if (statFuncoes) statFuncoes.textContent = cargosCount;
 
     const prioLabels = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
     let htmlOut = '';
@@ -2552,4 +2411,4 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 </body>
-</html>    
+</html>   
