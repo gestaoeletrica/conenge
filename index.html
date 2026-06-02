@@ -868,8 +868,11 @@ async function getEquipeMap() {
   return { lista: data || [], map };
 }
 
-async function getLinksAtividades() {
-  const { data, error } = await db.from('atividade_equipe').select('*');
+async function getLinksAtividades(atividadeIds = []) {
+  if (!atividadeIds.length) return [];
+  const { data, error } = await db.from('atividade_equipe')
+    .select('*')
+    .in('atividade_id', atividadeIds);
   if (error) throw error;
   return data || [];
 }
