@@ -1673,9 +1673,33 @@ async function fazerLogin() {
   try {
     const manterConectado = document.getElementById('manterConectado')?.checked !== false;
     localStorage.setItem('gestao_eletrica_manter_conectado', manterConectado ? 'sim' : 'nao');
+    sessionStorage.setItem('gestao_eletrica_sessao_da_aba', 'ativa');
 
-    const { error } = await db.auth.signInWithPassword({ email, password: senha });
+    const { data, error } = await db.auth.signInWithPassword({ email, password: senha });
     if (error) throw error;
+
+    // Garante navegação imediata para o app, sem depender apenas do listener do Supabase.
+    currentUser = data?.user || data?.session?.user || null;
+    if (!currentUser) {
+      const { data: sessaoAtual } = await db.auth.getSession();
+      currentUser = sessaoAtual?.session?.user || null;
+    }
+    if (!currentUser) throw new Error('Login realizado, mas a sessão não foi carregada. Atualize a página.');
+
+    await carregarPerfil();
+    migrarDadosDener().catch(() => {});
+
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('appScreen').style.display = 'block';
+
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.bottom-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-atividades').classList.add('active');
+    document.querySelector('.bottom-item[data-page="atividades"]').classList.add('active');
+    document.getElementById('headerTitle').textContent = 'Atividades';
+    currentPage = 'atividades';
+
+    await loadAtividades();
     showToast('✅ Login realizado!', 'success');
   } catch (err) {
     showToast('❌ ' + traduzirErroAuth(err.message), 'error', 5000);
@@ -2528,4 +2552,4 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 </body>
-</html>   
+</html>    
