@@ -2512,9 +2512,17 @@ async function criarRDO(date) {
   if (!atividades.length) { showToast('Nenhuma atividade para esta data.', 'warning'); return; }
 
   rdoEditDate = date;
+
+  const { map: equipeMap } = await getEquipeMap();
+  const links = await getLinksAtividades(atividades.map(t => t.id));
+
   rdoEditData = atividades.map(t => ({
     nome: t.nome || '',
-    descricao: t.descricao || ''
+    descricao: t.descricao || '',
+    equipe: equipeDaAtividade(t.id, links, equipeMap)
+      .map(p => p.nome)
+      .filter(Boolean)
+      .join(', ')
   }));
 
   document.getElementById('rdoModalTitleText').textContent = 'RDO';
@@ -2527,6 +2535,7 @@ function renderRDOPreview() {
   const blocos = rdoEditData.filter(i => i.nome.trim()).map((item, idx) => `
     <div class="bloco-rdo">
       <div class="titulo-rdo">${idx + 1}. ${escapeHtml(item.nome)}</div>
+      ${item.equipe && item.equipe.trim() ? `<div class="descricao-rdo" style="margin-bottom:8px"><strong>Equipe:</strong><br>${escapeHtml(item.equipe)}</div>` : ''}
       ${item.descricao && item.descricao.trim() ? `<div class="descricao-rdo"><strong>Descrição:</strong><br>${escapeHtml(item.descricao)}</div>` : ''}
     </div>`).join('');
 
@@ -2549,7 +2558,12 @@ function renderRDOPreview() {
 function montarTextoRDO() {
   const itens = rdoEditData.filter(i => i.nome.trim());
   if (!itens.length) return '';
-  const linhas = itens.map((t, i) => `${i+1}. ${t.nome.trim()}${t.descricao && t.descricao.trim() ? `\nDescrição: ${t.descricao.trim()}` : ''}`).join('\n\n');
+  const linhas = itens.map((t, i) => {
+    let texto = `${i+1}. ${t.nome.trim()}`;
+    if (t.equipe && t.equipe.trim()) texto += `\nEquipe: ${t.equipe.trim()}`;
+    if (t.descricao && t.descricao.trim()) texto += `\nDescrição: ${t.descricao.trim()}`;
+    return texto;
+  }).join('\n\n');
   return `RELATÓRIO DIÁRIO DE OBRA (RDO)\nData: ${formatDate(rdoEditDate)}\n\nATIVIDADES CONCLUÍDAS\n\n${linhas}`;
 }
 
@@ -2605,11 +2619,14 @@ function imprimirRDO() {
   doc.setFont('helvetica', 'bold'); doc.setFontSize(13);
   doc.text('ATIVIDADES CONCLUÍDAS', 14, 68);
 
-  const body = itens.map(t => [t.nome.trim(), t.descricao && t.descricao.trim() ? t.descricao.trim() : '']);
+  const body = itens.map(t => [
+    t.nome.trim(),
+    `${t.equipe && t.equipe.trim() ? 'Equipe: ' + t.equipe.trim() : ''}${t.equipe && t.equipe.trim() && t.descricao && t.descricao.trim() ? '\n\n' : ''}${t.descricao && t.descricao.trim() ? t.descricao.trim() : ''}`
+  ]);
 
   doc.autoTable({
     startY: 74,
-    head: [['Atividade', 'Descrição']],
+    head: [['Atividade', 'Equipe / Descrição']],
     body,
     theme: 'grid',
     styles: { font: 'helvetica', fontSize: 10, cellPadding: 3, valign: 'top', lineColor: [203, 213, 225], lineWidth: 0.2, textColor: [17, 17, 17] },
